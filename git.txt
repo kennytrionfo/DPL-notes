@@ -33,3 +33,15 @@ git add .
 git commit -m "Readme adjusted and git.txt file added example example"
 
 git push
+
+
+
+==========================================================================
+
+git branch shows all branches including main branch has an * showing what branch you are on
+
+git checkout - b sample switches to a new branch
+-b adds new branch ^
+ git checkout "" switches to branch
+
+git checkout new_branch_name
