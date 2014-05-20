@@ -8,3 +8,4 @@ git push   - to update it all on github
 git add .    means add all changes in all my files to github
 git branch  -to find out which branch ur in.
 git check out “sample”  -to move to a new branch
+git push origin "sample"  - to add a new branch "sample"
