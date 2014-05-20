@@ -1,1 +1,8 @@
-git information
+git information on how to use commands to save to git
+
+command lines for terminal for git:
+git status
+git add
+git commit   -ie: git commit -m "updated readme with some text"
+git push   - to update it all on github
+git add .    means add all changes in all my files to github
