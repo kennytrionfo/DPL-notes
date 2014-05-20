@@ -1,1 +1,35 @@
-git information
+git information joshua cloward
+
+git status shows the status of adjustments meaning whats been changed and whats been commited / added
+git add "" adds file to commit
+git add . adds all files/everything that was adjusted and to commit
+git commit -m "" adds comments for that commit and sends it up to git hub when pushed and is under the file adjustements as a comment
+git git push sends all the information up to github and adds the commit into there commit directory along with the the -m / comments that you previously made for that specific commit
+
+example:
+files adjusted README / git.txt
+
+
+//adds file adjusted into commit
+git add README
+
+//adds comment into commit
+git commit -m "Readme adjusted with example example"
+
+
+git add git.txt
+
+git -m "git.txt file added and put in git information example example"
+
+//sends data/commit to git
+git push
+
+
+adding all adjustments into 1 commit
+example:
+
+git add .
+
+git commit -m "Readme adjusted and git.txt file added example example"
+
+git push
