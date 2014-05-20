@@ -6,3 +6,5 @@ git add
 git commit   -ie: git commit -m "updated readme with some text"
 git push   - to update it all on github
 git add .    means add all changes in all my files to github
+git branch  -to find out which branch ur in.
+git check out “sample”  -to move to a new branch
