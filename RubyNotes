@@ -1,0 +1,58 @@
+Ruby Notes
+
+===================
+Basic Rules
+===================
+Variables must start with a letter no numbers or special characters
+no spaces can only use _ underscores
+------------------------------
+Example:
+joshuas_cookies == correct =D
+#apples and oranges == wrong
+------------------------------
+
+Puts "name" - cout/print/ displays "name"
+
+auto declaration = good but also bad imo
+
+
+
+===================
+Basic Commands
+===================
+.class - returns data type
+puts "name" - cout/print/ displays "name"
+gets - takes an input from the user + end line /caridge return
+gets.chomp - removes endline/caridge return
+
+------------------------------
+Example:
+puts "how old are you?"
+age = gets
+puts age
+age.class = string
+------------------------------
+
+
+
+
+------------------
+Chaining commands
+------------------------------------
+"joshua".reverse.upcase = "AUHSOJ"
+"AUHSOJ".reverse.downcase = "joshua"
+---------------------------------------
+===================
+String Commands
+===================
+.upcase - changes all string letters to uppercase
+.downcase - changes all to string letters to lowercase
+.reverse - reverses order of string
+.capitalize - capitalizes first word/letter
+
+------------------
+Chaining commands / example
+------------------------------------
+"joshua".reverse.upcase = "AUHSOJ"
+"AUHSOJ".reverse.downcase = "joshua"
+---------------------------------------
