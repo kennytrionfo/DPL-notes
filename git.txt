@@ -85,3 +85,10 @@ irb - ruby?
 cd - change directory
 pwd - view directory or path
 touch name - creates text file "name"
+git --config globatusername
+git --config globalpassword
+
+================
+Clone Command
+================
+git clone "url"
