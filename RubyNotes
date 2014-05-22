@@ -1,8 +1,31 @@
 Ruby Notes
 
+
+002 Terms/Definitions
+003 Basic Commands
+004 Strings
+  004.1 String Interpolation
+  004.2 Method Chaining
+005 Arrays
+  005.1 Multidimensional Arrays
+006 Hash
+  006.1 Looping Hashs
+007 Symbol
+  007.1 HashSymbol Notation
+008 The 4 Variable Types
+
 ===================
-Basic Rules
+Basic Notes 001
 ===================
+
+http://apidock.com
+http://apidock.com
+http://apidock.com
+http://apidock.com
+http://apidock.com
+http://apidock.com
+http://apidock.com
+
 Variables must start with a letter no numbers or special characters
 no spaces can only use _ underscores
 ------------------------------
@@ -17,14 +40,15 @@ auto declaration = good but also bad imo
 
 
 =======================
-Terms/Definitions
+Terms/Definitions 002
 =======================
 interation - one at a time
 
 
 ===================
-Basic Commands
+Basic Commands 003
 ===================
+
 .class - returns data type
 puts "name" - cout/print/ displays "name"
 gets - takes an input from the user + end line /caridge return
@@ -36,6 +60,7 @@ gets.chomp - removes endline/caridge return
 .lines - splits string up in correlation to difference in lines
 .reverse!
 ! - makes methods change the variable permanently instead of temporarily
+.clear - removes data or value from the variable
 
 ------------------------------
 Example:
@@ -44,7 +69,7 @@ age = gets
 puts age
 age.class = string
 --------------------
-Example - !
+Example: !
 josh = "josh"
 puts josh.reverse - prints hsoj
 puts josh - prints josh
@@ -52,12 +77,8 @@ puts josh.reverse! - prints hsoj
 puts josh - prints hsoj
 ------------------------------
 
-
-
-
-
 ===================
-Strings
+Strings 004
 ===================
 .upcase - changes all string letters to uppercase
 .downcase - changes all to string letters to lowercase
@@ -68,7 +89,7 @@ Strings
 
 
 -----------------------
-String Interpolation
+String Interpolation 004.1
 -----------------------
 #{name}
 #{1+1} - prints name or any valid ruby code
@@ -81,7 +102,7 @@ NOTICE: String Interpolation does not worth with single quotes ''
 -------------------------------------------------------------------
 
 ---------------------------
-Method Chaining / example
+Method Chaining / example 004.2
 ------------------------------------
 "joshua".reverse.upcase = "AUHSOJ"
 "AUHSOJ".reverse.downcase = "joshua"
@@ -89,23 +110,33 @@ Method Chaining / example
 
 
 ===================
-Arrays
+Arrays 005
 ===================
-fruit = [apple,orange,grape]
-fruit[0] - returns apple, fruit[1] - returns orange, fruit[2] - returns grape.
-
-fruit << banana - adds banana into the array onto the end, fruit[3] = banana
-fruit << banana << strawberry << rasberry
-- adds them onto the end, apple, orange, grape, banana, strawberry, rasberry
-
 .count / .size / .length - returns amount of indexes or how big the array is
 .max - returns the highest valued number
 .sort - changes numbers into ascending
+
+fruit = [apple,orange,grape]
+fruit[0] - returns apple, fruit[1] - returns orange, fruit[2] - returns grape.
+
 -------------------------
-Multidimensional Arrays
+Array Concatination 005.1
+-------------------------
+fruit << banana - adds banana into the array onto the end, fruit[3] = banana
+fruit << banana << strawberry << rasberry
+adds them onto the end, apple, orange, grape, banana, strawberry, rasberry
+
+fruit.push("banana, strawberry, rasberry"
+
+
+---------------------------------
+
+-------------------------
+Multidimensional Arrays 005.2
 -------------------------
 things ["jake", 1, 3, ["josh, 4, .2"] ]
-things [
+things
+        [
   things[0] -  "jake"
   things[1] -   1
   things[2] -   3
@@ -126,9 +157,104 @@ joshua.max = 3
 -------------------------
 
 ====================
-Loops
+Loops 006
 ====================
 fruit.each do |dog|
 ////// dog = fruit[x] x++ x goes up each time cycling through the array \\\\\\\\\
 puts dog - returns each part of that array one at a time
 end
+
+
+=================
+Hash Variable 006
+=================
+you can name each point/index in the hash but they must be unique
+
+0       1      2       3
+[]      []      []      []
+box1    box2    box3    box4
+
+storage = {"Box 1" => "Stuff". "Box 2" => "More stuff"}
+
+puts storage["Box 1"]
+
+doge { "cat1" => 1, "cat2" => 2,
+"other" => ["cats", "monkey", "elaphant"]
+}
+
+
+-----------------
+Looping Hashes 006.1
+-----------------
+doge.each_key do |key| or doge.each_value do |value|
+    puts "the key is #{key} and the value is #{value}"
+    or
+    puts "the key is " + key
+    puts "and the value is " + value
+
+end
+
+doge.each_pair do |key, value|
+    puts "the key is #{key} and the value is #{value}"
+    or
+    puts "the key is " + key
+    puts "and the value is " + value
+/// prints out both keys and values \\\
+end
+----------------
+
+===================
+Symbol :name   007
+===================
+
+Mainly used in hashes
+very similar to a string
+-----------------------
+Hash Symbol Notation
+------------------------
+me = {:name => "josh", :age => 32, :height => "tall", :weight =< "fat at heart"}
+puts me[:name] - returns josh
+me[:sex] = "Yes, Please"
+:sex is added in with the value "Yes, Please"
+me[:sex] = "Male"
+sex now equals male
+
+{ 'food' => 'taco'}
+{:food => 'taco'}
+{food: 'taco'}
+------------------------------
+{'data-url' => 'http://www.google.com'}
+{:data-url => 'http://www.google.com'}
+    ^^^^^ "-" doesn't work in symbols
+
+=======================
+The 4 Variable Types 008
+=======================
+
+local_variable = "Hello"
+
+@instance_variable = "josh"
+
+@@class_vairable = "Human"
+
+$global_variable = "DO NOT USE"
+
+
+
+      $global_variable
+|-----------------------------|
+|     @@class_variable        |
+|    |--------------------|   |
+|    | @instance variable |   |
+|    |  |--------------|  |   |
+|    |  |              |  |   |
+|    |  |local variable|  |   |
+|    |  |              |  |   |
+|    |  |              |  |   |
+|    |  |              |  |   |
+|    |  |              |  |   |
+|    |  |--------------|  |   |
+|    |                    |   |
+|    | -------------------|   |
+|                             |
+|-----------------------------|
