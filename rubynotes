@@ -1,3 +1,42 @@
-lots of stuff today.
-no notes.
-will have to go through this process again.
+
+/*—————----————— May 22, 2014 —————----—————*/
+- PUtting {<someting>} in a string is called interpolation.
+- when you use single quotes, it will return EXACTLY what's between them so you can use things like String Interpolation cuz it will show up.
+- two other data types beyond strings and fixnums. Arrays & Hash ( {} ) & ":" which is a symbol which is usually looks like :name or :bird & Time.
+- Time.now gives us info on time:
+: Time.now
+ => 2014-05-22 11:57:54 -0600
+- Can also use Time.now.year or Time.now.minute
+
+- symbols are used a lot in hashes.
+- symbol example:
+me = {
+:name => "Kenny",
+:age => 40,
+:age => "tall",
+}
+puts me[:name]
+- add a property to the hash like: me[:sex] = "male"
+- also can use {food: 'taco'} instead of {:food => 'taco'} for brevity.
+- Convention is to use lowercase for symbols.
+- Arrays are collections. you can iterate Arrays which means going over it one by one.
+- In ruby you can assign anything you want to a var. So you can assign arrays to a var.
+- each item in an array is called an index.
+- : people.each do |person|
+puts person
+end
+- : 2.1.2 :037 > things.each do |number|
+2.1.2 :038 >     puts number * number
+2.1.2 :039?>   end
+1
+4
+9
+- Ruby has 4 types of variables: see other note:
+- Hash data types:
+storage = {"Box 1" => "Stuff", "Box 2" => "More stuff"}
+puts storage["Box 1"]
+- each key needs to be unique but the values can be the same. still called indexes just not zero based.
+- : storage.each_pari do |key, value|
+puts "The key is #{key} and the value is #{value}"
+end
+- apidock.com/ruby
