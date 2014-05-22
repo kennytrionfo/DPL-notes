@@ -16,6 +16,11 @@ Puts "name" - cout/print/ displays "name"
 auto declaration = good but also bad imo
 
 
+=======================
+Terms/Definitions
+=======================
+interation - one at a time
+
 
 ===================
 Basic Commands
@@ -25,34 +30,105 @@ puts "name" - cout/print/ displays "name"
 gets - takes an input from the user + end line /caridge return
 gets.chomp - removes endline/caridge return
 
+.to_i - converts to integer/fixnum
+.to_s - converts to a string
+.to_a - converts to array
+.lines - splits string up in correlation to difference in lines
+.reverse!
+! - makes methods change the variable permanently instead of temporarily
+
 ------------------------------
 Example:
 puts "how old are you?"
 age = gets
 puts age
 age.class = string
+--------------------
+Example - !
+josh = "josh"
+puts josh.reverse - prints hsoj
+puts josh - prints josh
+puts josh.reverse! - prints hsoj
+puts josh - prints hsoj
 ------------------------------
 
 
 
 
-------------------
-Chaining commands
-------------------------------------
-"joshua".reverse.upcase = "AUHSOJ"
-"AUHSOJ".reverse.downcase = "joshua"
----------------------------------------
+
 ===================
-String Commands
+Strings
 ===================
 .upcase - changes all string letters to uppercase
 .downcase - changes all to string letters to lowercase
 .reverse - reverses order of string
 .capitalize - capitalizes first word/letter
+.length - returns the length of the string
+.to_s - changes current data type to a string
 
-------------------
-Chaining commands / example
+
+-----------------------
+String Interpolation
+-----------------------
+#{name}
+#{1+1} - prints name or any valid ruby code
+
+\' - prints single quote '
+\n - returns to a new line
+\t - tabs
+NOTICE: String Interpolation does not worth with single quotes ''
+        String Interpolation only works with double quotes ""
+-------------------------------------------------------------------
+
+---------------------------
+Method Chaining / example
 ------------------------------------
 "joshua".reverse.upcase = "AUHSOJ"
 "AUHSOJ".reverse.downcase = "joshua"
 ---------------------------------------
+
+
+===================
+Arrays
+===================
+fruit = [apple,orange,grape]
+fruit[0] - returns apple, fruit[1] - returns orange, fruit[2] - returns grape.
+
+fruit << banana - adds banana into the array onto the end, fruit[3] = banana
+fruit << banana << strawberry << rasberry
+- adds them onto the end, apple, orange, grape, banana, strawberry, rasberry
+
+.count / .size / .length - returns amount of indexes or how big the array is
+.max - returns the highest valued number
+.sort - changes numbers into ascending
+-------------------------
+Multidimensional Arrays
+-------------------------
+things ["jake", 1, 3, ["josh, 4, .2"] ]
+things [
+  things[0] -  "jake"
+  things[1] -   1
+  things[2] -   3
+  things[3] -  ["josh", 4, .2] - things[3]
+      things[3][0] - josh
+      things[3][1] - 4
+      things[3][2] - 2
+  things[4] - 7
+        ]
+-------------------------
+
+------------------------
+Example:
+joshua = [2,3,1]
+joshua.sort = [1,2,3]
+joshua.max = 3
+
+-------------------------
+
+====================
+Loops
+====================
+fruit.each do |dog|
+////// dog = fruit[x] x++ x goes up each time cycling through the array \\\\\\\\\
+puts dog - returns each part of that array one at a time
+end
