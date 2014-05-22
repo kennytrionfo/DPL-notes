@@ -1,3 +1,7 @@
+Assign: Find 5 methods for strings in Ruby: .chomp, .delete, .replace, .size, .scan
+Assing: Find 5 methods for Fixnums/Integers: .even?, .zero?, .modulo, .abs, .to_s,
+
+
 
 /*—————----————— May 22, 2014 —————----—————*/
 - PUtting {<someting>} in a string is called interpolation.
