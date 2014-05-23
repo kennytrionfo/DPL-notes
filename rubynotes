@@ -1,9 +1,28 @@
-Assign: Find 5 methods for strings in Ruby: .chomp, .delete, .replace, .size, .scan
-Assing: Find 5 methods for Fixnums/Integers: .even?, .zero?, .modulo, .abs, .to_s,
+
+/*—————————————— May 23, 2014 ——————————————*/
+PSUDO CODE, CONDITIONALS,
+- How to create a file in atom from the terminal: First get out of irb if in it,
+then type <atom "file name">
+CONDITIONALS
+- If some_condition
+    do_stuff
+  end
+- False and Nill are the only two things in Ruby that equate to false.
+Example if statement:
+if my_age >20
+  puts "Can go to club"
+end
+
 
 
 
 /*—————----————— May 22, 2014 —————----—————*/
+VARIABLES, INSERTING INTO ARRAYS, HASHES
+
+Assign: Find 5 methods for strings in Ruby: .chomp, .delete, .replace, .size, .scan
+Assing: Find 5 methods for Fixnums/Integers: .even?, .zero?, .modulo, .abs, .to_s,
+
+- use <numbers.map($:to_i) as a short way changing a string array to integers
 - PUtting {<someting>} in a string is called interpolation.
 - when you use single quotes, it will return EXACTLY what's between them so you can use things like String Interpolation cuz it will show up.
 - two other data types beyond strings and fixnums. Arrays & Hash ( {} ) & ":" which is a symbol which is usually looks like :name or :bird & Time.
@@ -44,3 +63,12 @@ puts storage["Box 1"]
 puts "The key is #{key} and the value is #{value}"
 end
 - apidock.com/ruby
+
+/*—————————————— May 21, 2014 ——————————————*/
+IRB
+- To get into irb  - <irb>
+- 2.5 is a fixnums and is a float. a decimal is a float.
+- in ruby, to get a float (decimal) use at least one decimal. ie.- 5/2.5=2.5
+- Use <.class> at the end of a line to know what data type it is. ie- "kenny".class or 345.class or 2.5.class
+- 5.downcase doesn't work cuz fixnums don't know how to downcase. each method only works with certain methods. fixnums don't work or udnerstand downcase. but strings know what they mean.
+- "kennyT".reverse.upcase is method chaining. both can do their thing and upcase works on upcase cuz <"kennyT".reverse> becomes a new string that .upcase recognizes.
