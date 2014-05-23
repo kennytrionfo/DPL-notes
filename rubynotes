@@ -1,6 +1,7 @@
 
 /*—————————————— May 23, 2014 ——————————————*/
-PSUDO CODE, CONDITIONALS,
+PSUDO CODE, CONDITIONALS,COMPARISON OPERTORS,
+
 - How to create a file in atom from the terminal: First get out of irb if in it,
 then type <atom "file name">
 CONDITIONALS
@@ -12,7 +13,8 @@ Example if statement:
 if my_age >20
   puts "Can go to club"
 end
-
+COMPARISON OPERTORS: =, =<, > +!,
+CONDITIONAL OPERATORS: 
 
 
 
