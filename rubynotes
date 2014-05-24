@@ -1,6 +1,6 @@
 
 /*—————————————— May 23, 2014 ——————————————*/
-PSUDO CODE, CONDITIONALS,COMPARISON OPERTORS,
+PSUDO CODE, CONDITIONALS,COMPARISON OPERTORS, COMMENTS, CASE STATEMENT, LOOPS,
 
 - How to create a file in atom from the terminal: First get out of irb if in it,
 then type <atom "file name">
@@ -13,8 +13,97 @@ Example if statement:
 if my_age >20
   puts "Can go to club"
 end
+
 COMPARISON OPERTORS: =, =<, > +!,
-CONDITIONAL OPERATORS: 
+
+CONDITIONAL OPERATORS: && for multiple "if" statements. ie:
+  if x_in_space_1 && x_in_space_2 && x_in_space_3
+    puts "X wins!"
+  end
+- || for "or"
+- else equals "otherwise" in english
+- use the Bang "!" symbol to make something "not" like:
+  if !your_car_is_working
+    hit me up for a ride
+  end
+- Can use the else operator inline:
+  puts "let's grab lunch" unless you_already_ate
+
+ELSIF:
+  if your_grade >= 90
+    puts "You get an A"
+  elsif your_grade >= 80 && your_grade < 90
+    puts "You get a B"
+  elsif your_grade >= 70 && your_grade < 80
+    puts "You get a C"
+  else
+    puts "You fail"
+  end
+
+COMMENTS:
+# for one line and
+=begin
+=end
+for multi-line notes. MUST be all the way to the left.
+
+CASE:
+Used when you have a lot of choices or options.
+code ie:
+grade = A
+case grade
+  when 'A'
+    puts "Yay! Ice cream for you"
+  when 'B'
+    puts "Not too shabby"
+
+LOOPS:
+ie: while loops:
+code ie:
+  while nemo_is_still_lost
+    puts "just keep swimming"
+  end
+PSUDO CODE 3 LITTLE PIGS:
+Variables:
+  house 1 is straw
+  house 2 is sticks
+  house 3 is brick
+Conditions:
+  if house is not brick then,
+    the wolf blows it down
+    say "you suck"
+  otherwise
+    the wolf doesn't blow it down
+    say "You are made of stone dude! No rent due"
+MAKE A CALCULATOR BRANCH
+
+HW - finnish funwithnumbers
+
+hw - finnish number.rb
+
+TICTACTOE PSUDOCODE:
+-Create a board =>
+-Loop that ends after 9 turns =>
+-Determine who's turn it is
+  -create player1, player 2
+-Player chooses a space
+  -Get player input,
+  -Define spaces,
+  -check to see if spaces are taken.
+-Define 8 winning combinations. =>
+-Check to see if anyone has one. =>
+-After 9 turns, if no one has won, declare a tie.
+
+LIMITED LOOP:
+turn = 0
+while turn < 9
+  puts turn
+#need to tell turn to increase it's value here:
+  turn += 1
+end
+
+can also:
+
+HW - complete through 16 on code academy
 
 
 
