@@ -1,14 +1,31 @@
+
+
+# ——————————————*/ HASH- CREATING, ASSECCING, PRINTING /*——————————————
+# me = {
+# :name => "Kenny",
+# :age => 40,
+# :age => "tall",
+# }
+# puts me[:name]
+#
+# concerts = {
+#   :old_group => "Kiss",
+#   :recent_group => "greenday",
+#   :todays_group => "Imagine Dragons",
+# }
+# puts concerts[:todays_group]
+
 #——————————————*/ CLASS, METHOD, ATTRIBUTES AND INSTNACE VARIABLES ----
 #create a new Class:
-class Boats
-  attr_accessor  :sail_color, :boat_color,  :sail_size, :style
-
-  def initialize
-    @sail_color = "white"
-    @boat_color = "blue"
-    @sail_size = 40
-  end
-end
+# class Boats
+#   attr_accessor  :sail_color, :boat_color,  :sail_size, :style
+#
+#   def initialize
+#     @sail_color = "white"
+#     @boat_color = "blue"
+#     @sail_size = 40
+#   end
+# end
 
 # #create a method in that class:
 #   def sail

@@ -1,5 +1,6 @@
 
-——————————————*/
+——————————————*/ /*——————————————
+
 
 /*—————————————— May 30, 2014 ——————————————*/
 —————RUBY
@@ -11,7 +12,7 @@
 -See day 9 video. May 30, 2014
 -It will be very common to use the raise command to debug.
 -Debugging tools - pry is one.
--To set up a gem for a program: create a file in taht directory called 'Gemfile' with a capital G and put something like the following in it:
+-To set up a gem for a program: create a file in that directory called 'Gemfile' with a capital G and put something like the following in it:
 source "https://rubygems.org"
 gem "pry"
 
@@ -22,16 +23,14 @@ gem "pry"
 
 CHALLANGE:
 1.open up tictactoe app
-2.add a gemfile
-3.add in the "pry" gem
-4.require "pry" in your game setup
-5.use the binding.pry at some point in the game and play with pry
+2.add a gemfile by going to Atom/ file/ new/ give it the name "Gemfile" with a capital "G"/ save it/
+
+3.add in the "pry" gem by typing in : source "https://rubygems.org" and on the next line: gem "pry"
+4.require "pry" in your game setup by typing " require "pry" " on the top line.
+5.use the binding.pry at some point in the game and play with pry by typing" "binding.pry" somewhere in your code and watch what happens when you run it.
 
 
-
-
-
-/*—————————————— May 29, 2014 ——————————————*/
+/*—————————————— May 29, 2014 Day 8——————————————*/
 GITHUB
 -Use git add -A to add all files in a folder at once.
 
@@ -72,13 +71,12 @@ YAML FILE TYPES
 —————CHALLENGE
 -Create an address book in ruby.
 0. write a program called "friends.rb"
-1. creaet a hash with some information about your neighbor, and yourself.
-2. craet a new yaml file called "friends.yml"
+1. create a hash with some information about your neighbor, and yourself.
+2. create a new yaml file called "friends.yml"
 3. write that hash to the yaml file. *note be sure to close the file.
 4. Running "ruby friends.rb" should generate this file.
 Mine:
 # 0. write a program called "friends.rb"
-
 require 'yaml'
 # 1. creaet a hash with some information about your neighbor, and yourself.
 #friends = {"neighbor" => "alien", "kenny" => "president"}
@@ -109,26 +107,15 @@ in terminal use: gems list to see all gems u have. use gem -v for version.
 
 -----INCRYPTION
 
-—————-HOMEWORK
-THIS MEANTH MORE
-(add "extra practice & projects to ticktick")
-(1.do smaller iterations. 2.don't explain while people are typing. 3.if peopl
-e have questions, become an expert at asking questions 4.set some thresholds, like can the students do "such&such" by this date? 5.instead of typing everything out, put it all into presentations ready for students to have and bring up, preventing you and them from having to type it all out. )
-(who knows how to toggle the find on and off in atom?)
-(Mike - help me change my computer's user directory name from user to my name)
-(class- what is irb again?)
--hw - do the exorcisw where we create, read, write etc a file from I/0 like above.
--
-
 
 /*—————————————— May 28, 2014 ——————————————*/
-TURNARY OPERATOR:
+TERNARY OPERATOR:
 x = 4
 y = 5
 x < y ? "yes" : "nope"
 -Could also store it in a variable like:
 result = x < y ? "yes" : "nope"
--And this is why you can't put a "?" at the end of a variable. Ruby thinks ur trying to use a turary operator.
+-And this is why you can't put a "?" at the end of a variable. Ruby thinks ur trying to use a turnary operator.
 
 CLASSES REVIEW:
 -The whole reason we have classes is becasue the allow us to put down our thoughts into code in a more organized fashion, like grouping things in a like fashion like users on a website like facebook for example a user may need to have an email and name but without a class, we can't call them a user. The email and name they just put in is not assoiated with an object, it's just two random pieces of data but if we have a "User Class" with and email attribute and a name attribute, we know that it's "User" information.
@@ -145,8 +132,8 @@ example with date object after we've required it.
 - require 'net/http' to connect to internet.
 
 MAKING NEW FILES:
-- The Load Path wich is an array of strings which are a path to where ruby stores all these files. so ruby knows where "date.rb" and others are located on ur machine but it doesn't knwo where first.rb is so we have to tell it where it is so it can load it into the array of strings.
-Use "require_relative" which says the file should be close aroundme somewhre. As long as it's in the same directory, it'll find it.
+- The Load Path which is an array of strings which are a path to where ruby stores all these files. so ruby knows where "date.rb" and others are located on ur machine but it doesn't know where first.rb is so we have to tell it where it is so it can load it into the array of strings.
+Use "require_relative" which says the file should be close around me somewhre. As long as it's in the same directory, it'll find it.
 Order of how you run the "require" files matters if there are dependencies
 
 LOAD PATH:
@@ -154,9 +141,9 @@ $load_path? shows the array of the directories where ruby files may be.
 to add our new file to the array
 
 MODULES & MIXES:
--Ruby can't do multiple inheritence
+-Ruby can't do multiple inheritance
 -Modules are also contants and begin with a cap letter.
-- Can put as many methods into a module as you want.
+-Can put as many methods into a module as you want.
 ex:
 module Transportation
   def going_forward
@@ -166,7 +153,7 @@ end
 
 INCLUDE & EXTEND:
 
-SCOPING CONSANENTS:
+SCOPING CONTANTS:
 Kenny::Person
 
 CLASS EXORCISE:
@@ -175,10 +162,7 @@ class Player
   def wins?(marker) #this takes the marker and returns true or false
 
 
-
-
-
-/*—————————————— May 27, 2014 ——————————————*/
+/*—————————————— May 27, 2014 day 6——————————————*/
 -conditional operators are: <, >, +, = etc
 -comparison operators are: &&, ||
 -alternative to using an if statement is a case statement.
@@ -223,7 +207,6 @@ end
 meals= []
 dinner = {}
 
-
 puts "Please enter in a food"
 food = gets.chomp
 puts "Please enter a drink"
@@ -250,7 +233,7 @@ dinner[:food] = food
 dinner[:drink] = drink
 meals << dinner
 
-puts "Ender in another food? [Y] or [N]"
+puts "Enter in another food? [Y] or [N]"
 answer = gets.chomp
 
 meals.each do |meal|
@@ -360,6 +343,7 @@ ex:
 -Review today's class morning video. May 27, 2014
 Exorcise:
 
+Class challenge:
 Find an object in the class. Define it's actions & attributes.
 
 class Laptop
@@ -540,6 +524,48 @@ can also:
 HW - complete through 16 on code academy
 
 /*—————----————— May 22, 2014 —————----—————*/
+- PUtting {<someting>} in a string is called interpolation.
+- when you use single quotes, it will return EXACTLY what's between them so you can use things like String Interpolation cuz it will show up.
+- two other data types beyond strings and fixnums. Arrays & Hash ( {} ) & ":" which is a symbol which is usually looks like :name or :bird & Time.
+- Time.now gives us info on time:
+: Time.now
+ => 2014-05-22 11:57:54 -0600
+- Can also use Time.now.year or Time.now.minute
+
+- symbols are used a lot in hashes.
+- symbol example:
+me = {
+:name => "Kenny",
+:age => 40,
+:age => "tall",
+}
+puts me[:name]
+- add a property to the hash like: me[:sex] = "male"
+- also can use {food: 'taco'} instead of {:food => 'taco'} for brevity.
+- Convention is to use lowercase for symbols.
+- Arrays are collections. you can iterate Arrays which means going over it one by one.
+- In ruby you can assign anything you want to a var. So you can assign arrays to a var.
+- each item in an array is called an index.
+- : people.each do |person|
+puts person
+end
+- : 2.1.2 :037 > things.each do |number|
+2.1.2 :038 >     puts number * number
+2.1.2 :039?>   end
+1
+4
+9
+- Ruby has 4 types of variables: see other note:
+- Hash data types:
+storage = {"Box 1" => "Stuff", "Box 2" => "More stuff"}
+puts storage["Box 1"]
+- each key needs to be unique but the values can be the same. still called indexes just not zero based.
+- : storage.each_pari do |key, value|
+puts "The key is #{key} and the value is #{value}"
+end
+- apidock.com/ruby
+
+
 VARIABLES, INSERTING INTO ARRAYS, HASHES
 
 Assign: Find 5 methods for strings in Ruby: .chomp, .delete, .replace, .size, .scan
