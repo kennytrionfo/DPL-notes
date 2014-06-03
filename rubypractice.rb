@@ -1,3 +1,7 @@
+array = [1,2,3,4]
+puts array
+array.insert(3, 'apple')
+puts array
 
 
 # ——————————————*/ HASH- CREATING, ASSECCING, PRINTING /*——————————————
@@ -79,7 +83,7 @@
 #      else
 #        puts "Then keep cleaning."
 #      end
-#    end
+# end
 
 # plate_full = true
 # while plate_full == true
