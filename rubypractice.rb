@@ -7,6 +7,13 @@ Assign a new value to a hash:
 dog['breed'] = 'pit bull';
 
 
+
+# class challenge:
+# work on your Portfolio site by coding HTML and CSS.
+# Make a Javascript array of strings that are hex colors.
+# Make it so that on page load the background color of the body tag is randomly chosen from your array of hex color stings.
+# Note: You will need to Google how to get random value from an array and how to set the style property in javascript.
+
 # puts "Current Time : " + Time.new.inspect
 #
 #
