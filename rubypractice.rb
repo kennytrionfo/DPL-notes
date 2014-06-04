@@ -1,8 +1,30 @@
-array = [1,2,3,4]
-puts array
-array.insert(3, 'apple')
-puts array
+# line_count = 0
+# File.open("git.txt").each { |line| line_count += 1 }
+# puts line_count
+  File.open("git.txt").each do |line| puts line end
 
+Assign a new value to a hash:
+dog['breed'] = 'pit bull';
+
+
+# puts "Current Time : " + Time.new.inspect
+#
+#
+# array = [1,2,3,4]
+# puts array
+# array[1] = "fried potatoes"
+# puts array
+
+
+# board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+# puts board
+# puts "choose a spot"
+# player = "x"
+# spot = gets.chomp.to_i
+# spot = spot - 1
+# board[spot] = player
+# puts "\n"
+# puts  board
 
 # ——————————————*/ HASH- CREATING, ASSECCING, PRINTING /*——————————————
 # me = {
