@@ -1,47 +1,35 @@
 
-——————————————*/ /*——————————————
-------------- CONCEPT HERE (EXAMPLE:JAVA SCRIPT IN HTML)-------------
-FACTS:
--It must be done like this. .
--Use lower case . .
-USE IT WHEN:
--You want to change the background of a screen to diff colors.
--You want to get input from a customers.
-EXAMPLE:
-if (code here)
-  do this
-console.log(something here)
-CHALLENGE:
-Write a page with 9 squares and a changing background color.
 
 
-/*—————————————— May 30, 2014 ——————————————*/
-—————RUBY
+
+
+May 30, 2014
+————----------—RUBY-------------------
 -CRuby is built in C. JRuby is built in Java and runs on the JVM.
 -One of Ruby's downsides is poor memory managment and it's speed at large sizes.
 -Rubinius is built in Ruby.
 
-—————-DEBUGGING
+---------—————-DEBUGGING---------------
+WHAT IT IS:
 -See day 9 video. May 30, 2014
 -It will be very common to use the raise command to debug.
 -Debugging tools - pry is one.
 -To set up a gem for a program: create a file in that directory called 'Gemfile' with a capital G and put something like the following in it:
 source "https://rubygems.org"
 gem "pry"
-
 -u bundle every time add a new gem.
 -put 'binding.pry' into your code to have binding use the gem 'pry' to run and debug cool stuff.
 -make sure to bundle from the terminal from the directory your in simply by typing "bundle"
 
+USE IT WHEN:
+-setting up a new file.
 
 CHALLANGE:
 1.open up tictactoe app
 2.add a gemfile by going to Atom/ file/ new/ give it the name "Gemfile" with a capital "G"/ save it/
-
 3.add in the "pry" gem by typing in : source "https://rubygems.org" and on the next line: gem "pry"
 4.require "pry" in your game setup by typing " require "pry" " on the top line.
 5.use the binding.pry at some point in the game and play with pry by typing" "binding.pry" somewhere in your code and watch what happens when you run it.
-
 
 —————————————— May 29, 2014 Day 8——————————————
 GITHUB
