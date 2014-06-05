@@ -1,7 +1,19 @@
 
 ——————————————*/ /*——————————————
+------------- CONCEPT HERE (EXAMPLE:JAVA SCRIPT IN HTML)-------------
+FACTS:
+-It must be done like this. .
+-Use lower case . .
+USE IT WHEN:
+-You want to change the background of a screen to diff colors.
+-You want to get input from a customers.
+EXAMPLE:
+if (code here)
+  do this
+console.log(something here)
+CHALLENGE:
+Write a page with 9 squares and a changing background color.
 
-test
 
 /*—————————————— May 30, 2014 ——————————————*/
 —————RUBY
@@ -31,7 +43,7 @@ CHALLANGE:
 5.use the binding.pry at some point in the game and play with pry by typing" "binding.pry" somewhere in your code and watch what happens when you run it.
 
 
-/*—————————————— May 29, 2014 Day 8——————————————*/
+—————————————— May 29, 2014 Day 8——————————————
 GITHUB
 -Use git add -A to add all files in a folder at once.
 
