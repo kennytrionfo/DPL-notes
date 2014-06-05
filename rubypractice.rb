@@ -7,13 +7,14 @@ Assign a new value to a hash:
 dog['breed'] = 'pit bull';
 
 
-
+#————————————— example concept: say MODULES --------------
+#DEFINITION/WHAT IT DOES/WHAT IT'S USED FOR/WHEN TO USE IT:
 # class challenge:
 # work on your Portfolio site by coding HTML and CSS.
 # Make a Javascript array of strings that are hex colors.
 # Make it so that on page load the background color of the body tag is randomly chosen from your array of hex color stings.
 # Note: You will need to Google how to get random value from an array and how to set the style property in javascript.
-
+FACTS ABOUT IT/THINGS TO KNOW:
 # puts "Current Time : " + Time.new.inspect
 #
 #
@@ -21,7 +22,9 @@ dog['breed'] = 'pit bull';
 # puts array
 # array[1] = "fried potatoes"
 # puts array
+EXAMPLE/WHEN TO USE IT:
 
+CHALLANGE:
 
 # board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 # puts board
