@@ -1,11 +1,51 @@
+
+class Animals
+  attr_accessor :type, :age, :color
+  def eat
+    puts "yum yum"
+  end
+end
+
+bird = Animals.new
+bird.type = "stork"
+puts bird.type
+bird.age = 23
+puts bird.age
+
+bird.color = "blue"
+puts "a #{bird.age} year old #{bird.color} bird is usually a #{bird.type}"
+puts bird.eat
+
+class Reptiles < Animals
+end
+
+t_rex = Reptiles.new
+t_rex.age = 477
+t_rex.type = "old"
+
+puts "Trexes that are #{t_rex.age} years old are in the #{t_rex.type} catagory."
+puts "Trexes usually say" + t_rex.eat
+
+
 # line_count = 0
 # File.open("git.txt").each { |line| line_count += 1 }
 # puts line_count
-  File.open("git.txt").each do |line| puts line end
+  # File.open("git.txt").each do |line| puts line end
 
-Assign a new value to a hash:
-dog['breed'] = 'pit bull';
-
+#—————————HASH————————
+#hash:
+# dog = {"pitbull" => "mean", "poodle" => "cute", "mutt" => "fun"}
+# #print the hash
+# puts dog
+# #Assign a new value to a hash:
+# dog['pitbull'] = 'loving';
+# puts dog
+# #print each item of a hash:
+# dog.each { |key_value| puts key_value}
+# #same thing:
+# dog.each do |x|
+#   puts x.to_s.upcase
+# end
 
 #————————————— example concept: say MODULES --------------
 #DEFINITION/WHAT IT DOES/WHAT IT'S USED FOR/WHEN TO USE IT:
@@ -14,7 +54,9 @@ dog['breed'] = 'pit bull';
 # Make a Javascript array of strings that are hex colors.
 # Make it so that on page load the background color of the body tag is randomly chosen from your array of hex color stings.
 # Note: You will need to Google how to get random value from an array and how to set the style property in javascript.
-FACTS ABOUT IT/THINGS TO KNOW:
+
+#FACTS ABOUT IT/THINGS TO KNOW:
+
 # puts "Current Time : " + Time.new.inspect
 #
 #
@@ -22,9 +64,10 @@ FACTS ABOUT IT/THINGS TO KNOW:
 # puts array
 # array[1] = "fried potatoes"
 # puts array
-EXAMPLE/WHEN TO USE IT:
 
-CHALLANGE:
+# EXAMPLE/WHEN TO USE IT:
+
+# CHALLANGE:
 
 # board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 # puts board

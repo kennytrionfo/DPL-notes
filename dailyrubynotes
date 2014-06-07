@@ -1,4 +1,247 @@
+———————— ATOM HOTKEYS ————————
+ test this is curret line to tdo cool who knwos if it's cool
+ test this is curret line to tdo cool who knwos if it's cool
+ test this is curret line to tdo cool who knwos if it's cool
+test this is curret line to tdo cool who knwos if it's cool
 
+something
+
+
+ end of sentence
+select a line
+
+ end of sentence
+select a line
+
+
+ end of sentence
+select a line
+
+ end of sentence
+select a line
+
+
+ end of sentence
+select a line
+
+fn down arrow
+
+General
+shift + ⌘ + p
+Toggle command palette
+
+ctrl + space
+Show available auto-completions
+File Navigation
+
+⌘ + e
+Use selection for find
+
+command [ or ]
+Tab a selection
+
+⌘ + ] / [
+Indent/outdent current line
+
+⌘ + shift + enter
+Insert new line before current line
+
+option + backspace
+Delete text to beginning of word
+
+ctrl + shift + k
+Delete current line
+
+shift + ⌘ + d
+Duplicate current line
+
+⌘ + j
+Join current and next lines
+Selection
+
+⌘ + d
+Select current word/token
+
+⌘ + l
+Select current line
+
+option + shift + left/right
+Select to beginning/end of word
+
+shift + ⌘ + left/right
+Select to first/last character of line
+
+shift + ⌘ + up/down
+Select to top/bottom of document
+
+
+Day 14 - June 6, 2014
+————————HOW THE INTERNET WORKS ————————
+hyper text transfer protocal, domain name system etc. See vid hr1
+
+FACTS:
+RDBMS - Relational Database Managemnt System - a place to put your data. Looks like a spreadsheet.
+NGINX - web serber program and take raw html, js, css etc and giving it to browser. web server sits between rails and the website. nginx is like our webbrick that we're using now. apache and others are other servers.
+-when you visit a webpage, ur download all the files.
+-resources: dochub.io for getting documentation
+-join js meetups and html
+-sinatra is a dsl for creating mini programs. rails is a full-stack web application framework.
+-rails has a way to talk to a database but sinatra does not.
+-
+-REPL
+read
+evaluate
+print
+loop
+irb, js, console and pry are all repl
+
+-other MVC framworks:
+NodsJS(express, sails), python(cake, fuel, symphony, kohana)
+-MVC - Model View Controller - It's just organization. Where to put your code so it will work well.
+-CoC - Convention over Configuration - rails wants you to do things a specific way, all of us, and get the same results.
+
+———————— SETTING UP RAILS (Jeremy's slide)————————
+FACTS:
+-went through all files required to set up a new program. see vid h3.
+
+Jeremy's notes:
+Prototyping in Rails (ie.making a new basic site)
+1.Make a new rails app called “my_task_app” by typing "rails new my_task_app" into terminal
+2.Go into the directory by typing "cd my_task_app
+" into the terminal.
+3.Generate your model and views with a scaffold by typing "rails generate scaffold Task name:string description:text completed:boolean (or whatever you want your program to do/be)" into the termial.
+3. sync the database with your rails changes by typing "rake db:migrate" into your terminal.
+4. boot your rails server by typing "rails server" or "rails s" into your terminal.
+5. In your browser, typing in "open http://localhost:3000/task(or whatever you named your class in step 3)"
+6.Stop the app from running by hitting control+c in the terminal.
+7. CD .. out of your app's directory.
+8. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
+
+
+———————— SETTING UP RAILS (My notes)————————
+Facts:
+Steps:
+1. in terminal(server): rails new 'project_name'
+2. in term or in atom - create new files .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
+3. In the ruby-version file put in the ruby version "2.1.2"
+4. In the ruby-gemset file put the name of the file ie. "todo"
+5. Cd out and then back in .
+6. bundle
+7. in term - rails generate scaffold "Name" (use capital) tasks. ie:
+rails generate scaffold Task name:string date:string importance:string
+8. in term- rake db:migrate - should see..  (this syncs rails with the server)
+9. goto to routes.rb file in the config folder  and type in root "tasks#index" below the current code with "tasks" being the word after resources above. - this makes "tasks your homepage"
+10. restart server by typing 'rails s' in the term while in the directory. 11. go to url and do localhost:3000 and should be there.
+12. Stop the app from running by hitting control+c in the terminal.
+13. CD .. out of your app's directory.
+14. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
+
+
+USE IT WHEN:
+
+EXAMPLE:
+
+CHALLENGE:
+
+
+USE IT WHEN:
+
+EXAMPLE:
+
+CHALLENGE:
+
+
+Day 13 - June 5, 2014
+————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE ;EB
+FACTS:
+-GOOGle search "how to bind a click event"
+-MUS TSET EVENT Listeners up hen page laods so it tells the page that when these events happen, do something.
+-This overrides something...
+-window.onload = function() {
+
+};
+-can call document.images in the interpreter to get all the images on your site.
+-can say document.querySelectorAll()
+-In js use "this" to ??... It means this current thing that you are.
+USE IT WHEN:
+
+EXAMPLE:
+
+CHALLENGE:
+
+————————FORMS ————————
+FACTS:
+-you can't put a child form inside of a form.
+-must have a closing tag.
+-this is not valid:
+<div>
+  <form>
+</div>
+<div>
+  <form>
+</div>
+-but this is:
+<div>
+  <form>
+  </form>
+</div>
+
+USE IT WHEN:
+
+EXAMPLE:
+
+CHALLENGE:
+
+————————ACTION ATTRIBUTE ;EB
+FACTS:
+is:
+action = ""
+"method" attribute is requried = the method with which we want the data sent.
+-the only two values we'll use really are "get" or "post".
+-use Get to get information from server and Post to post info.
+-
+USE IT WHEN:
+
+EXAMPLE:
+<form method="get" action="search form">
+</form>
+CHALLENGE:
+
+————————ELEMENTS INSIDE OF FORMS ;EB
+FACTS:
+-input, select, button, textarea are tags: ie: <input>
+-input has types- hidden(hidden from you), text, password, radio, checkbox options.
+-Then text has types- email, number, url etc options.
+-input are self closing
+-params is data sent through forms. for us to know the value of the info in a field thought, it has to have a name or a key. the key has a value. so you use the "name" attribute in the form tag to do this.
+-let's debug using pry by putting pry in gem file.
+-anytime you update a gem file, you have to bundle!
+-put in binding.pry in file??..
+-can't duplicate the 'name' attribrute in a form element.
+-in js, 4things return false - false, nil, undefined & zero
+-anytime u view a webpage, you are doing an http 'get'.
+-u should never use the back button cuz it keeps the errors that were there before.
+-textarea tag does need to have an end tag!
+
+
+USE IT WHEN:
+
+EXAMPLE:
+
+CHALLENGE:
+1. Add these form elements
+-at least 2 checkboxes
+-at least 2 radio buttons
+-1 password field for a secret message
+-1 more select tag
+-1 more textarea tag
+-1 more normal text input tag
+1.5 when the form is submitted, make all the data display on the about page
+2.style all the form elements to make them look nice. ADD CSS
+3. Add some js validation to prevent the name field from being empty.
+
+-------------reddit brian holt------
+-contribute github
 
 
 
@@ -141,10 +384,20 @@ LOAD PATH:
 $load_path? shows the array of the directories where ruby files may be.
 to add our new file to the array
 
-MODULES & MIXES:
--Ruby can't do multiple inheritance
--Modules are also contants and begin with a cap letter.
+—————————— MODULES & MIXES: ——————————
+FACTS:
+-Modules can be use in two ways. 1.As a Namespace or 2. As a mixin.
+-Modules are constants and are therefore capitalized.
+-You can't instantiate a module.
+-Modules can't inherit from anything.
+-Modules provide a structure to collect Ruby classes, methods, and constants into a single, separately named and defined unit.
+-When we use Moduels as a namespace, it usually means that the Classes that we're defining, the Objects that we're setting up, we're defining them inside of a Module so that when we go to instantiate that class, we instantiate it through it's namespace. When you instaniate through the Name Space, it will look like this Your_module :: Class_name.
+-Namespacing is putting a class inside of a module.
+-Ruby can't do multiple inheritance.
+-Modules define a namespace, a sandbox in which your methods and constants can play without having to worry about being stepped on by other methods and constants.
 -Can put as many methods into a module as you want.
+-Ref: beginnign ruby pdf
+
 ex:
 module Transportation
   def going_forward
@@ -152,7 +405,36 @@ module Transportation
   end
 end
 
-INCLUDE & EXTEND:
+By name spacing a Module and Class like this:
+#using the module as a namespace
+module Business
+  class Car
+  end
+end
+
+#again using the module as a namespace here.
+module Vehicle
+  class Car
+  end
+end
+
+you can instantiate on of the "Car" classes by putting the Module name in front of it like this:
+Vehicle::Car or Business::Car so:
+porche = Vehicle::Car  (an object(instantiation) of the 'Car' class inside the 'Vehicle' Module)
+or
+Nissan = Business::Car
+
+USE IT WHEN:
+-you want to treat the two car classes totally seperately. A Namespace keeps classes of the same name seperate.
+
+
+EXAMPLE:
+
+
+CHALLENGE:
+
+
+————————————————————
 
 SCOPING CONTANTS:
 Kenny::Person
@@ -161,6 +443,7 @@ CLASS EXORCISE:
 -Do tictactoe with require method like a board.rb or a class for x or o, create new instnace of each that inherit from a player class etc.
 class Player
   def wins?(marker) #this takes the marker and returns true or false
+
 
 
 /*—————————————— May 27, 2014 day 6——————————————*/
@@ -184,12 +467,29 @@ def grab_food(food)
 end
 -call this method by:
 grab_food("sushi")
+—————————— ARGUMENTS ——————————
 -"wrong number of arguments (0 for 1)" means you didn't put in the required amount of arguments. Will also get (1 for 2) if there are two required arguments and you're only passing 1. ie grab_food ("sushi") instead of grab_food("sushi", "juice")
 -Pass multiple arguments on a method by:
 def grab_food(food, drink)
   puts "grabbing some #{food}"
   puts "grabbing some #{drink}"
 end
+-When defining a Method inside of a Class like this:
+class Human
+  def say(something = "food")
+    puts "eating #{something}"
+  end
+end
+you can put the above arugment 'something = "food"' in there as a default argument which will be passed in be default if you don't pass anything through.
+-A common type of use of arguments is having a required parameter and a default parameter like this:
+class Router
+  def get(path, options = {})
+  end
+end
+more on these advanced ways of passing various types of arguments into varios types of parameters in dpl day 10 vid 24minutes.
+-The ampersand "*" in a parameter means that it is a block.
+
+—————————— —————————— ——————————
 -Variables have different scopes. Local variable are only accessable inside the block/scope where it's created.
 -Making this dynamic looks like this:
 meals = [
