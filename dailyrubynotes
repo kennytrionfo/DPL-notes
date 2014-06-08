@@ -87,7 +87,6 @@ NGINX - web serber program and take raw html, js, css etc and giving it to brows
 -join js meetups and html
 -sinatra is a dsl for creating mini programs. rails is a full-stack web application framework.
 -rails has a way to talk to a database but sinatra does not.
--
 -REPL
 read
 evaluate
@@ -273,6 +272,52 @@ CHALLANGE:
 3.add in the "pry" gem by typing in : source "https://rubygems.org" and on the next line: gem "pry"
 4.require "pry" in your game setup by typing " require "pry" " on the top line.
 5.use the binding.pry at some point in the game and play with pry by typing" "binding.pry" somewhere in your code and watch what happens when you run it.
+—————————— SINATRA ——————————
+Day 10. Monday, June 2nd
+FACTS:
+Steps:
+1.mkdir a sinatra folder in projects with a my_first_site folder in it.
+2. cd into it.
+3.open atom and create a Gemfile with a cap in the my_first_site folder.
+4.type: source "https://rubygems.org" on first line and: gem 'sinatra' on the second.
+-These next two files are specific to RVM (Ruby Version Manager) which allows us to manage which versin of ruby we're using on a program.
+5. create a new file in atom in teh same folder called .ruby-version and type: 2.1.2 on first line and save.
+6. create another new file in ataom in the same folder called .ruby-gemset and type: "my_first_site" on top line and save.
+-We'll create a Gemfile, .ruby-getset and .ruby-version for every new app/program we build.
+7. Tell RVM that we want to use something specific. CD .. out of the directory and cd back in. RVM prints out some stuff to us. This only happens the first time we do this. There is are no gems yet so type in: bundle into term and it will bundle all of our gems. Will show 'your bundle is complete'. typing:gemlist in term will show all gems installed including sinatra. This will create a Gemfile.lock in the same folder.
+8.Make at new file called site.rb in the same folder. this is our ruby file.
+9. Since we're going to be using sinatra gem, we type: require 'sinatra' on the top line. And since sinatra uses a dsl, we're going to use the dsl by typing below this:
+get '/' do    #this is an http verb get that allows us to go to '/'
+  'yay! my first site'
+end
+-That allows us to acces Sinatra's dsl and use it to run Sinatra code.
+10.Run the program by typing in the term: ruby site.rb and you should see "Sinatra has taken the stage on 4567 (or something) for development..." in the term. Running our program starts up Sinatra. Sinatra has a little mini webserver and when it starts, it boots up this server and sets it to the number 4567. The server is now runnign in the term and the report we see in the term is a log file for our program. To stop the server from running hit: control c in the term. If you refresh broswer now, it will give an "unable to connect" error cuz the server isn't runnign and can't compile the website.
+11. type: localhost:4567 into a browser url.
+12. In the site.rb file type:
+get '/first' do
+  'another page on my site'
+end
+13. kill the server and restart it so it can see our new code. do this by control c in the term and cd back into our file. ANYTIME WE MAKE CHANGES TO OUR CODE IN OUR .RB FILE WE HAVE TO RESTART OUR SERVER (BY HITTING CONTROL C AND CD ING BACK INTO FILE)
+14. go back to browswer and type in: /first after the "localhost:4567" and it should take you to our new page.
+-We want to be able to have our own html file to put all of our html into and have sinatra render it from there so do the following:
+15.Add folder called views inside of our my_first_site folder. This is were we put all of our html files.
+16.Inside of the views folder create a new file called index.html
+17. type something like  <h1> look ma! </h1> in this index.html file.
+18.To tell Sinatra which templating engine to use, we go to the site.rb file and replace the 'yah! my first site' in the first get statment with: erb :index, giving it the name of the file we want it to load.
+19. but then we have to rename our index.html file to index.erb so Sinatra can read it and it will treat it like it's html. erb stands for embedded ruby. erb tags look like <% %>. They can be used to DO something or PRINT something. The code to print looks like this <%= %>.
+19. reboot server using instructions from above and refresh website to see new html.
+20. to create other pages, create new erb files in the views foler, put the name of them into the .rb file so it links to them and restart server.
+
+
+USE IT WHEN:
+
+
+EXAMPLE:
+
+
+CHALLENGE:
+
+
 
 —————————————— May 29, 2014 Day 8——————————————
 GITHUB
