@@ -1,5 +1,7 @@
 
+
 -review javascript window.onload stuff below.
+
 —————————— DATA STORAGE ——————————
 Monday June 9, 2014 Day 15?
 FACTS:
@@ -28,6 +30,23 @@ HStore- is a giant Hash. a big key/value store. It lives in memory so you can pu
 GIS Geospatial- lets you use location.
 Full-text search-
 
+-Created a new rails app:
+—————————— Josh left: ——————————
+Animal
+-Rails gives us an "ID" and "updated_at" and "created_at" fields/columns by default. This is great info to have.
+-Call .save to save our cat info
+-Use a = Animals.first to retrieve our first line in our table.
+Class challenge:
+add 9 more aminals:
+1. create a new aminal by: frog = Aminal.new
+then create it's attributes by:
+frog.name = "something here"
+frog.age = 2
+frog.breed = "something here"
+etc
+  
+
+
 USE IT WHEN:
 
 
@@ -35,8 +54,6 @@ EXAMPLE:
 
 
 CHALLENGE:
-
-
 
 
 -GOOGle search "how to bind a click event"
@@ -108,6 +125,10 @@ NodsJS(express, sails), python(cake, fuel, symphony, kohana)
 -MVC - Model View Controller - It's just organization. Where to put your code so it will work well.
 -CoC - Convention over Configuration - rails wants you to do things a specific way, all of us, and get the same results.
 
+—————————— SCAFFOLD ——————————
+-scaffolding generates a lot of stuff for you that you would normally have to do it by hand. we'll be doing more by hand later.
+-it's a way to do a quick protocal but is very unsecure.
+
 ———————— SETTING UP RAILS (Jeremy's slide)————————
 FACTS:
 -went through all files required to set up a new program. see vid h3.
@@ -149,7 +170,6 @@ rails generate scaffold Task name:string date:string importance:string
 Day 13 - June 5, 2014
 ————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE ;EB
 FACTS:
--GOOGle search "how to bind a click event"
 -MUST SET EVENT Listeners up when page loads so it tells the page that when these events happen, do something.
 -This overrides something...
 window.onload = function() {
