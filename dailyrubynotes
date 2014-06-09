@@ -24,7 +24,9 @@ Graph-Java heavy. Not a sql and not a nosql. they are unique. (New4j, Oracle Spa
 hw-read up on sql and mysql a bit online. and postgresql as well.
 -More on PostgreSQL:
 -Has a lot of features that mysql doesn't have.
-HStore- is a giant Hash. a big key/value store. It lives in memory so you can put stuff in and out of it superfast so you can cache ur application which is fast so u can have more users using it. 
+HStore- is a giant Hash. a big key/value store. It lives in memory so you can put stuff in and out of it superfast so you can cache ur application which is fast so u can have more users using it.
+GIS Geospatial- lets you use location.
+Full-text search-
 
 USE IT WHEN:
 
