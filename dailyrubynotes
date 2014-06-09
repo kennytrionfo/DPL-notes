@@ -1,75 +1,45 @@
 ———————— ATOM HOTKEYS ————————
- test this is curret line to tdo cool who knwos if it's cool
- test this is curret line to tdo cool who knwos if it's cool
- test this is curret line to tdo cool who knwos if it's cool
-test this is curret line to tdo cool who knwos if it's cool
-
-something
-
-
- end of sentence
-select a line
-
- end of sentence
-select a line
-
-
- end of sentence
-select a line
-
- end of sentence
-select a line
-
-
- end of sentence
-select a line
-
-fn down arrow
-
-General
-shift + ⌘ + p
 Toggle command palette
+shift + ⌘ + p
 
-ctrl + space
 Show available auto-completions
-File Navigation
+ctrl + space
 
-⌘ + e
 Use selection for find
+⌘ + e
 
 command [ or ]
 Tab a selection
 
 ⌘ + ] / [
-Indent/outdent current line
+Indent/outdent the current line
 
 ⌘ + shift + enter
-Insert new line before current line
+Insert new line before the current line
 
 option + backspace
 Delete text to beginning of word
 
 ctrl + shift + k
-Delete current line
+Delete the current line
 
+Duplicate the current line
 shift + ⌘ + d
-Duplicate current line
 
-⌘ + j
 Join current and next lines
-Selection
+⌘ + j
 
+Select the current word/token
 ⌘ + d
-Select current word/token
 
+Select the current line
 ⌘ + l
-Select current line
 
-option + shift + left/right
 Select to beginning/end of word
+option + shift + left/right
 
-shift + ⌘ + left/right
 Select to first/last character of line
+shift + ⌘ + left/right
 
 shift + ⌘ + up/down
 Select to top/bottom of document
