@@ -1,4 +1,45 @@
 
+-review javascript window.onload stuff below.
+—————————— DATA STORAGE ——————————
+Monday June 9, 2014 Day 15?
+FACTS:
+-Review database videos from lynda.com
+-3 places for Data: File system, Memory & Databases.
+-File system is more local and temp. It's slow. yaml files are stored on files system. normal text files etc.
+-Memory is also shorterm but is fast.
+-Databases- Is a program and is saved like a program. The files that a database creates are not flat files like on a file system so they are more efficient. The most stable way to store data and most secure.
+-Sometimes you'll use a combination of these 3 to store data or all 3.
+-Some database types:
+SQL (structured query language)
+-SQL is acutlaly a programmig lagnuages.
+NoSQL databases are NOT RELATIONAL. You can't tie them together so you have to do 2 seperate queries and get 2 datasets. NoSQL databases are really fast cuz their optimized for readign data. So they're good to use when your reading data that isn't relational.
+Graph-Java heavy. Not a sql and not a nosql. they are unique. (New4j, Oracle Spatial, Titan)
+-A node is a circle. An Edge is  a line. Edges connect to lines.
+
+-Programs used to access DBs are:
+-MySQL- old, original big boy. Lots of people use it.
+-PostgreSQL ("postgres")- new kid on block.
+-SQLite3- We've been using this for our Rails stuff. Small and lighter.
+-SQLServer-A Microsoft product. Used for large enterprise, ASP type programs.
+hw-read up on sql and mysql a bit online. and postgresql as well.
+-More on PostgreSQL:
+-Has a lot of features that mysql doesn't have.
+HStore- is a giant Hash. a big key/value store. It lives in memory so you can put stuff in and out of it superfast so you can cache ur application which is fast so u can have more users using it. 
+
+USE IT WHEN:
+
+
+EXAMPLE:
+
+
+CHALLENGE:
+
+
+
+
+-GOOGle search "how to bind a click event"
+-resources: dochub.io for getting documentation
+-join js meetups and html
 
 ———————— ATOM HOTKEYS ————————
 Toggle command palette
@@ -10,14 +51,14 @@ ctrl + space
 Use selection for find
 ⌘ + e
 
-command [ or ]
 Tab a selection
+command [ or ]
 
-⌘ + ] / [
 Indent/outdent the current line
+⌘ + ] / [
 
-⌘ + shift + enter
 Insert new line before the current line
+⌘ + shift + enter
 
 option + backspace
 Delete text to beginning of word
@@ -49,23 +90,17 @@ Select to top/bottom of document
 
 Day 14 - June 6, 2014
 ————————HOW THE INTERNET WORKS ————————
-hyper text transfer protocal, domain name system etc. See vid hr1
+hyper text transfer protocal, domain name system etc. See June6 vid hr1
 
 FACTS:
 RDBMS - Relational Database Managemnt System - a place to put your data. Looks like a spreadsheet.
 NGINX - web serber program and take raw html, js, css etc and giving it to browser. web server sits between rails and the website. nginx is like our webbrick that we're using now. apache and others are other servers.
--when you visit a webpage, ur download all the files.
+-when you visit a webpage, ur downloading all the files.
 -resources: dochub.io for getting documentation
 -join js meetups and html
 -sinatra is a dsl for creating mini programs. rails is a full-stack web application framework.
 -rails has a way to talk to a database but sinatra does not.
--REPL
-read
-evaluate
-print
-loop
-irb, js, console and pry are all repl
-
+-REPL -  stand for read, evaluate, print, loop. irb, js console and pry are all
 -other MVC framworks:
 NodsJS(express, sails), python(cake, fuel, symphony, kohana)
 -MVC - Model View Controller - It's just organization. Where to put your code so it will work well.
@@ -93,52 +128,39 @@ Prototyping in Rails (ie.making a new basic site)
 Facts:
 Steps:
 1. in terminal(server): rails new 'project_name'
-2. in term or in atom - create new files .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
+2. in term or in atom - create new files: .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
 3. In the ruby-version file put in the ruby version "2.1.2"
 4. In the ruby-gemset file put the name of the file ie. "todo"
 5. Cd out and then back in .
-6. bundle
-7. in term - rails generate scaffold "Name" (use capital) tasks. ie:
+6. bundle - type: "bundle" in the term
+7. Scaffold. In term type: "rails generate scaffold "Name" (use capital, ie 'Tasks') : 'string' and repeat for wanted items. ie:
 rails generate scaffold Task name:string date:string importance:string
-8. in term- rake db:migrate - should see..  (this syncs rails with the server)
+8. Rake. In term- rake db:migrate - should see..  (this syncs rails with the server)
 9. goto to routes.rb file in the config folder  and type in root "tasks#index" below the current code with "tasks" being the word after resources above. - this makes "tasks your homepage"
-10. restart server by typing 'rails s' in the term while in the directory. 11. go to url and do localhost:3000 and should be there.
+10. restart server by typing 'rails s' in the term while in the directory.
+11. go to url and do localhost:3000 and should be there.
 12. Stop the app from running by hitting control+c in the terminal.
 13. CD .. out of your app's directory.
 14. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
-
-
-USE IT WHEN:
-
-EXAMPLE:
-
-CHALLENGE:
-
-
-USE IT WHEN:
-
-EXAMPLE:
-
-CHALLENGE:
 
 
 Day 13 - June 5, 2014
 ————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE ;EB
 FACTS:
 -GOOGle search "how to bind a click event"
--MUS TSET EVENT Listeners up hen page laods so it tells the page that when these events happen, do something.
+-MUST SET EVENT Listeners up when page loads so it tells the page that when these events happen, do something.
 -This overrides something...
--window.onload = function() {
-
+window.onload = function() {
+  alert("Hello");
 };
+-from above:
+#window refers to ur broswer window. it knows it's size etc.
+#onload says when the window loads, the event fires and we're going to give onload (a window loading..) a new funtionality. That's the 'function' part above.
+window.onload will return the reference to the function that isn't defined. This is just defining it. it doesn't run or do anything.
+window.onload() this actually runs it.
 -can call document.images in the interpreter to get all the images on your site.
 -can say document.querySelectorAll()
 -In js use "this" to ??... It means this current thing that you are.
-USE IT WHEN:
-
-EXAMPLE:
-
-CHALLENGE:
 
 ————————FORMS ————————
 FACTS:
@@ -157,20 +179,15 @@ FACTS:
   </form>
 </div>
 
-USE IT WHEN:
 
-EXAMPLE:
-
-CHALLENGE:
-
-————————ACTION ATTRIBUTE ;EB
+————————ACTION ATTRIBUTE ——————————
 FACTS:
 is:
 action = ""
 "method" attribute is requried = the method with which we want the data sent.
 -the only two values we'll use really are "get" or "post".
 -use Get to get information from server and Post to post info.
--
+
 USE IT WHEN:
 
 EXAMPLE:
