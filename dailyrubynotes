@@ -1,14 +1,72 @@
 
-
 -review javascript window.onload stuff below.
 -look up this link about irb: http://www.computerhope.com/issues/ch000549.htm
-- the class recordings are mostly fruitless as it's not effective to go back and review a class 3 days or more later. We've moved on in both concept and ability and it's hard to find stuff as well.
+
+Wednesday June 11,  Day 17
+-Vid: first 15 min-review of Joining tables.
+—————————— MODELS (from mvc) ——————————
+-The name of your model will be the singular version of soemthing.
+A model is just a ruby class. the attributes in a model describe the characteristics of the model.
+Each attribute has a format to it.
+Vid on creating table in rails: 915am
+-Don't mix ruby with raw sequal.
+-to
+challenge:
+-create additional trainers
+t = Trainer.create(name: 'Guido')
+-add animals to trainers
+d = Animal.new(name: 'Doogy', breed: 'Poog', species: 'Dog', age: 4, birthday: 7.years.ago, trained: true)
+
+a1 = Animal.first
+
+To put students into Students table
+go into rails console ("rails c" from irb) and type:
+Student.create(:first_name => 'Jason', :last_name => 'Carter', :state => 'Washington', :favorite_color => 'Purple')
+
+
+Challenge:
+-Create a Student model called student with first_name, last_name and state
+from sandbox2 folder:
+rails g model Student first_name last_name state
+
+Challenge:
+-Create a migration that adds a favorite_color column to your student table.
+rails generate migration AddsFavoriteColorToStudents favorite_color:string
+(a new file should now show in your migrate folder in db folder in sandbox folder)
+
+-
+
+—————————— CREATING A NEW APP IN RAILS ——————————
+Steps:
+1.Create new projects/app:
+In terminal, from the directory you will crate it in(ie.sandox) type:
+rails generate model Model_name first_name last_name state
+
+7. Scaffold.
+In term type: "rails generate scaffold "Name" (use capital, ie 'Tasks') : 'string' and repeat for wanted items. ie:
+rails generate scaffold Task name:string date:string importance:string
+8. Rake.
+In term type: rake db:migrate in the direcotry your file is in. Should see..?? == 20140610002740 CreateAddresses: migrating ==================================
+-- create_table(:addresses)
+   -> 0.0021s
+== 20140610002740 CreateAddresses: migrated (0.0022s) =========================
+(this syncs rails with the server)
+9. goto to routes.rb file in the config folder  and type in "root "tasks#index"" below the current code with "tasks" being the word after resources above. - this makes "tasks your homepage"
+10. restart server by typing 'rails s' in the term while in the directory.
+11. go to url and do localhost:3000 and should be there.
+12. Stop the app from running by hitting control+c in the terminal.
+13. CD .. out of your app's directory.
+14. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
+
+
+-Use rake db:rollback to rollback a mistake.
 
 Tuesday June 10, 2014 Day 16
 —————————— SQL ——————————
 FACTS:
+Steps:
 -make sure postgres elephant is running.
--Run psql -d elephant "your_database" - this is a
+-From terminasl run: psql -d elephant "your_database" - this is a
 - leave the console with a "\q"
 - to see what tables exits: \d
 -we must always set our table name as singular cuz rails makes it plural.
@@ -84,7 +142,11 @@ alter table aminals add column student_id integer;
 -Add your student_id to one of the cars:
 update aminals set student_id=6 where id = 15;
 
--Join the students and cars table with the student_id foreign key.
+Join
+ -Join the students and cars table with the student_id foreign key.
+select name, breed from aminals inner join customers on aminals.id = customers.aminals_id;
+
+
 
 -Add a birthday column to the students table.
 alter table students add column birthday timestamp;
@@ -96,7 +158,7 @@ Selecting all students who were born April 19th, 1993.
 
 extract(year from birthday)
 
-To delete a table:
+-To delete a table:
 drop table cars
 
 -Selecting all student who were born before 1980.

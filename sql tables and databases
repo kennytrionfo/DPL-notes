@@ -7,7 +7,7 @@ projects$ ls
 3am_test_folder	RubyQuizes	funwithstrings	ruby_stuff
 3littlepigs.rb	address_book	message		sinatra_stuff
 DPL-notes	challenges	notes		tictactoe.rb
-Gemfile		dbstuff		personalchef
+Gemfile		dbstuff		personalchef  
 Gemfile.lock	elephant	rails_stuff
 projects$ cd elephant/
 elephant$ ls
