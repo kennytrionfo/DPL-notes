@@ -1,0 +1,1464 @@
+Last login: Tue Jun 10 08:57:30 on console
+~$ cd desktop/projects/DPL-notes/
+DPL-notes(master)$ atom .
+DPL-notes(master)$ cd ..
+projects$ ls
+2am_test_folder	JavaScriptStuff	funwithnumbers	ruby-encryptor
+3am_test_folder	RubyQuizes	funwithstrings	ruby_stuff
+3littlepigs.rb	address_book	message		sinatra_stuff
+DPL-notes	challenges	notes		tictactoe.rb
+Gemfile		dbstuff		personalchef
+Gemfile.lock	elephant	rails_stuff
+projects$ cd elephant/
+elephant$ ls
+Gemfile		app		db		test
+Gemfile.lock	bin		lib		tmp
+README.rdoc	config		log		vendor
+Rakefile	config.ru	public
+elephant$ atom .
+elephant$ psql -d elephant_development
+psql: could not connect to server: No such file or directory
+	Is the server running locally and accepting
+	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+elephant$ psql -d elephant_development
+psql (9.3.4)
+Type "help" for help.
+
+elephant_development=# \q
+elephant$ psql -d elephant_development
+psql (9.3.4)
+Type "help" for help.
+
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | schema_migrations | table    | user
+(3 rows)
+
+elephant_development=#
+
+elephant_development=# \d animals
+Did not find any relation named "animals".
+elephant_development=#
+elephant_development=# \d aminals
+                                     Table "public.aminals"
+   Column   |            Type             |                      Modifiers
+------------+-----------------------------+------------------------------------------------------
+ id         | integer                     | not null default nextval('aminals_id_seq'::regclass)
+ name       | character varying(255)      |
+ breed      | character varying(255)      |
+ age        | integer                     |
+ species    | character varying(255)      |
+ created_at | timestamp without time zone |
+ updated_at | timestamp without time zone |
+Indexes:
+    "aminals_pkey" PRIMARY KEY, btree (id)
+
+elephant_development=# select * from aminals;
+ id |   name   |   breed    | age |  species   |         created_at         |         updated_at
+----+----------+------------+-----+------------+----------------------------+----------------------------
+  1 | Meaowers | black      |   5 | kitteh cat | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052
+  2 | friend   | fast       |   2 | small      | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612
+  3 | bud      | loud       |   3 | green      | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+  4 | fred     | fast       |   3 | yellow     | 2014-06-09 18:09:55.505047 | 2014-06-09 18:09:55.505047
+  5 | crawlboy | fast       |   4 | crawler    | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899
+  6 | butch    | fighter    |  23 | big        | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488
+  7 | buns     | gray       |   3 | floppy     | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865
+  8 | buzzy    | black      |  23 | slow       | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059
+  9 | JJ       | super high | 300 | lofty      | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582
+ 10 | Nemo     | orange     |   1 | little     | 2014-06-09 18:10:38.664325 | 2014-06-09 18:10:38.664325
+(10 rows)
+
+elephant_development=#
+elephant_development=# select * from aminals where id=3;
+ id | name | breed | age | species |         created_at         |         updated_at
+----+------+-------+-----+---------+----------------------------+----------------------------
+  3 | bud  | loud  |   3 | green   | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+(1 row)
+
+elephant_development=# SELECT * FROM aminals WHERE name ='Aminal 0'
+elephant_development-# SELECT * FROM aminals WHERE name ='Aminal nemo'
+elephant_development-# select * from aminals where name = 'Aminal bud'
+elephant_development-# select * from aminals where name = like 'Aminal';
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT * FROM aminals WHERE name ='Aminal nemo'
+        ^
+elephant_development=# SELECT * FROM aminals WHERE name ='Aminal 0'
+SELECT * FROM aminals WHERE name ='Aminal nemo'
+select * from aminals where name = 'Aminal bud'
+select * from aminals where name = 'Aminal bud';
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT * FROM aminals WHERE name ='Aminal nemo'
+        ^
+elephant_development=# select * from aminals where name like 'Aminal%';
+ id | name | breed | age | species | created_at | updated_at
+----+------+-------+-----+---------+------------+------------
+(0 rows)
+
+elephant_development=# select * from aminals where name ='Aminal bud';'
+ id | name | breed | age | species | created_at | updated_at
+----+------+-------+-----+---------+------------+------------
+(0 rows)
+
+elephant_development'# select * from aminals where name ='Animal bud';'
+elephant_development-# select * from aminals where name ='Aminal bud';'
+ERROR:  syntax error at or near "'
+select * from aminals where name ='"
+LINE 1: '
+        ^
+elephant_development'# select * from aminals where name LIKE 'Aminals%';
+elephant_development'# select * from aminals where age = "<7";
+elephant_development'#
+
+
+
+elephant_development'# SELECT * FROM aminals WHERE LOWER(name) LIKE 'aminals%';
+elephant_development'# select * from aminals where name ='Animal bud';'
+select * from aminals where name ='Aminal bud';'
+ERROR:  syntax error at or near "'
+select * from aminals where name LIKE '"
+LINE 1: '
+        ^
+elephant_development'# select * from aminals where name LIKE 'Aminals%';
+select * from aminals where age = "<7";
+SELECT * FROM aminals WHERE LOWER(name) LIKE 'aminals%';
+select * from aminals where name ='Animal bud';'
+select * from aminals where name ='Aminal bud';'
+ERROR:  syntax error at or near "'
+select * from aminals where name LIKE '"
+LINE 1: '
+        ^
+elephant_development'# select count(*) from aminals where lower(name) like 'aminals%';
+elephant_development'# select count(*) from aminals;
+elephant_development'# select * from aminals where name LIKE 'Aminals%';
+select * from aminals where age = "<7";
+SELECT * FROM aminals WHERE LOWER(name) LIKE 'aminals%';
+select * from aminals where name ='Animal bud';'
+select * from aminals where name ='Aminal bud';'
+ERROR:  syntax error at or near "'
+select count(*) from aminals where lower(name) like '"
+LINE 1: '
+        ^
+elephant_development'# ^C
+elephant_development=# select count(*) from aminals where lower(name) like 'aminals%';
+select count(*) from aminals;
+select * from aminals where name LIKE 'Aminals%';
+select * from aminals where age = "<7";
+SELECT * FROM aminals WHERE LOWER(name) LIKE 'aminals%';
+select * from aminals where name ='Animal bud';'
+select * from aminals where name ='Aminal bud';'
+ count
+-------
+     0
+(1 row)
+
+ count
+-------
+    10
+(1 row)
+
+ id | name | breed | age | species | created_at | updated_at
+----+------+-------+-----+---------+------------+------------
+(0 rows)
+
+ERROR:  column "<7" does not exist
+LINE 1: select * from aminals where age = "<7";
+                                          ^
+ id | name | breed | age | species | created_at | updated_at
+----+------+-------+-----+---------+------------+------------
+(0 rows)
+
+ id | name | breed | age | species | created_at | updated_at
+----+------+-------+-----+---------+------------+------------
+(0 rows)
+
+elephant_development-# ^C
+elephant_development=#
+elephant_development=# select name from aminals:
+elephant_development-# select age from aminals;
+ERROR:  syntax error at or near ":"
+LINE 1: select name from aminals:
+                                ^
+elephant_development=# select aga from aminals;
+ERROR:  column "aga" does not exist
+LINE 1: select aga from aminals;
+               ^
+elephant_development=# select age from aminals;
+ age
+-----
+   5
+   2
+   3
+   3
+   4
+  23
+   3
+  23
+ 300
+   1
+(10 rows)
+
+elephant_development=# select name from our aminals where age >= 3 and age <= 5;
+ERROR:  relation "our" does not exist
+LINE 1: select name from our aminals where age >= 3 and age <= 5;
+                         ^
+elephant_development=# select name from aminals where age >= 3 and age <= 5;
+   name
+----------
+ Meaowers
+ bud
+ fred
+ crawlboy
+ buns
+(5 rows)
+
+elephant_development=#
+
+
+
+elephant_development=# select name from aminals where age >= 3 and age <= 5;
+   name
+----------
+ Meaowers
+ bud
+ fred
+ crawlboy
+ buns
+(5 rows)
+
+elephant_development=# select breed from aminals;
+   breed
+------------
+ black
+ fast
+ loud
+ fast
+ fast
+ fighter
+ gray
+ black
+ super high
+ orange
+(10 rows)
+
+elephant_development=# select name from aminals where lower(breed) = 'cat';
+ name
+------
+(0 rows)
+
+elephant_development=# select name from aminals where lower(breed) = 'dog';
+ name
+------
+(0 rows)
+
+elephant_development=# select name from aminals;
+   name
+----------
+ Meaowers
+ friend
+ bud
+ fred
+ crawlboy
+ butch
+ buns
+ buzzy
+ JJ
+ Nemo
+(10 rows)
+
+elephant_development=#
+elephant_development=# select species from aminals;
+  species
+------------
+ kitteh cat
+ small
+ green
+ yellow
+ crawler
+ big
+ floppy
+ slow
+ lofty
+ little
+(10 rows)
+
+elephant_development=# select created_at from aminals;
+         created_at
+----------------------------
+ 2014-06-09 17:36:17.771052
+ 2014-06-09 18:09:45.844612
+ 2014-06-09 18:09:51.281224
+ 2014-06-09 18:09:55.505047
+ 2014-06-09 18:10:00.92899
+ 2014-06-09 18:10:04.38488
+ 2014-06-09 18:10:14.504865
+ 2014-06-09 18:10:29.96059
+ 2014-06-09 18:10:32.496582
+ 2014-06-09 18:10:38.664325
+(10 rows)
+
+elephant_development=# select name from aminals where extract(hour from created_at) < 10;
+ name
+------
+(0 rows)
+
+elephant_development=# select name from aminals where extract(hour from created_at) < 15;
+ name
+------
+(0 rows)
+
+elephant_development=# select name from aminals where extract(hour from created_at) < 5;
+ name
+------
+(0 rows)
+
+elephant_development=#
+elephant_development=# select created_at from aminals;
+         created_at
+----------------------------
+ 2014-06-09 17:36:17.771052
+ 2014-06-09 18:09:45.844612
+ 2014-06-09 18:09:51.281224
+ 2014-06-09 18:09:55.505047
+ 2014-06-09 18:10:00.92899
+ 2014-06-09 18:10:04.38488
+ 2014-06-09 18:10:14.504865
+ 2014-06-09 18:10:29.96059
+ 2014-06-09 18:10:32.496582
+ 2014-06-09 18:10:38.664325
+(10 rows)
+
+elephant_development=# select name from aminals where extract(hour from created_at) >10;
+   name
+----------
+ Meaowers
+ friend
+ bud
+ fred
+ crawlboy
+ butch
+ buns
+ buzzy
+ JJ
+ Nemo
+(10 rows)
+
+elephant_development=# select id, name from aminals where extract(hour from created_at) < 10;
+ id | name
+----+------
+(0 rows)
+
+elephant_development=# select id, name from aminals where extract(hour from created_at) > 10;
+ id |   name
+----+----------
+  1 | Meaowers
+  2 | friend
+  3 | bud
+  4 | fred
+  5 | crawlboy
+  6 | butch
+  7 | buns
+  8 | buzzy
+  9 | JJ
+ 10 | Nemo
+(10 rows)
+
+elephant_development=#
+elephant_development=# delete from aminals where id=11;
+DELETE 0
+elephant_development=# delete from aminals where id=10;
+DELETE 1
+elephant_development=# select count(*) from aminals;
+ count
+-------
+     9
+(1 row)
+
+elephant_development=# select count(*) from aminals;
+ count
+-------
+     9
+(1 row)
+
+elephant_development=# delete from aminals where id=4;
+DELETE 1
+elephant_development=# select count(*) from aminals;
+ count
+-------
+     8
+(1 row)
+
+elephant_development=# select id, name from aminals where extract(hour from created_at) > 10;
+ id |   name
+----+----------
+  1 | Meaowers
+  2 | friend
+  3 | bud
+  5 | crawlboy
+  6 | butch
+  7 | buns
+  8 | buzzy
+  9 | JJ
+(8 rows)
+
+elephant_development=# select * from aminals;
+ id |   name   |   breed    | age |  species   |         created_at         |         updated_at
+----+----------+------------+-----+------------+----------------------------+----------------------------
+  1 | Meaowers | black      |   5 | kitteh cat | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052
+  2 | friend   | fast       |   2 | small      | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612
+  3 | bud      | loud       |   3 | green      | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+  5 | crawlboy | fast       |   4 | crawler    | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899
+  6 | butch    | fighter    |  23 | big        | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488
+  7 | buns     | gray       |   3 | floppy     | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865
+  8 | buzzy    | black      |  23 | slow       | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059
+  9 | JJ       | super high | 300 | lofty      | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582
+(8 rows)
+
+elephant_development=# select * from aminals;
+ id |   name   |   breed    | age |  species   |         created_at         |         updated_at
+----+----------+------------+-----+------------+----------------------------+----------------------------
+  1 | Meaowers | black      |   5 | kitteh cat | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052
+  2 | friend   | fast       |   2 | small      | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612
+  3 | bud      | loud       |   3 | green      | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+  5 | crawlboy | fast       |   4 | crawler    | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899
+  6 | butch    | fighter    |  23 | big        | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488
+  7 | buns     | gray       |   3 | floppy     | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865
+  8 | buzzy    | black      |  23 | slow       | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059
+  9 | JJ       | super high | 300 | lofty      | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582
+(8 rows)
+
+elephant_development=#
+elephant_development=# update aminals set name = 'katty perry' where id=8;
+UPDATE 1
+elephant_development=# select * from aminals;
+ id |    name     |   breed    | age |  species   |         created_at         |         updated_at
+----+-------------+------------+-----+------------+----------------------------+----------------------------
+  1 | Meaowers    | black      |   5 | kitteh cat | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052
+  2 | friend      | fast       |   2 | small      | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612
+  3 | bud         | loud       |   3 | green      | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+  5 | crawlboy    | fast       |   4 | crawler    | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899
+  6 | butch       | fighter    |  23 | big        | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488
+  7 | buns        | gray       |   3 | floppy     | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865
+  9 | JJ          | super high | 300 | lofty      | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582
+  8 | katty perry | black      |  23 | slow       | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059
+(8 rows)
+
+elephant_development=# update aminals set species = 'goat' where id=8
+elephant_development-# select * from aminals whre id=8;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from aminals whre id=8;
+        ^
+elephant_development=# update aminals set species = 'goat' where id=8
+select * from aminals whre id=8;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from aminals whre id=8;
+        ^
+elephant_development=# update aminals set breed ='mountain', age=12 where id=8;
+UPDATE 1
+elephant_development=# select * from aminals where id = 8;
+ id |    name     |  breed   | age | species |        created_at         |        updated_at
+----+-------------+----------+-----+---------+---------------------------+---------------------------
+  8 | katty perry | mountain |  12 | slow    | 2014-06-09 18:10:29.96059 | 2014-06-09 18:10:29.96059
+(1 row)
+
+elephant_development=# insert into aminals(name, breed, age, species) values('moppy', 'fluupers', 32, 'unsiry');
+INSERT 0 1
+elephant_development=# select count(*) from aminals;
+ count
+-------
+     9
+(1 row)
+
+elephant_development=# insert into aminals(name, breed, age, species) values ('superT', 'hero', 53043, 'zumo');
+INSERT 0 1
+elephant_development=# select * from aminals
+elephant_development-# ;
+ id |    name     |   breed    |  age  |  species   |         created_at         |         updated_at
+----+-------------+------------+-------+------------+----------------------------+----------------------------
+  1 | Meaowers    | black      |     5 | kitteh cat | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052
+  2 | friend      | fast       |     2 | small      | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612
+  3 | bud         | loud       |     3 | green      | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224
+  5 | crawlboy    | fast       |     4 | crawler    | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899
+  6 | butch       | fighter    |    23 | big        | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488
+  7 | buns        | gray       |     3 | floppy     | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865
+  9 | JJ          | super high |   300 | lofty      | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582
+  8 | katty perry | mountain   |    12 | slow       | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059
+ 11 | moppy       | fluupers   |    32 | unsiry     |                            |
+ 12 | superT      | hero       | 53043 | zumo       |                            |
+(10 rows)
+
+elephant_development=#
+elephant_development=# update aminals set created_at=now(), updated_at-now() where id=12;
+ERROR:  syntax error at or near "-"
+LINE 1: update aminals set created_at=now(), updated_at-now() where ...
+                                                       ^
+elephant_development=# update aminals set created_at=now(), updated_at now() where id=12;
+ERROR:  syntax error at or near "now"
+LINE 1: update aminals set created_at=now(), updated_at now() where ...
+                                                        ^
+elephant_development=# update aminals set created_at=now(), updated_at=now() where id=12;
+UPDATE 1
+elephant_development=# update aminals set created_at=now(), updated_at-now() where id=13;
+ERROR:  syntax error at or near "-"
+LINE 1: update aminals set created_at=now(), updated_at-now() where ...
+                                                       ^
+elephant_development=# update aminals set created_at=now(), updated_at=now() where id=13;
+UPDATE 0
+elephant_development=# select name, age from aminals where lower(name) like 'aminal%';
+ name | age
+------+-----
+(0 rows)
+
+elephant_development=# select name, age from aminals where lower(name) like 'aminals%';
+ name | age
+------+-----
+(0 rows)
+
+elephant_development=# select name, age from aminals where lower(name) like 'katty%';
+    name     | age
+-------------+-----
+ katty perry |  12
+(1 row)
+
+elephant_development=# select name, age from aminals where lower(name) like 'katty%' order by age desc limit 1;
+    name     | age
+-------------+-----
+ katty perry |  12
+(1 row)
+
+elephant_development=#
+
+
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | schema_migrations | table    | user
+(3 rows)
+
+elephant_development=# create table cars (
+elephant_development(# id bigserial primary key,
+elephant_development(# make varchar (20) not null,
+elephant_development(# model varchar (20) not null,
+elephant_development(# year integer,
+elephant_development(# created_at timestamp,
+elephant_development(# updated_at timestamp,
+elephant_development(# condition text
+elephant_development(# );
+CREATE TABLE
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | cars              | table    | user
+ public | cars_id_seq       | sequence | user
+ public | schema_migrations | table    | user
+(5 rows)
+
+elephant_development=# \d cars
+                                     Table "public.cars"
+   Column   |            Type             |                     Modifiers
+------------+-----------------------------+---------------------------------------------------
+ id         | bigint                      | not null default nextval('cars_id_seq'::regclass)
+ make       | character varying(20)       | not null
+ model      | character varying(20)       | not null
+ year       | integer                     |
+ created_at | timestamp without time zone |
+ updated_at | timestamp without time zone |
+ condition  | text                        |
+Indexes:
+    "cars_pkey" PRIMARY KEY, btree (id)
+
+elephant_development=#
+elephant_development=# alter table cars add column for_sale boolean dafault true;
+ERROR:  syntax error at or near "dafault"
+LINE 1: alter table cars add column for_sale boolean dafault true;
+                                                     ^
+elephant_development=# alter table cars add column for_sale boolean default true;
+ALTER TABLE
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | cars              | table    | user
+ public | cars_id_seq       | sequence | user
+ public | schema_migrations | table    | user
+(5 rows)
+
+elephant_development=# \d cars
+                                     Table "public.cars"
+   Column   |            Type             |                     Modifiers
+------------+-----------------------------+---------------------------------------------------
+ id         | bigint                      | not null default nextval('cars_id_seq'::regclass)
+ make       | character varying(20)       | not null
+ model      | character varying(20)       | not null
+ year       | integer                     |
+ created_at | timestamp without time zone |
+ updated_at | timestamp without time zone |
+ condition  | text                        |
+ for_sale   | boolean                     | default true
+Indexes:
+    "cars_pkey" PRIMARY KEY, btree (id)
+
+elephant_development=# drop table cars;
+DROP TABLE
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | schema_migrations | table    | user
+(3 rows)
+
+elephant_development=#
+elephant_development=# create table cars(
+elephant_development(# id bigserial primary key,
+elephant_development(# make varchar(20) not null,
+elephant_development(# model varchar (20) not null,
+elephant_development(# year integer,
+elephant_development(# condition text,
+elephant_development(# for_sale boolean defalut true,
+elephant_development(# created_at timestamp,
+elephant_development(# updated_at timestamp
+elephant_development(# );
+ERROR:  syntax error at or near "defalut"
+LINE 7: for_sale boolean defalut true,
+                         ^
+elephant_development=# create table cars(
+id bigserial primary key,
+make varchar(20) not null,
+model varchar (20) not null,
+year integer,
+condition text,
+for_sale boolean defalut true,
+created_at timestamp,
+updated_at timestamp
+);^C
+elephant_development=# elephant_development=# create table cars(
+elephant_development(# elephant_development(# id bigserial primary key,
+elephant_development(# elephant_development(# make varchar(20) not null,
+elephant_development(# elephant_development(# model varchar (20) not null,
+elephant_development(# elephant_development(# year integer,
+elephant_development(# elephant_development(# condition text,
+elephant_development(# elephant_development(# for_sale boolean defalut true,
+elephant_development(# elephant_development(# created_at timestamp,
+elephant_development(# create table cars(
+id bigserial primary key,
+make varchar(20) not null,
+model varchar (20) not null,
+year integer,
+condition text,
+for_sale boolean defalut true,
+created_at timestamp,
+updated_at timestamp
+);^C
+elephant_development=# \Q
+Invalid command \Q. Try \? for help.
+elephant_development=# \q
+elephant$ \d
+-bash: d: command not found
+elephant$ psql -d elephant_development
+psql (9.3.4)
+Type "help" for help.
+
+elephant_development=# select count(*) from aminals;
+ count
+-------
+    10
+(1 row)
+
+elephant_development=# insert into aminals(name, breed, age, species, created_at, updated_at) values('funkytown', 'dancer', 64, 'old human', now(), now());
+INSERT 0 1
+elephant_development=# insert into aminals(name, breed, age, species, created_at, updated_at) values('liplover', 'alien', 323, 'unknown but blue', now(), now());
+INSERT 0 1
+elephant_development=# select count(*) from aminals
+elephant_development-# insert into aminals(name, breed, age, species, created_at, updated_at) values('liplover', 'alien', 323, 'unknown but blue', now(), now());
+ERROR:  syntax error at or near "into"
+LINE 2: insert into aminals(name, breed, age, species, created_at, u...
+               ^
+elephant_development=# select count(*) from aminals;
+ count
+-------
+    12
+(1 row)
+
+elephant_development=# select name, age, breed, species from aminals;
+    name     |  age  |   breed    |     species
+-------------+-------+------------+------------------
+ Meaowers    |     5 | black      | kitteh cat
+ friend      |     2 | fast       | small
+ bud         |     3 | loud       | green
+ crawlboy    |     4 | fast       | crawler
+ butch       |    23 | fighter    | big
+ buns        |     3 | gray       | floppy
+ JJ          |   300 | super high | lofty
+ katty perry |    12 | mountain   | slow
+ moppy       |    32 | fluupers   | unsiry
+ superT      | 53043 | hero       | zumo
+ funkytown   |    64 | dancer     | old human
+ liplover    |   323 | alien      | unknown but blue
+(12 rows)
+
+elephant_development=# select name, breed, age, species from aminals;
+    name     |   breed    |  age  |     species
+-------------+------------+-------+------------------
+ Meaowers    | black      |     5 | kitteh cat
+ friend      | fast       |     2 | small
+ bud         | loud       |     3 | green
+ crawlboy    | fast       |     4 | crawler
+ butch       | fighter    |    23 | big
+ buns        | gray       |     3 | floppy
+ JJ          | super high |   300 | lofty
+ katty perry | mountain   |    12 | slow
+ moppy       | fluupers   |    32 | unsiry
+ superT      | hero       | 53043 | zumo
+ funkytown   | dancer     |    64 | old human
+ liplover    | alien      |   323 | unknown but blue
+(12 rows)
+
+elephant_development=# select * from aminals where id = 8;
+ id |    name     |  breed   | age | species |        created_at         |        updated_at
+----+-------------+----------+-----+---------+---------------------------+---------------------------
+  8 | katty perry | mountain |  12 | slow    | 2014-06-09 18:10:29.96059 | 2014-06-09 18:10:29.96059
+(1 row)
+
+elephant_development=# insert into aminals(name, breed, species, age, created_at, updated_at) values('bugatti', 'italian', 'fast', 0, now(), now());
+INSERT 0 1
+elephant_development=# insert into aminals(name, breed, species, age, created_at, updated_at) values('ferrari', 'italian', 'super fast', 60, now(), now());
+INSERT 0 1
+elephant_development=# insert into aminals(name, breed, species, age, created_at, updated_at) values('ferrari', 'italian', 'super fast');
+ERROR:  INSERT has more target columns than expressions
+LINE 1: insert into aminals(name, breed, species, age, created_at, u...
+                                                  ^
+elephant_development=# select count(*) from aminals;
+ count
+-------
+    14
+(1 row)
+
+elephant_development=# select breed from cars;
+ERROR:  relation "cars" does not exist
+LINE 1: select breed from cars;
+                          ^
+elephant_development=# select breed from aminals;
+   breed
+------------
+ black
+ fast
+ loud
+ fast
+ fighter
+ gray
+ super high
+ mountain
+ fluupers
+ hero
+ dancer
+ alien
+ italian
+ italian
+(14 rows)
+
+elephant_development=#
+elephant_development=# select avg(age) from aminals;
+          avg
+-----------------------
+ 3848.1428571428571429
+(1 row)
+
+elephant_development=# select sum(age) from aminals;
+  sum
+-------
+ 53874
+(1 row)
+
+elephant_development=# create table customers (
+elephant_development(# id bigserial primary key,
+elephant_development(# aminal_id integer,
+elephant_development(# name varchar (80),
+elephant_development(# created_at timestamp,
+elephant_development(# updated_at timestamp
+elephant_development(# );
+CREATE TABLE
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | customers         | table    | user
+ public | customers_id_seq  | sequence | user
+ public | schema_migrations | table    | user
+(5 rows)
+
+elephant_development=#
+
+
+
+
+
+
+
+
+
+
+elephant_development=# insert into customers (aminal_id, name, created_at, updated_at) values(1, 'kenny', now(), now());
+INSERT 0 1
+elephant_development=# select count(*) from customers;
+ count
+-------
+     1
+(1 row)
+
+elephant_development=# select * from customers;
+ id | aminal_id | name  |        created_at         |        updated_at
+----+-----------+-------+---------------------------+---------------------------
+  1 |         1 | kenny | 2014-06-10 12:16:10.48356 | 2014-06-10 12:16:10.48356
+(1 row)
+
+elephant_development=# select name, breed from aminals inner join customers on aminals.id = customers.aminals_id;
+ERROR:  column customers.aminals_id does not exist
+LINE 1: ...from aminals inner join customers on aminals.id = customers....
+                                                             ^
+elephant_development=# select name, breed from aminals inner join customers on aminals.id = customers.aminal_id;
+ERROR:  column reference "name" is ambiguous
+LINE 1: select name, breed from aminals inner join customers on amin...
+               ^
+elephant_development=# select name, breed from aminal inner join customers on aminal.id = customers.aminal_id;
+ERROR:  relation "aminal" does not exist
+LINE 1: select name, breed from aminal inner join customers on amina...
+                                ^
+elephant_development=#
+elephant_development=# create table customers (
+id bigserial primary key,
+aminal_id integer,
+name varchar (80),
+created_at timestamp,
+updated_at timestamp
+);
+
+
+
+
+  [Restored]
+Last login: Tue Jun 10 13:34:08 on console
+elephant$ ls
+Gemfile		Rakefile	config		lib		test
+Gemfile.lock	app		config.ru	log		tmp
+README.rdoc	bin		db		public		vendor
+elephant$ psql -d elephant_development
+psql (9.3.4)
+Type "help" for help.
+
+elephant_development=# \d
+               List of relations
+ Schema |       Name        |   Type   | Owner
+--------+-------------------+----------+-------
+ public | aminals           | table    | user
+ public | aminals_id_seq    | sequence | user
+ public | customers         | table    | user
+ public | customers_id_seq  | sequence | user
+ public | schema_migrations | table    | user
+(5 rows)
+
+elephant_development=# create table students(
+elephant_development(# id bigserial primary key,
+elephant_development(# first_name (20) not null,
+elephant_development(# last_name (20) not null,
+elephant_development(# state (20) not null
+elephant_development(# );
+ERROR:  syntax error at or near "("
+LINE 3: first_name (20) not null,
+                   ^
+elephant_development=#
+elephant_development=# create table students(
+elephant_development(# id bigserial primary key,
+elephant_development(# first_name(20) not null,
+elephant_development(# last_name(20) not null,
+elephant_development(# state(20) not null
+elephant_development(# );
+ERROR:  syntax error at or near "("
+LINE 3: first_name(20) not null,
+                  ^
+elephant_development=# create table students(
+elephant_development(# id bigserial primary key,
+elephant_development(# first_name varchar(20) not null,
+elephant_development(# last_name varchar(20) not null,
+elephant_development(# state varchar(20) not null
+elephant_development(# );
+CREATE TABLE
+elephant_development=# insert into students(first_name, last_name, state), values('Jason', 'Carter', 'Washington');
+ERROR:  syntax error at or near ","
+LINE 1: insert into students(first_name, last_name, state), values('...
+                                                          ^
+elephant_development=# insert into students(first_name, last_name, state) values('Jason', 'Carter', 'Washington');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Hiromi', 'De Young', 'Japan');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Tyson', 'Van Buren', 'Utah');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Justin', 'Veirs', 'Virginia');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Lia', 'Kitamura', 'California');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Kenny', 'Trionfo', 'Maryland');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Justin', 'Ruiz', 'Utah');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Landon', 'West', 'Utah');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('David', 'Woolf', 'Oklahoma');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('David', 'Nelson','Virginia');
+INSERT 0 1
+elephant_development=# insert into students(first_name, last_name, state) values('Lisa', 'Bunch', 'Virginia');
+INSERT 0 1
+elephant_development=# select * from students
+elephant_development-# select * from students;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from students;
+        ^
+elephant_development=# select * from students:
+elephant_development-# ^C
+elephant_development=# select * from students:
+elephant_development-# ^C
+elephant_development=# select * from students;
+ id | first_name | last_name |   state
+----+------------+-----------+------------
+  1 | Jason      | Carter    | Washington
+  2 | Hiromi     | De Young  | Japan
+  3 | Tyson      | Van Buren | Utah
+  4 | Justin     | Veirs     | Virginia
+  5 | Lia        | Kitamura  | California
+  6 | Kenny      | Trionfo   | Maryland
+  7 | Justin     | Ruiz      | Utah
+  8 | Landon     | West      | Utah
+  9 | David      | Woolf     | Oklahoma
+ 10 | David      | Nelson    | Virginia
+ 11 | Lisa       | Bunch     | Virginia
+(11 rows)
+
+elephant_development=# select name from students where name = 'David';
+ERROR:  column "name" does not exist
+LINE 1: select name from students where name = 'David';
+               ^
+elephant_development=# select first_name from students where first_name = 'David';
+ first_name
+------------
+ David
+ David
+(2 rows)
+
+elephant_development=# select state from students where state - 'Utah';
+ERROR:  operator does not exist: character varying - unknown
+LINE 1: select state from students where state - 'Utah';
+                                               ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+elephant_development=# select state from students where state = 'Utah';
+ state
+-------
+ Utah
+ Utah
+ Utah
+(3 rows)
+
+elephant_development=# select name from students where name = 'V%';
+ERROR:  column "name" does not exist
+LINE 1: select name from students where name = 'V%';
+               ^
+elephant_development=# select first_name from students where first_name = 'V%';
+ first_name
+------------
+(0 rows)
+
+elephant_development=# select last_name from students where last_name = 'V%';
+ last_name
+-----------
+(0 rows)
+
+elephant_development=# select * from students where last_name like 'V%';
+ id | first_name | last_name |  state
+----+------------+-----------+----------
+  3 | Tyson      | Van Buren | Utah
+  4 | Justin     | Veirs     | Virginia
+(2 rows)
+
+elephant_development=# insert into aminals(student_id, name, breed, age, species) values(1, 'Kenny','superhuman', 12, 'man');
+ERROR:  column "student_id" of relation "aminals" does not exist
+LINE 1: insert into aminals(student_id, name, breed, age, species) v...
+                            ^
+elephant_development=# insert into aminals(student) values('kenny');
+ERROR:  column "student" of relation "aminals" does not exist
+LINE 1: insert into aminals(student) values('kenny');
+                            ^
+elephant_development=# insert into aminals values ('kenny');
+ERROR:  invalid input syntax for integer: "kenny"
+LINE 1: insert into aminals values ('kenny');
+                                    ^
+elephant_development=# insert into aminals(student_id) values(1);
+ERROR:  column "student_id" of relation "aminals" does not exist
+LINE 1: insert into aminals(student_id) values(1);
+                            ^
+elephant_development=# alter table aminals add column student_id integer;
+ALTER TABLE
+elephant_development=# select *;
+ERROR:  SELECT * with no tables specified is not valid
+LINE 1: select *;
+               ^
+elephant_development=# select * from aminals
+elephant_development-# select * from aminals;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from aminals;
+        ^
+elephant_development=# ^C
+elephant_development=# select * from aminals;
+ id |    name     |   breed    |  age  |     species      |         created_at         |         updated_at         | student_id
+----+-------------+------------+-------+------------------+----------------------------+----------------------------+------------
+  1 | Meaowers    | black      |     5 | kitteh cat       | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052 |
+  2 | friend      | fast       |     2 | small            | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612 |
+  3 | bud         | loud       |     3 | green            | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224 |
+  5 | crawlboy    | fast       |     4 | crawler          | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899  |
+  6 | butch       | fighter    |    23 | big              | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488  |
+  7 | buns        | gray       |     3 | floppy           | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865 |
+  9 | JJ          | super high |   300 | lofty            | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582 |
+  8 | katty perry | mountain   |    12 | slow             | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059  |
+ 11 | moppy       | fluupers   |    32 | unsiry           |                            |                            |
+ 12 | superT      | hero       | 53043 | zumo             | 2014-06-10 10:59:50.061863 | 2014-06-10 10:59:50.061863 |
+ 13 | funkytown   | dancer     |    64 | old human        | 2014-06-10 11:45:58.733917 | 2014-06-10 11:45:58.733917 |
+ 14 | liplover    | alien      |   323 | unknown but blue | 2014-06-10 11:47:25.724504 | 2014-06-10 11:47:25.724504 |
+ 15 | bugatti     | italian    |     0 | fast             | 2014-06-10 12:04:00.342406 | 2014-06-10 12:04:00.342406 |
+ 16 | ferrari     | italian    |    60 | super fast       | 2014-06-10 12:05:04.245306 | 2014-06-10 12:05:04.245306 |
+(14 rows)
+
+elephant_development=# select * from students;
+ id | first_name | last_name |   state
+----+------------+-----------+------------
+  1 | Jason      | Carter    | Washington
+  2 | Hiromi     | De Young  | Japan
+  3 | Tyson      | Van Buren | Utah
+  4 | Justin     | Veirs     | Virginia
+  5 | Lia        | Kitamura  | California
+  6 | Kenny      | Trionfo   | Maryland
+  7 | Justin     | Ruiz      | Utah
+  8 | Landon     | West      | Utah
+  9 | David      | Woolf     | Oklahoma
+ 10 | David      | Nelson    | Virginia
+ 11 | Lisa       | Bunch     | Virginia
+(11 rows)
+
+elephant_development=# update aminals student_id = 6 where id = 15;
+ERROR:  syntax error at or near "="
+LINE 1: update aminals student_id = 6 where id = 15;
+                                  ^
+elephant_development=# update aminals student_id=6 where id = 15;
+ERROR:  syntax error at or near "="
+LINE 1: update aminals student_id=6 where id = 15;
+                                 ^
+elephant_development=# update aminals set student_id=6 where id = 15;
+UPDATE 1
+elephant_development=# select * aminals;
+ERROR:  syntax error at or near "aminals"
+LINE 1: select * aminals;
+                 ^
+elephant_development=# select * from aminals;
+ id |    name     |   breed    |  age  |     species      |         created_at         |         updated_at         | student_id
+----+-------------+------------+-------+------------------+----------------------------+----------------------------+------------
+  1 | Meaowers    | black      |     5 | kitteh cat       | 2014-06-09 17:36:17.771052 | 2014-06-09 17:36:17.771052 |
+  2 | friend      | fast       |     2 | small            | 2014-06-09 18:09:45.844612 | 2014-06-09 18:09:45.844612 |
+  3 | bud         | loud       |     3 | green            | 2014-06-09 18:09:51.281224 | 2014-06-09 18:09:51.281224 |
+  5 | crawlboy    | fast       |     4 | crawler          | 2014-06-09 18:10:00.92899  | 2014-06-09 18:10:00.92899  |
+  6 | butch       | fighter    |    23 | big              | 2014-06-09 18:10:04.38488  | 2014-06-09 18:10:04.38488  |
+  7 | buns        | gray       |     3 | floppy           | 2014-06-09 18:10:14.504865 | 2014-06-09 18:10:14.504865 |
+  9 | JJ          | super high |   300 | lofty            | 2014-06-09 18:10:32.496582 | 2014-06-09 18:10:32.496582 |
+  8 | katty perry | mountain   |    12 | slow             | 2014-06-09 18:10:29.96059  | 2014-06-09 18:10:29.96059  |
+ 11 | moppy       | fluupers   |    32 | unsiry           |                            |                            |
+ 12 | superT      | hero       | 53043 | zumo             | 2014-06-10 10:59:50.061863 | 2014-06-10 10:59:50.061863 |
+ 13 | funkytown   | dancer     |    64 | old human        | 2014-06-10 11:45:58.733917 | 2014-06-10 11:45:58.733917 |
+ 14 | liplover    | alien      |   323 | unknown but blue | 2014-06-10 11:47:25.724504 | 2014-06-10 11:47:25.724504 |
+ 16 | ferrari     | italian    |    60 | super fast       | 2014-06-10 12:05:04.245306 | 2014-06-10 12:05:04.245306 |
+ 15 | bugatti     | italian    |     0 | fast             | 2014-06-10 12:04:00.342406 | 2014-06-10 12:04:00.342406 |          6
+(14 rows)
+
+elephant_development=# select alter table aminals add column student_id integer;
+ERROR:  syntax error at or near "table"
+LINE 1: select alter table aminals add column student_id integer;
+                     ^
+elephant_development=# alter table aminals add column student_id integer;
+ERROR:  column "student_id" of relation "aminals" already exists
+elephant_development=# alter table students add column birthday timestamp;
+ALTER TABLE
+elephant_development=# select * from students
+elephant_development-# select * from students;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from students;
+        ^
+elephant_development=# ^C
+elephant_development=# select * from students;
+ id | first_name | last_name |   state    | birthday
+----+------------+-----------+------------+----------
+  1 | Jason      | Carter    | Washington |
+  2 | Hiromi     | De Young  | Japan      |
+  3 | Tyson      | Van Buren | Utah       |
+  4 | Justin     | Veirs     | Virginia   |
+  5 | Lia        | Kitamura  | California |
+  6 | Kenny      | Trionfo   | Maryland   |
+  7 | Justin     | Ruiz      | Utah       |
+  8 | Landon     | West      | Utah       |
+  9 | David      | Woolf     | Oklahoma   |
+ 10 | David      | Nelson    | Virginia   |
+ 11 | Lisa       | Bunch     | Virginia   |
+(11 rows)
+
+elephant_development=# insert into students(birthday) value('1993-04-19'::timestamp);
+ERROR:  syntax error at or near "value"
+LINE 1: insert into students(birthday) value('1993-04-19'::timestamp...
+                                       ^
+elephant_development=# insert into students(birthday) values('1993-04-19'::timestamp);
+ERROR:  null value in column "first_name" violates not-null constraint
+DETAIL:  Failing row contains (12, null, null, null, 1993-04-19 00:00:00).
+elephant_development=# update students "1993-04-19"::timestamp where id=1
+elephant_development-# ;
+ERROR:  syntax error at or near "::"
+LINE 1: update students "1993-04-19"::timestamp where id=1
+                                    ^
+elephant_development=# update students set birthday "1993-04-19"::timestamp where id=1
+elephant_development-# ;
+ERROR:  syntax error at or near ""1993-04-19""
+LINE 1: update students set birthday "1993-04-19"::timestamp where i...
+                                     ^
+elephant_development=# update students set birthday "1993-04-19"::timestamp where id=1;
+ERROR:  syntax error at or near ""1993-04-19""
+LINE 1: update students set birthday "1993-04-19"::timestamp where i...
+                                     ^
+elephant_development=# update students set birthday="1993-04-19"::timestamp where id=1;
+ERROR:  column "1993-04-19" does not exist
+LINE 1: update students set birthday="1993-04-19"::timestamp where i...
+                                     ^
+elephant_development=# update students set birthday='1993-04-19'::timestamp where id=1;
+UPDATE 1
+elephant_development=# select * from students
+elephant_development-# ;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  2 | Hiromi     | De Young  | Japan      |
+  3 | Tyson      | Van Buren | Utah       |
+  4 | Justin     | Veirs     | Virginia   |
+  5 | Lia        | Kitamura  | California |
+  6 | Kenny      | Trionfo   | Maryland   |
+  7 | Justin     | Ruiz      | Utah       |
+  8 | Landon     | West      | Utah       |
+  9 | David      | Woolf     | Oklahoma   |
+ 10 | David      | Nelson    | Virginia   |
+ 11 | Lisa       | Bunch     | Virginia   |
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+(11 rows)
+
+elephant_development=# update students set birthday='1970-05-31'::timestamp where id=2;
+UPDATE 1
+elephant_development=# update students set birthday='1999-12-12'::timestamp where id=3;
+UPDATE 1
+elephant_development=# update students set birthday='1939-10-12'::timestamp where id=4;
+UPDATE 1
+elephant_development=# update students set birthday='1679-10-12'::timestamp where id=5;
+UPDATE 1
+elephant_development=# update students set birthday='1991-10-12'::timestamp where id=6;
+UPDATE 1
+elephant_development=# update students set birthday='1991-10-12'::timestamp where id=7;
+UPDATE 1
+elephant_development=# select * from students
+elephant_development-# select * from students;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from students;
+        ^
+elephant_development=# ^C
+elephant_development=# select * from students;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  8 | Landon     | West      | Utah       |
+  9 | David      | Woolf     | Oklahoma   |
+ 10 | David      | Nelson    | Virginia   |
+ 11 | Lisa       | Bunch     | Virginia   |
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+  2 | Hiromi     | De Young  | Japan      | 1970-05-31 00:00:00
+  3 | Tyson      | Van Buren | Utah       | 1999-12-12 00:00:00
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  5 | Lia        | Kitamura  | California | 1679-10-12 00:00:00
+  6 | Kenny      | Trionfo   | Maryland   | 1991-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+(11 rows)
+
+elephant_development=# SELECT actorID, lastName, firstName, middleName, suffix,
+elephant_development-# birthDate
+elephant_development-# FROM Actor
+elephant_development-# WHERE birthDate < #1/1/1885#;
+ERROR:  relation "actor" does not exist
+LINE 3: FROM Actor
+             ^
+elephant_development=# Read more at http://programming4.us/database/954.aspx#R0bMx
+elephant_development-# ^C
+elephant_development=# SELECT DATEPART(yyyy, birthday) FROM students WHERE birthDate = 1993-04-19;
+ERROR:  column "yyyy" does not exist
+LINE 1: SELECT DATEPART(yyyy, birthday) FROM students WHERE birthDat...
+                        ^
+elephant_development=# SELECT DATEPART(1993, birthday) FROM students;
+ERROR:  function datepart(integer, timestamp without time zone) does not exist
+LINE 1: SELECT DATEPART(1993, birthday) FROM students;
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+elephant_development=# update students set birthday='1986-10-22'::timestamp where id=8;
+UPDATE 1
+elephant_development=# update students set birthday='1989-10-15'::timestamp where id=9;
+UPDATE 1
+elephant_development=# update students set birthday='1986-08-13'::timestamp where id=10;
+UPDATE 1
+elephant_development=# update students set birthday='1989-09-03'::timestamp where id=11;
+UPDATE 1
+elephant_development=# select * from students
+elephant_development-# ;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+  2 | Hiromi     | De Young  | Japan      | 1970-05-31 00:00:00
+  3 | Tyson      | Van Buren | Utah       | 1999-12-12 00:00:00
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  5 | Lia        | Kitamura  | California | 1679-10-12 00:00:00
+  6 | Kenny      | Trionfo   | Maryland   | 1991-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+  8 | Landon     | West      | Utah       | 1986-10-22 00:00:00
+  9 | David      | Woolf     | Oklahoma   | 1989-10-15 00:00:00
+ 10 | David      | Nelson    | Virginia   | 1986-08-13 00:00:00
+ 11 | Lisa       | Bunch     | Virginia   | 1989-09-03 00:00:00
+(11 rows)
+
+elephant_development=# select * from students where birthday='1993-04-19';
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+(1 row)
+
+elephant_development=# select * from students where birthday < 1980;
+ERROR:  operator does not exist: timestamp without time zone < integer
+LINE 1: select * from students where birthday < 1980;
+                                              ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+elephant_development=# select * from students where extract(year from birthday) < 1980;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  2 | Hiromi     | De Young  | Japan      | 1970-05-31 00:00:00
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  5 | Lia        | Kitamura  | California | 1679-10-12 00:00:00
+(3 rows)
+
+elephant_development=# select * from students where extract(year from birthday) > 1985;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+  3 | Tyson      | Van Buren | Utah       | 1999-12-12 00:00:00
+  6 | Kenny      | Trionfo   | Maryland   | 1991-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+  8 | Landon     | West      | Utah       | 1986-10-22 00:00:00
+  9 | David      | Woolf     | Oklahoma   | 1989-10-15 00:00:00
+ 10 | David      | Nelson    | Virginia   | 1986-08-13 00:00:00
+ 11 | Lisa       | Bunch     | Virginia   | 1989-09-03 00:00:00
+(8 rows)
+
+elephant_development=# select * from students where extract(month from birthday) = 10;
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  5 | Lia        | Kitamura  | California | 1679-10-12 00:00:00
+  6 | Kenny      | Trionfo   | Maryland   | 1991-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+  8 | Landon     | West      | Utah       | 1986-10-22 00:00:00
+  9 | David      | Woolf     | Oklahoma   | 1989-10-15 00:00:00
+(6 rows)
+
+elephant_development=# select * from students where extract(year from birthday) >1988 and where first_name = 'David';
+ERROR:  syntax error at or near "where"
+LINE 1: ...dents where extract(year from birthday) >1988 and where firs...
+                                                             ^
+elephant_development=# select * from students where extract(year from birthday) >1988 and first_name = 'David';
+ id | first_name | last_name |  state   |      birthday
+----+------------+-----------+----------+---------------------
+  9 | David      | Woolf     | Oklahoma | 1989-10-15 00:00:00
+(1 row)
+
+elephant_development=# select * from students where extract(year from birthday) between 1980 and 1990;
+ id | first_name | last_name |  state   |      birthday
+----+------------+-----------+----------+---------------------
+  8 | Landon     | West      | Utah     | 1986-10-22 00:00:00
+  9 | David      | Woolf     | Oklahoma | 1989-10-15 00:00:00
+ 10 | David      | Nelson    | Virginia | 1986-08-13 00:00:00
+ 11 | Lisa       | Bunch     | Virginia | 1989-09-03 00:00:00
+(4 rows)
+
+elephant_development=# select * from students where id IN ('1','2',)
+elephant_development=# select * from students where first_name IN ('Jason','Justin');
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+(3 rows)
+
+elephant_development=# select * from students where first_name IN ('Jason', 'Justin', 'David');
+ id | first_name | last_name |   state    |      birthday
+----+------------+-----------+------------+---------------------
+  1 | Jason      | Carter    | Washington | 1993-04-19 00:00:00
+  4 | Justin     | Veirs     | Virginia   | 1939-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah       | 1991-10-12 00:00:00
+  9 | David      | Woolf     | Oklahoma   | 1989-10-15 00:00:00
+ 10 | David      | Nelson    | Virginia   | 1986-08-13 00:00:00
+(5 rows)
+
+elephant_development=# select * from students where first_name = 'Jason' and 'Justin';
+ERROR:  invalid input syntax for type boolean: "Justin"
+LINE 1: ...ect * from students where first_name = 'Jason' and 'Justin';
+                                                              ^
+elephant_development=# select * from students where first_name = 'Justin';
+ id | first_name | last_name |  state   |      birthday
+----+------------+-----------+----------+---------------------
+  4 | Justin     | Veirs     | Virginia | 1939-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah     | 1991-10-12 00:00:00
+(2 rows)
+
+elephant_development=# select * from students where first_name = 'Justin', 'Jason';
+ERROR:  syntax error at or near ","
+LINE 1: select * from students where first_name = 'Justin', 'Jason';
+                                                          ^
+elephant_development=# select * from students where first_name = 'Justin, Jason';
+ id | first_name | last_name | state | birthday
+----+------------+-----------+-------+----------
+(0 rows)
+
+elephant_development=# select * from students where first_name = 'Justin';
+ id | first_name | last_name |  state   |      birthday
+----+------------+-----------+----------+---------------------
+  4 | Justin     | Veirs     | Virginia | 1939-10-12 00:00:00
+  7 | Justin     | Ruiz      | Utah     | 1991-10-12 00:00:00
+(2 rows)
+
+elephant_development=# drop column birthday
+elephant_development-# drop column birthday;
+ERROR:  syntax error at or near "column"
+LINE 1: drop column birthday
+             ^
+elephant_development=# ALTER TABLE Persons
+elephant_development-# DROP COLUMN DateOfBirth
+elephant_development-# ^C
+elephant_development=# alter table students drop column birthday
+elephant_development-# ^C
+elephant_development=# drop column birthday
+drop column birthday;^C
+elephant_development=# alter table students drop column birthday;
+ALTER TABLE
+elephant_development=# select * from students
+elephant_development-# select * from students;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from students;
+        ^
+elephant_development=# ^C
+elephant_development=# select * from students;
+ id | first_name | last_name |   state
+----+------------+-----------+------------
+  1 | Jason      | Carter    | Washington
+  2 | Hiromi     | De Young  | Japan
+  3 | Tyson      | Van Buren | Utah
+  4 | Justin     | Veirs     | Virginia
+  5 | Lia        | Kitamura  | California
+  6 | Kenny      | Trionfo   | Maryland
+  7 | Justin     | Ruiz      | Utah
+  8 | Landon     | West      | Utah
+  9 | David      | Woolf     | Oklahoma
+ 10 | David      | Nelson    | Virginia
+ 11 | Lisa       | Bunch     | Virginia
+(11 rows)
+
+elephant_development=# alter table students drop id 1;
+ERROR:  syntax error at or near "1"
+LINE 1: alter table students drop id 1;
+                                     ^
+elephant_development=# alter table students drop id = 1;
+ERROR:  syntax error at or near "="
+LINE 1: alter table students drop id = 1;
+                                     ^
+elephant_development=# delete from students where first_name = 'Jason';
+DELETE 1
+elephant_development=# update students delete state where id = 6;
+ERROR:  syntax error at or near "state"
+LINE 1: update students delete state where id = 6;
+                               ^
+elephant_development=# update students set = "" where id = 6;
+ERROR:  syntax error at or near "="
+LINE 1: update students set = "" where id = 6;
+                            ^
+elephant_development=# update students set state = "" where id = 6;
+ERROR:  zero-length delimited identifier at or near """"
+LINE 1: update students set state = "" where id = 6;
+                                    ^
+elephant_development=# update students set state = '' where id = 6;
+UPDATE 1
+elephant_development=# update students drop state where id=5;
+ERROR:  syntax error at or near "state"
+LINE 1: update students drop state where id=5;
+                             ^
+elephant_development=# alter table students drop state where id=5;
+ERROR:  syntax error at or near "where"
+LINE 1: alter table students drop state where id=5;
+                                        ^
+elephant_development=# SELECT continent, COUNT(yr) FROM games
+elephant_development-#  GROUP BY continent
+elephant_development-# ^C
+elephant_development=# select * from students
+elephant_development-# ^C
+elephant_development=# select * from students;
+ id | first_name | last_name |   state
+----+------------+-----------+------------
+  2 | Hiromi     | De Young  | Japan
+  3 | Tyson      | Van Buren | Utah
+  4 | Justin     | Veirs     | Virginia
+  5 | Lia        | Kitamura  | California
+  7 | Justin     | Ruiz      | Utah
+  8 | Landon     | West      | Utah
+  9 | David      | Woolf     | Oklahoma
+ 10 | David      | Nelson    | Virginia
+ 11 | Lisa       | Bunch     | Virginia
+  6 | Kenny      | Trionfo   |
+(10 rows)
+
+elephant_development=# select last_name, count(first_name) from students group by state;
+ERROR:  column "students.last_name" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select last_name, count(first_name) from students group by s...
+               ^
+elephant_development=# select first_name, count(state) from students group by first_name;
+ first_name | count
+------------+-------
+ Tyson      |     1
+ Lia        |     1
+ Lisa       |     1
+ Kenny      |     1
+ Landon     |     1
+ David      |     2
+ Hiromi     |     1
+ Justin     |     2
+(8 rows)
+
+elephant_development=# select * from students where state = 'Virginia';
+ id | first_name | last_name |  state
+----+------------+-----------+----------
+  4 | Justin     | Veirs     | Virginia
+ 10 | David      | Nelson    | Virginia
+ 11 | Lisa       | Bunch     | Virginia
+(3 rows)
+
+elephant_development=#

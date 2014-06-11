@@ -1,9 +1,145 @@
 
 
 -review javascript window.onload stuff below.
+-look up this link about irb: http://www.computerhope.com/issues/ch000549.htm
+- the class recordings are mostly fruitless as it's not effective to go back and review a class 3 days or more later. We've moved on in both concept and ability and it's hard to find stuff as well.
 
-—————————— DATA STORAGE ——————————
+Tuesday June 10, 2014 Day 16
+—————————— SQL ——————————
+FACTS:
+-make sure postgres elephant is running.
+-Run psql -d elephant "your_database" - this is a
+- leave the console with a "\q"
+- to see what tables exits: \d
+-we must always set our table name as singular cuz rails makes it plural.
+-schema_migrations -
+-to describe a table: "\d 'animals'"
+-Modifiers are...
+-Not Null is the first modifier and can never be null. The ID field can never be null. we can add 'not null' to any column we want.
+-The 'default nextval' looks up what's in () to the right and looks to see what the last ID was, increments it by one and sets it as the default. We won't be using this method.
+-character varying(255) means it can take any type of characters up to 255.
+Do some querying:
+-If want to see all of the date: "select * from aminals;". Really means "select all of the columns from the aminals". or "I want to return eveyr column that matches my query". so by not specifiyign anything, it returns everything.
+-in sql these are main 4 commands: C R U D - Create, read, update, delete.
+-the select above is a read.
+-Do: "select * from aminals where id=3;" to return all of the columns that match this query which is id of 3.
+-sometimes in documentation, you'll see the sql commands in all caps like: SELECT * FROM aminals WHERE id=3;
+-when searching for a string use single quotes:
+-use "like" to search something generally.
+-use % at the end of Class to allow anything after this word.
+-Can also put it at the front which means, we know what end means. ie. %Aminal.
+-and can put on either side when you only know what's in the middle somewhere.
+-this equery is case sensative.
+-you can alter data and query that changed data - ie. use "lower" to put namesinto lowercase.
+-to know how many records match our query:
+-to return specific values: select name from aminals or select age from aminals;
+-elephant_development=# select name from our aminals where age >= 3 and age <= 5;
+- select name from aminals where lower(species) = '%species%';
+- select created_at from aminals; - to find when records where created.
+-to query time stamps: select name from aminals where extract(hour from created_at) < 10;
+-select id, name from aminals where extract(hour from created_at) < 10;
+-created_at and updated_at get inserted by railsby :
+elephant_development=# update aminals set created_at=now(), updated_at=now() where id=12;
+- \d cars describes the table for us.
+-Two types of keys: Primary & foriegn.
+STEPS TO CREATE A NEW TABLE:
+elephant_development=# create table cars(
+elephant_development(# id bigserial primary key,
+elephant_development(# make varchar(20) not null,
+elephant_development(# model varchar (20) not null,
+elephant_development(# year integer,
+elephant_development(# condition text,
+elephant_development(# for_sale boolean defalut true,
+elephant_development(# created_at timestamp,
+elephant_development(# updated_at timestamp
+elephant_development(# );
+
+Add a new car:
+insert into cars(make, model, year, condition, for_sale, created_at, updated_at) values('bugatti', 'one', 2015, 'good', true, now(), now());
+
+How many cars total do I have?:
+select count(*) from cars;
+
+How many cars do have that are older than 2005?:
+select make, model from cars where year < 2005;
+
+USE IT WHEN:
+
+
+EXAMPLE:
+
+
+CHALLENGE:
+-Create a table with everyone's info in it from class.
+-find everone who's last name begins with V:
+select * from students where last_name like 'V%';
+-Everyone from the state of Utah:
+select state from students where state = 'Utah';
+-Everyone with fist name David:
+select first_name from students where first_name = 'David';
+
+-In your Aminals table, create a student_id column.
+alter table aminals add column student_id integer;
+
+-Add your student_id to one of the cars:
+update aminals set student_id=6 where id = 15;
+
+-Join the students and cars table with the student_id foreign key.
+
+-Add a birthday column to the students table.
+alter table students add column birthday timestamp;
+
+-Upate each student with their birthday as a datetime.
+update students set birthday='1993-04-19'::timestamp where id=1;
+
+Selecting all students who were born April 19th, 1993.
+
+extract(year from birthday)
+
+To delete a table:
+drop table cars
+
+-Selecting all student who were born before 1980.
+select * from students where extract(year from birthday) < 1980;
+
+-Select all students born after 1985.
+select * from students where extract(year from birthday) > 1985;
+
+-Select all students born in October.
+select * from students where extract(month from birthday) = 10;
+
+-Select all students named David who were born after 1988.
+select * from students where extract(year from birthday) >1988 and first_name = 'David';
+
+-Select all students who were born between 1980-1990.
+select * from students where extract(year from birthday) between 1980 and 1990;
+
+-Select all students named Jason, Justin and David using an array.
+select * from students where first_name IN ('Jason', 'Justin', 'David');
+
+-Delete birthday column.
+alter table students drop column birthday;
+
+-Delete Jason row.
+delete from students where first_name = 'Jason';
+
+-Delete your state.
+update students set state = '' where id = 6;
+
+
+Group by:
+-In a GROUP BY statement only distinct values are shown.
+-Give a count of how many of each first names there are, by first name.
+select first_name, count(state) from students group by first_name;
+
+Where:
+-Specify the condition or predicate.
+-Kind of like an if statement, your trying to describe something where it's either true or false only.
+select * from students where state = 'Virginia';
+
+
 Monday June 9, 2014 Day 15?
+—————————— DATA STORAGE ——————————
 FACTS:
 -Review database videos from lynda.com
 -3 places for Data: File system, Memory & Databases.
@@ -14,7 +150,7 @@ FACTS:
 -Some database types:
 SQL (structured query language)
 -SQL is acutlaly a programmig lagnuages.
-NoSQL databases are NOT RELATIONAL. You can't tie them together so you have to do 2 seperate queries and get 2 datasets. NoSQL databases are really fast cuz their optimized for readign data. So they're good to use when your reading data that isn't relational.
+NoSQL databases are NOT RELATIONAL. You can't tie them together so you have to do 2 seperate queries and get 2 datasets. NoSQL databases are really fast cuz their optimized for reading data. So they're good to use when your reading data that isn't relational.
 Graph-Java heavy. Not a sql and not a nosql. they are unique. (New4j, Oracle Spatial, Titan)
 -A node is a circle. An Edge is  a line. Edges connect to lines.
 
@@ -44,19 +180,15 @@ frog.name = "something here"
 frog.age = 2
 frog.breed = "something here"
 etc
-  
+
+-rails new <elephant> -d postgresql ('elephant' will now show up as a new folder in your projects directory)
+From the "elephant directory" - rake db:create
+From the "elephant directory" - rails generate scaffold Animal name:string etc..
+- rails console (starts the rails console?)
+- cat = Animal.new
+- cat.breed = "fat"
 
 
-USE IT WHEN:
-
-
-EXAMPLE:
-
-
-CHALLENGE:
-
-
--GOOGle search "how to bind a click event"
 -resources: dochub.io for getting documentation
 -join js meetups and html
 
@@ -79,11 +211,11 @@ Indent/outdent the current line
 Insert new line before the current line
 ⌘ + shift + enter
 
-option + backspace
 Delete text to beginning of word
+option + backspace
 
-ctrl + shift + k
 Delete the current line
+ctrl + shift + k
 
 Duplicate the current line
 shift + ⌘ + d
@@ -150,16 +282,42 @@ Prototyping in Rails (ie.making a new basic site)
 ———————— SETTING UP RAILS (My notes)————————
 Facts:
 Steps:
-1. in terminal(server): rails new 'project_name'
-2. in term or in atom - create new files: .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
+1.Create new projects/app:
+in terminal: rails new 'project_name' (what does this do? What will you see if successful or not?)
+2.Set up version & gemset files in the new directory:
+in term (in the directory) or in atom - create new files: .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
 3. In the ruby-version file put in the ruby version "2.1.2"
 4. In the ruby-gemset file put the name of the file ie. "todo"
 5. Cd out and then back in .
-6. bundle - type: "bundle" in the term
-7. Scaffold. In term type: "rails generate scaffold "Name" (use capital, ie 'Tasks') : 'string' and repeat for wanted items. ie:
+Will see something like this:
+ruby-2.1.2 - #gemset created /Users/user/.rvm/gems/ruby-2.1.2@todoapp3
+ruby-2.1.2 - #generating todoapp3 wrappers...........
+(what is this? what r u doing really?)
+6. bundle.
+type: "bundle" in the terminal.
+At the end should see something like this:
+Installing sqlite3 1.3.9
+Installing turbolinks 2.2.2
+Installing uglifier 2.5.0
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+Post-install message from rdoc:
+Depending on your version of ruby, you may need to install ruby rdoc/ri data:
+
+<= 1.8.6 : unsupported
+ = 1.8.7 : gem install rdoc-data; rdoc-data --install
+ = 1.9.1 : gem install rdoc-data; rdoc-data --install
+>= 1.9.2 : nothing to do! Yay!
+7. Scaffold.
+In term type: "rails generate scaffold "Name" (use capital, ie 'Tasks') : 'string' and repeat for wanted items. ie:
 rails generate scaffold Task name:string date:string importance:string
-8. Rake. In term- rake db:migrate - should see..  (this syncs rails with the server)
-9. goto to routes.rb file in the config folder  and type in root "tasks#index" below the current code with "tasks" being the word after resources above. - this makes "tasks your homepage"
+8. Rake.
+In term type: rake db:migrate in the direcotry your file is in. Should see..?? == 20140610002740 CreateAddresses: migrating ==================================
+-- create_table(:addresses)
+   -> 0.0021s
+== 20140610002740 CreateAddresses: migrated (0.0022s) =========================
+(this syncs rails with the server)
+9. goto to routes.rb file in the config folder  and type in "root "tasks#index"" below the current code with "tasks" being the word after resources above. - this makes "tasks your homepage"
 10. restart server by typing 'rails s' in the term while in the directory.
 11. go to url and do localhost:3000 and should be there.
 12. Stop the app from running by hitting control+c in the terminal.
