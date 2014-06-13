@@ -1,0 +1,264 @@
+              --------------- RAILS & SQL -----------------
+
+                This section is focusing on M in MVC
+
+// model : thing you are modeling after in a real world object
+// the name of model is the singular version of that thing
+  EX : Student, Animal, Car
+// models are ruby classes
+
+// models have attributes and thats what describes these models. each of these attributes have a specific format. integer, boolean...
+// attributes for model is just the column name
+// table name is a pluralized version of the model name.
+  EX : Students, Animals, Cars
+// don't need to define attr_accessor because rails does it for us
+
+
+  ------------ THINGS TO KNOW ABOUT CREATING MODELS AND STUFF ---------------
+
+1. activerecordbase: adds the attr_accessor
+
+2. rails creates tables and adds primary key for us
+
+3. when you create a model it creates a migration automatically for us
+
+4. seed file : sets default data we want to use in db
+
+5. the create method : instantiates the class, sets it up and saves it
+
+6. don't need to assign a variable unless you are doing something with that variable
+
+7. **// migration: used for adding, removing columns etc \\**
+
+8. **/// Data input into rails console is added to the database ///**
+
+    ------------------------ Creating a Model -------------------------
+
+  ***// never touch the schema.rb file. But it is a good reference for what is in your tables and shows the attributes, datetypes, and modifiers //***
+
+// Creating new projects, in irb from projects folder:
+1. rails new project_name -d postgresql
+(creates a new directory(folder) and all needed files in this folder)
+
+// cd into with
+2. cd project_name/  (one leve down from current directory level)
+
+// creating model (This is the table.)
+// * * WILL NEED TO BE SINGULAR and CAPITAL ! !
+3. rails generate model Animal
+
+// open
+4. atom .
+
+// in db folder find migrate file and add :
+**// instead of typing column and varchar() you can do it like : //**
+t.string :name
+t.string :breed, limit: 100
+(These are the table columns)
+
+// modifiers set after the first ,
+5.  t.string :name, null: false
+    t.string :breed, limit: 100
+    t.string :species
+    t.integer :age, default: 1
+
+// in config/database.yml in your project file:
+6. host: localhost
+
+// in terminal
+7. rake db:create
+8. rake db:migrate
+
+// go into development to make sure model got all set up with \d
+9. psql -d project_name_development (you are now in postgress console. should look like "project_name_development=#" in the terminal)
+
+------- Migration file to add columns IF YOU FORGOT OR NEED TO ----------
+
+// add a migration file IF YOU FORGOT OR NEED TO.
+10. rails g migration add_columns_to_animals
+
+// now add column
+**// adding to :animals table with new column :hungry, datatype of :boolean for hungry, default: true //**
+11. add_column :animals, :hungry, :boolean, default: true
+    add_column :animals, :born_on, :date
+
+// anytime you make changes you have to rake db:migrate
+12. rake db:migrate
+
+    ------------ Migration file to remove/rename columns ---------------
+
+**// once you migrate can't make changes to that file. if you need to add or remove you just create another migration //**
+13. rails g migration change_columns_for_animals
+
+// in your migration file you just created and you wan't to make changes like : renmaing, adding or removing columns you would do it by :
+14. remove_column :animals, :hungry
+    rename_column :animals, :born_on, :birthday
+    add_column :animals, :trained, :boolean, default: false
+
+------------- Adding Values to your Attributes (ie.adding data to your columns)--------------
+// adding data to db. go find db/seeds.rb
+15. Animal.create(name: "Fluffy", breed: "Poodle", species: "Dog", age: 3, birthday: 3.years.ago, trained: true)
+
+// to actually do something with the database in rails you need to:
+-exit postgresql with \q
+16. in terminal type: rake db:seed
+
+// now you can play with it in rails console
+
+
+        ---------------- ActiveRecord::Relation ----------------
+
+// go into console
+1. rails c
+
+// now you can call Your_Module (table) with :
+2. Animal.first
+   Animal.count
+
+// ActiveRecord::Relation object allows us to chain queries together
+3. Animal.where(name: "Fluffy").limit(1)
+   Animal.where(name: "Fluffy", age: 2).count
+
+// to run sql commands in rails console
+4. Animal.where("name = 'Fluffy'")
+   Animal.where("name like 'Fluffy%'")
+
+// using string interpolation with an external source and pass into here
+5. name = "fluffy"
+   Animal.where("lower(name) like '#{name}%'")
+// !! shouldn't mix ruby with raw sql though because it is vulnerable to sql injection. this enables users to access the database and do what they want !! //
+
+ *// rails came up with a way to protect against this with placeholder of ? //*
+ -// for each ? placeholder you add additional arguments to the where clause //-
+6. name = "kitters"
+   Animal.where("lower(name) like ?", "#{name}%")
+
+    // more examples
+   Animal.where("birthday < ?", 1.year.ago)
+
+// adding multiple ??
+7. Animal.where("birthday < ? and name = ?", 1.year.ago, "Fluffy")
+
+// chaining ActiveRecords
+8. Animal.where("birthday < ?", 1.year.ago).where(name: "Fluffy")
+
+
+        ------------------------- SCOPE -------------------------
+
+// go to app/models/animal.rb
+// when you write scopes you always write them as class level methods
+
+1. def self.trained
+     where(trained: true)
+   end
+
+// we can now just run Animal.trained in rails console
+2. Animal.trained
+
+// since its an ActiveRecord::Relation we can chain stuff to it
+3. Animal.trained.where('birthday < ?', 1.year.ago)
+
+// add
+4. def self.cats
+     where('LOWER(species) = ?', 'cat')
+   end
+
+// now in rails console you can now just do:
+5. Animal.cats
+
+// and also
+6. Animal.trained.cats
+
+
+          ---------------- JOIN TABLES FAQ -----------------
+
+it is called relational database because it can be related in some form
+
+  ----- 3 types of relations -----
+
+// table A belongs to only table B and table B only belongs to table A
+1. one - one
+
+// table A has many and belongs to table B but table B only belongs to table A
+2. one - many
+
+// table A has many and belongs to table B and table B has many  and belongs to table A
+3. many - many
+
+
+      ----------------------- JOINING TABLES -------------------------
+
+// in terminal
+1. rails g model Trainer
+
+// in new trainer model add
+2. t.string :name
+
+// creating migration
+  //add stuff to migration file. save
+3. rails generate migration add_trainer_id_to_animals
+
+4. rake db:migrate
+
+          ---------- SETUP ASSOCIATION BETWEEN FILES ----------
+
+// to associate between models app/models/trainer.rb and animal.rb
+
+// in trainer.rb add
+5. has_many :animals
+
+//in animal.rb add
+6. belongs_to :trainer
+
+// to have a cleaner fail message
+7. def trainers_name
+     if trainer.present?
+       trainer.name
+     else
+       'I have no trainer'
+     end
+   end
+
+// the present? does the opposite of nill. which is not nill
+
+
+
+    ---------------------- RAILS CONSOLE OVERVIEW ----------------------
+
+0. rails new project -d postgresql
+0.1 cd new project
+
+// creating model Student with columns of first_name, last_name, and state
+1. rails generate model Student first_name last_name state
+
+// open with
+2. atom .
+
+// make changes or check its correct
+3. rake db:migrate
+
+// creating migration
+4. rails generate migration AddsFavoriteColorToStudent
+
+//go into file add columns and such. save
+5. add_column :students, :favorite_color, :string
+
+// finished changes and saved
+6. rake db:migrate
+
+// go into console. should be empty table since nothing has been inputed yet
+7. rails c > Student.all
+
+// filling it with data
+8. rails c > Student.create(first_name: 'Jason', last_name: "Carter", state: "Washington", favorite_color: "purple")
+
+
+// now you can do stuff like :
+
+rails c > Student.first
+rails c > Student.last
+rails c > Student.last.destroy
+// .find_by will find the first query that matches condition //
+rails c > Student.find_by_id
+// .where will find all that match //
+rails c > Student.where(favorite_color: 'Purple')

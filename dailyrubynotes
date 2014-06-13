@@ -2,6 +2,65 @@
 -review javascript window.onload stuff below.
 -look up this link about irb: http://www.computerhope.com/issues/ch000549.htm
 
+June 13, 2014
+
+-Use
+validates :name, prsences: true
+validates :email, uniqueness: true
+validates :password, min_length: 6
+to help validate?..
+
+-Vid
+
+Thursday June 12, Day 18
+-put resources :products inside of routes.rb inside of config folder.
+-then rake routes in term.
+-vid 10:36 for explanation of what rake routes does.
+—————————— rake routes ——————————
+-get-get a resource.
+-post-post a new resource.
+-patch - taking a resource and updating it a bit.
+-put-your updating the entire resource itself.
+-this is called REST. representation state transfer. google it.
+-prefix-is a prefix to a method that will return a string to the pattern. the _path or _url that will return the URI Pattern. If the uri has a pattern and the variable (ie.:id) is not optinal, you have to supply the variable for taht uri pattern cuz rails doesn't know which id pattern ur talking about.
+-pushed to github using git push origin develop. * also set up a branch on github called develop. review that.
+- any action that do a git, those actions should reflect a view.
+- rails s to boot up server.
+-go to localhost: 3000/products/
+-Product.all in the product controller file
+-for erb comments use: use a ruby comment '#' to comment out inside of of the erb tags instead of the equals.
+-use raise to raise an error and as a method to debug. it stops the application at this point.
+-putting 'private' in your products_controller file means that all methods below that are methods and not action and are not public and can only be instantiated insdie the class.
+-product idea for hackathon: class feedback tool.
+- review all morning until 2:20 pm of June 12, 2014.
+CHALLENGE:
+-Create a new rails application called student_union.
+
+-Generate a Student model with a name and course attributes.
+-Create and migrate your database.
+-Generate a Students controller with index, show, new and create actions.
+-In your students views folder create show, new, and index views.
+-Edit your routes file so that your student views are accessible. (Resources)
+-Edit your views:
+ -The index view should list all of the Students with their name and course. The index view should also have a link to your new view, and each student should have a link to their show view.
+  -The new view should have a form for creating a new student.
+  -The show view should show the selected student with their name and course.
+**notes:
+Student vs Students
+Model should be Student
+ - student.rb
+Controler should be Students
+ - students_controller.rb
+ - in that file: StudentsController
+Views folder should be Students
+
+-Set the root of your site to be the students/index page.
+-In your model, validate the presence of the name and course attributes.
+-Update your controller with the edit, update, and destroy actions. You'll need to look this up as we haven't covered it, but it's pretty straight forward.
+
+
+
+
 Wednesday June 11,  Day 17
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc) ——————————
@@ -33,7 +92,6 @@ Challenge:
 -Create a migration that adds a favorite_color column to your student table.
 rails generate migration AddsFavoriteColorToStudents favorite_color:string
 (a new file should now show in your migrate folder in db folder in sandbox folder)
-
 -
 
 —————————— CREATING A NEW APP IN RAILS ——————————
@@ -255,6 +313,9 @@ From the "elephant directory" - rails generate scaffold Animal name:string etc..
 -join js meetups and html
 
 ———————— ATOM HOTKEYS ————————
+Hotkey erb shortcuts
+control shift .
+
 Toggle command palette
 shift + ⌘ + p
 
