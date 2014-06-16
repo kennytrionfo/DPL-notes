@@ -1,16 +1,15 @@
 
--review javascript window.onload stuff below.
--look up this link about irb: http://www.computerhope.com/issues/ch000549.htm
+
+
 
 Friday June 13, 2014
-
 -Use
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
 to help validate?..
 
--Vid
+-Vid all morning
 
 Thursday June 12, Day 18
 -put resources :products inside of routes.rb inside of config folder.
@@ -23,19 +22,19 @@ Thursday June 12, Day 18
 -put-your updating the entire resource itself.
 -this is called REST. representation state transfer. google it.
 -prefix-is a prefix to a method that will return a string to the pattern. the _path or _url that will return the URI Pattern. If the uri has a pattern and the variable (ie.:id) is not optinal, you have to supply the variable for taht uri pattern cuz rails doesn't know which id pattern ur talking about.
+
 -pushed to github using git push origin develop. * also set up a branch on github called develop. review that.
 - any action that do a git, those actions should reflect a view.
 - rails s to boot up server.
 -go to localhost: 3000/products/
--Product.all in the product controller file
+
 -for erb comments use: use a ruby comment '#' to comment out inside of of the erb tags instead of the equals.
 -use raise to raise an error and as a method to debug. it stops the application at this point.
--putting 'private' in your products_controller file means that all methods below that are methods and not action and are not public and can only be instantiated insdie the class.
+-putting 'private' in your products_controller file means that all methods below that are methods and not actions and are not public and can only be instantiated insdie the class.
 -product idea for hackathon: class feedback tool.
 - review all morning until 2:20 pm of June 12, 2014.
 CHALLENGE:
 -Create a new rails application called student_union.
-
 -Generate a Student model with a name and course attributes.
 -Create and migrate your database.
 -Generate a Students controller with index, show, new and create actions.
