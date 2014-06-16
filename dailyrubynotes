@@ -1,4 +1,41 @@
 
+Monday June 16, 2014 Day 20
+—————————— APPLICATION PLANNING ——————————
+-Start with a name. Understand what problem you’re trying to solve! You should be able to go to anyone and say “The name of my app is ….  and the goal of it is ….”. Consider writting down and memorizing a mission statement. Start with an MVP, Minimum Viable Product, which is the absolute most basic app you could build that works, so you can test it. An MVP isn’t pretty and doesn’t do much but it works on a very basic level. Application versions have 3 numbers. ie. M.m.b. 2.1.2. The first # is Major version. Beta is where just a few pple use it but it’s not official or public. Start by creating a feature list of all possible features. Number or mark them. Then create and MVP list. Then put time frames to eveything. Once you have the features, then we start building code. We ask:
+-What are our Models? ie. user. So what are all the different aspects of “user”? ie. name, email, active or not etc. Then determin the field type for each of those. ie. string, string, boolean etc. We can see that objects are relational so we’ll need a relational DB. Therefore we’ll need Rails. So our tools list will be rails, ruby etc. Then we go to things like what controllers we’ll need etc. We’ll also then go to what the interface will look like. Use balsamiq.com for wireframing.
+CHALLENGE:
+New app name: Theater Express
+Concept: Allows you to find plays within theaters by searching theaters and see what times they are playing.
+-Create feature list:
+Save fav theaters
+Search feature
+Theater data
+Enter new data
+Change data
+Delete data
+User account
+Sort
+
+-Sort the feature list to create the MVP.
+Bold above
+
+-Sort the remaining features to create subsequent releases.
+rest above
+
+-Plan out all MVP objects (i.e. models and attributes)
+Theater DB:
+ -Theater info: name, location, list of plays,
+Play DB:
+ -Play info: name, time, description, theater, length,
+User Act:
+ -Name, user name, pw,
+
+-Gather list of tools needed to build MVP
+ Rails DB, html,
+
+-Discuss UI and user flow with mocks.
+Website: simple blog format list style of Theaters with plays listed under them with data under them.
+Admin page: Form with Title, location, Times, descriptions for both Theaters and plays.
 
 
 
