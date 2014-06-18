@@ -1,11 +1,54 @@
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
-9:53 for new rails foodie
+9:53 for new rails foodie application
 -Sass is kind of a programming language that makes CSS better.
 -look up and bookmark foundation as a bootstrap comparison
-- fontawesome
+- fontawesome for fonts
+
+Vid m
+connect bootstrap using cdn (content delivery network) on their website or download it if needed.
+Bootstrap system uses a 12 column system and block spacing.
+Bootstrap just adds a class to your normal css and it adds a whole new style. you don't need to write any new css code.
+Create a rails app using bootstrap:
+-  g new model Foodie
+-  into foodie
+- open in atom
+- go to Gemfile to add gems. below the sass-rails gem add 'bootstrap-sass' in sing quotes.
+- update the gem file log by saving it in atom and bundling. This will go back through all gems and update them all.
+- Sass = syntactically awesome style sheet. Sass is a css pre-processor. a different syntax for writing css and then prior to compiling .css the pre-processor runs through it and turns it into css. it give us the ability to do some things that we usually can't like setting variables cuz ti's closer to a programming language. you can set functions, mthodds, set ariables, if statements, math equations. Bootstrap is built using LESS pre-processor but we're not going to use it cuz it'll require us to intall a number of other gems, so we'll use sass.
+- use a scaffold generator to be quick: in term:
+rails g scaffold Nom name:string delicious:boolean
+- make sure db is configured - host: localhost in database.yml file.
+- rake db: create
+- rake db: migrate
+- rails s
+- go to localhost: 3000/noms
+should see Listing noms etc
+-insert a food. do a couple of them.
+ non of the styling on there is our bootstrap styling, just default.
+- get rid of hte scaffold - app/assests/stylesheets/application.css and get rid of all but require_tree and require_self lines. these 2 lines are called manifest. the stylesheet manifest. the mainfest in rails is part of the asset pipeline which is a structure where you can put these assest (ss and js) into folders and thye have a purpose and then rails can find them and run them though preproseccors like sass and LESS. so by including our sass preprocessor (that rails did for us) and if we put our sytlesheets in the asset pipleine we can use sass and rials will automatically run it through the preprocessor and convert it to css. we have to convert to css cuz browswers don't undertand sass or less. so if we want to use other types of css we have to run them through a preprocessor so they convert into css. we've actually been using a diff preprocessor, erb. so we've taking our erb template and run it trhough oru prepocessor and it kicks out html. so the asset pipeline has a gem called sprockets which reads the manifest and figures out how to compress all these different stylesheets. we have 3 diff sytlesheets now. so sprockets reads the manifess which says 'include everything that's in this folder' (requrie_tree) and after that, include the current file.  so the 'require_tree' part of the manifest is saying 'include the other two files in the stylesheets/ folder' one has nothing. other has a lot. we'll remove this file?? by deleting the first line of manifest (require_tree).
+- refresh browser.
+now no styles are being used. this allows us to use bootstrap.
+-include bootstrap - in applications.css file: @import "bootstrap"; on top line above manifest.
+-refresh
+nothing happens
+-rename the application.css file to conform to sass - rename to add .scss on the end is all.
+-delete the first.
+-now can delete rest of manifest. why?
+-save and refresh
+new style!
+-style page -
+bootstrp gives us styels.
+-open views/noms/index in h1 tag - class = “page-header”, save, rfresh
+-in table tag - class = “table table-striped”, sv rf,
+-make links look like buttons - in link_to destroy button - after } - , class: ‘btn btn-danger’ which makes it a button and a red button. sv rf,
+-move button at bottom to top by just moving line to top of page.
+-turn into button - after new_non_path, ‘btn btn-success’. btn makes it button, the 2nd makes it green.
+-move this button to right - after btn-success - pull-right
+-move it away from edge - go to application file in layouts/, make <section> tag around the yeild and in it - class = “container”. this moves it in.
+
+
 - vid after mbreak - more on bootstrap nom site, pagination,
--Mike: params
 CHALLENGE:
 -Create a static home page
 -Create a global navbar in your layout
@@ -14,7 +57,6 @@ CHALLENGE:
 -Fix the style on the show page
 -Fix the style on the edit / new pages
 -jasoncarter@outlook.com
--
 
 Monday June 16, 2014 Day 20
 —————————— APPLICATION PLANNING ——————————
