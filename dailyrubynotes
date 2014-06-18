@@ -1,3 +1,70 @@
+Wed June 18, 2014 day 22
+-in term: rails new blog -d postgresql
+- create ruby version and gemset from term:
+atom .ruby-version and atom .ruby-gemset
+-make it so these can be used by cding out and in:
+cd blog
+-git init, add, commit, push. also create repo on github.
+-cd into dir blog
+for model you need what models? comments and post models
+-rails g model Post title author description:text   (string is default for 1st )
+-bundle
+-if you have mysql instead of postgres, change it to “pg” in the gemfile folder
+-rake db: create and migrate
+-rails c to confirm it looks good.
+-Post.all to see them.
+- to make sample data go to seed file. in seeds.rb:
+Post.create(title: ‘my first post’, author: ‘kenny t’, description: ‘this is a cool blog’)
+past a few more times:
+(title: ‘my first post’, author: ‘kenny t’, description: ‘this is a cool blog’)
+(title: ‘my second post’, author: ‘kenny t’, description: ‘this is a cool blog’)
+(can also do this from console)
+-in term: rake db:seed
+-checkto make sure worked - rails c - Post.all (should see sql)
+-quit console
+-git push
+now with one model, we have to build controllers and views.
+-rails g controller Posts index show new edit
+-gitty gitty
+let’s work on index page frist. what do have to do to get index page up and running?
+-controllers/posts_controller.rb:
+<h1>Posts</h1>
+<% @posts.each do |post| %>
+<h1><%= post.title%></h1>
+<h2><%= post.author%></h2>
+<p><%= post.description%></p>
+<br>
+<% end %>
+-to start app rails s
+-run rake routes to check routes
+-change routes file to:
+resources :post
+-rake routes again  and should see updated routes
+-localhost: 3000/posts in brwser
+-in show folder:
+<h1><%= post.title%></h1>
+<h2><%= post.author%></h2>
+<p><%= post.description%></p>
+
+
+
+
+CHALLENGE:
+-Create a static home page:
+in config/route.rb -  root 'static#home'
+sv, rails s, go to localhost: 3000
+
+-Create a global navbar in your layout:
+gto views/layouts/application.html.erb
+under section - div class = "row", withing that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
+
+-Add a link to the home page
+-Add a link to the noms page
+-Fix the style on the show page
+-Fix the style on the edit / new pages
+
+
+
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
 9:53 for new rails foodie application
