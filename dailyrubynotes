@@ -1,3 +1,40 @@
+—————————— How to link comments —————————— 
+what will we need? post id. so let’s build a new model
+rails g scaffold Comment author message:text post_id:integer
+when linking things together, 1set up post id. 2. set up routes
+in routes.rb - scope resources by:
+resources :posts do
+	resources :posts do
+	resources :comments
+end
+-rake routes to see new routes in term.
+#3. for rails to understand the relationship between these two models? belongs_to
+associations go in the model
+-go to models/post.rb
+has_many :post
+-in comment.rb
+belongs_to :post
+-seed some stuff:
+in seeds.rb:
+Comment.create(author: “George Bush”, message: ‘I really am crazy’ , post_id: 1)
+Comment.create(author: “Barrack Bush”, message: ‘I so high’ , post_id: 1)
+-rake db:migrate
+-rake db:seed
+-rails c: Comment.all to see sql of all
+-@post
+-@post.comments should show all posts with comments.
+-quit console
+-edit post page to have list of comments on bottom:
+-views/post/show.html.erb/:
+<% @post.comments.each do |comment| %>
+
+<h3><%= comment.author %></h3>
+<p><%= comment.message %></p>
+-check page. should be two elements.
+-add dependant destroy to model:
+-in models/post.rb ??? …
+
+
 Wed June 18, 2014 day 22
 -in term: rails new blog -d postgresql
 - create ruby version and gemset from term:
