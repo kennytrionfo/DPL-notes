@@ -1,4 +1,204 @@
-—————————— How to link comments —————————— 
+Thurday June 19, 2014
+—————————— Tweaker app ——————————
+in term: rails -v
+* note: done * rails new tweaker -d postgresql
+host: localhost in db yml file
+make sure postgress is on.
+in Gemfile:
+at bottom-
+gem ‘bootstrap-sass’
+gem ‘devise’ (our cheater gem that will create authentication etc)
+save atom and bundle
+Look up device documentation on rubygems / github page. This gem is modular which means it has many pieces and can be used like legos and can be added to as needed very easily. it has many modules in it and they alld o something different. The first, “database authenticatable. Omniauthable requires other gems but this one let’s you authentication from other websites like fb and twitter. This uses a system called Oauth.
+A session begins when you access a website. Rails has a session object and it works the same way params does, it’s just a hash so we can put key value pairs into it. Session works like a cookie. Params only goes from one use to another but session carries throughout the whole time ur on the site.
+-Go down to Getting Started
+in term, in tweakers dir:
+rails g devise:intall
+(this generates the devise gem)
+-look at text it shows in term: 1.”Ensure you have defined…”
+-copy the “config.action_mailer...” code under #1, add to config/development.rb file at the bottom
+(this line of code is to do email stuff. confirm email address by sending email or reset pw etc. devise will do for us)
+#2 in notes in term: (won’t use this example ‘root’ code)
+-in config/routes.rb:
+delete comments
+root ‘static_pages#index’
+#3. (these are rails built in helper methods.)
+copy both lines,
+app/views/layouts/application.html.erb:
+just above yield, paste them.
+4. (we’re not using heroku. we’ll skip this)
+5. (not going to runthis step yet, will come back later)
+back to github instructions. - rails g devise MODEL (this is where we need to decide the name of the model. ORM is active record, it says if ur using active record i’ll create migrations, if not, wont’)
+in term:
+rails g devise User
+(that created some models and other stuff)
+-take a look at the migration file it created for us: db/migrate - gives us email, encrypted_password. both are null false & default. these are some of the 10 modules of devise on the hithub site.
+-comment out the Trackable. we won’t need for tweaker.
+- uncomment the Confirmable code.
+-let’s give our users a name:
+under lockable: and above t.timestamps:
+t.string :name, null: false
+t.string :avatar_url
+-an index is a way to speed up a specific query. and indexed column is the fasted column to query. usually we’ll queary on the primary_id column. So when we want to auth a user, we look them up by email so we want ot make sure the emails are indexed. that’s what the last two “add_index” lines are.
+-uncomment the 3rd “confirmable” add_index line.
+(if you ahve a foriegn key, always index it. and ifyou query on a specifc column, index that too. those are rule of thumb).
+-rake db:create (cuz we did yml file)
+-rake db:migrate (that created table and all indexes for us)
+term:
+rake routes
+(we dfined the bottom one only (root get  /) but look at all the others that devise did fo rus.
+-generate static pages:
+-term:
+rails g controller static_pages index
+-to to routes.rb and delete the top line that was just made by doing generate controller.
+-rails s.
+-localhost: 3000  (should see home page)
+-/users and /users/sign_in should also work.
+-create an acount by putting in emails and “pass” as pw.
+(should get “1 error prohibited..” error)
+-try something crazy for pw and something different for pw confirmation. device shoule tell you.
+-put in good pw, hit sign up. error ActiveRecord::Statement
+We need to add the name in.
+-on git hub rails g divise:views
+-kill server and put in:
+rails g devise: views
+(creates app/views/devise folder)
+-take a look at folder. .
+-new.html.erb:
+(it’s using form_for.  the “resource_name will return a …???.
+-add name field:
+-below first paragraph:
+
+<div>  <%=  f.label :name, autofocus: true%></div>  ???
+<div>  <%=  f.label :name, autofocus: true%></div>  ???
+
+rails s
+-3000/users/sign_up should have a signup field. enter good pw. get error
+Anytime we do a create method we have to do a strong parameters. Devise doesn’t knwo to add the name into the strong params. we need to tell devise to allow that field.
+-on git - Strong Parameters section: we’re dealing with sign_up. let’d do First block of code.
+-application_controller file:
+put in:
+before_action: configure_permitted_parameters, if: devise_controller?
+put the private… code below “protect_from_” line:
+private
+def configure_permitted_paramters
+	devise_paramter_saitizer…..      add  “<< name”  in at end.
+-rf browswer. put in pw etc - another error “undefind method ‘current… “
+Looking at migration file. can see that trackable commented out. devise needs to know not to use it.
+-models/user.rb:
+delete   :trackable and add :confirmable from commented out stuff above.
+srf page - another error
+-rake routes
+Can see that method should be called new_user_confirmation_path. (we generated our routes and it looked at user model to see what it should call stuff and generated it, then we altered it)
+-the top line shows where the error exists. _links.erb is a partial.
+shared/_links.erb:
+-on line 14:
+change method from ???. (add user  to:  new_confirmation_path  after new)
+rails s
+rfpage - worked.
+-input info, hit sign in. should work.
+-go to sign in page and sign in with current email. get message “you have to confirm ur account”. (system didn’t actually send email but we want to see email)
+term: scroll up in server log a
+-open a new tab in term.
+-rails c
+let’s find user:
+User.count
+u = User.first
+u.name
+u.email
+u.encrpyted_password
+u.confirmed? (false)
+u.confirmation_sent_at (nil, which means never got the confirmation)
+u.confirmation_sent_at = Time.current
+u.confirmed_at
+u.confirmed_at = Time.current
+save record after updating these fields:
+u.save
+u.confirmed? (true) user is now officially confirmed.
+exit
+browers sign in. try to sign in - should get “sign in successfully”
+/user/signin redirects you to home page “you are already signed in”
+We can’t log out.
+app/views/layouts/applicatinon.html:
+above bottom body tag:
+<%=  link_to(‘Home pasge’, root_path)%>
+<% if user_signed_in? %>
+<%= link_to(‘Edit Account‘, root_path)  %>
+	???
+
+<%= yield %>
+
+-assests/stylesheets/application.css - remame to .scss
+-delete what was thee and add @import “bootstrap”; on top line.
+rfrsh page
+need to add avatar, url and name:
+-views/devise/registration/edit.html.erb
+above  f.label (:email) on line 9:
+<div >
+ 	<%= f.label(:name) %> <br/>
+ 	<%= f.text_field(:name) %>
+</div>
+<div >
+ 	<%= f.label(:avatar_url) %> <br/>
+ 	<%= f.text_field(:avatar_url) %>
+</div>
+We added fiels to edit form but now we need to do strong params.
+-git page: read about account_update
+-controllers/application_controller:
+repeat bottom “devise_paramerter.. “ line to this:
+devise_parameter_santizer.for(:account_update).concat([:name, :avatar_url])
+-page: try it. should get “you updated yoru acount succesfully”.
+-try logout button: error “no route matches [get] for “/users/sign_out”
+-layouts/application.html:
+on link_to for logout: put method::delete  before end of )???
+page - signout should work
+-goto bootstrap and crate navbar:
+-same file: under “alert” line:
+<nav class =”navbar navbar-default”>
+innext line link_to  put (‘Tweaker’, root_path, ???
+-More bootstrap and css from here…???
+
+-sign back in. should work. sign out.
+-next, create our next model.
+-So a user has many hits and a hit belongs to a user.
+rails g scaffold Hit message:string user_id:integer
+open last migration file:
+line 5 (t.integer :user_id)   add - , null: false to end
+below first end:
+add_index :hits, :user_id
+end
+-rake db:migrate
+-web   /hits - shows “Listing hits”
+we need to secure this controller
+-controllers/hits_controllers.rb:
+at top on line 2:
+before_action :authenticate_user!  (added this line bfore line 2 )
+save, web users/sign_in  - that whole controller is secure. can’t do anything unless signedin.
+sign in to account and go to /hits
+models/user.rb:
+has_many :hits
+models/hits.rb:
+belongs_to :user
+back to controller above:
+in new method:
+@hit = current_user.hits.build
+in create method:
+@hit = current_user.hits.build(hit_params)
+in set_hit method:
+@hit = current_user.hit.find(params[:id])
+in hit_params:
+remove :user_id from params
+page  hits/new - don’t want “user” field
+app/views/hits/_form.html.erb:
+remove something???
+line 16 change text_field to text_area
+page - make a message
+Style it with css
+push to github
+
+
+
+—————————— How to link comments ——————————
 what will we need? post id. so let’s build a new model
 rails g scaffold Comment author message:text post_id:integer
 when linking things together, 1set up post id. 2. set up routes
