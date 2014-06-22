@@ -70,7 +70,7 @@ vid
 4nothing
 5. we’ll do last
 -Create a User model:
-rails g devise User 
+rails g devise User
 in migration file in db/migrate:
 rem out trackable
 rem in confirmable
@@ -78,16 +78,21 @@ rem out confirmation token index in the group at the bottom. ‘add_index :users
 above t.timestamps:
 add:
 t.string :name, null: false
-Now add our roll. can call this field whatever make sense to us but field must be integer.
+(an index is a way to speed up a specific query. and indexed column is the fasted column to query. usually we’ll queary on the primary_id column. So when we want to auth a user, we look them up by email so we want ot make sure the emails are indexed. that’s what the last two “add_index” lines are.)
+-Now add our roll.
+(can call this field whatever make sense to us but field must be integer.)
 t.integer :role, null: false, default: 0
 (can have as many rolls as you want. start with 0 and go up. ie. 0 customer, 1-admin, 2-super admin etc)
-let’s add an index for doing queries
+-let’s add an index for doing queries
+(if you ahve a foriegn key, always index it. and if you query on a specifc column, index that too. those are rule of thumb).
 bottom of add_index list below:
-add_index :users, :role  (don’t want it to be unique)
-Go edit model
--user.rb
+add_index :users, :role
+(don’t want it to be unique)
+Go edit model (let's do this before we rake migrate to avoid some potential errors and issues that we ran into yesterday)
+Models/user.rb
 remove :trackable and add :confirmable
-rake db:migrate (shouldn’t have to create cuz this dpl store is an older app)
+rake db:migrate
+(shouldn’t have to create cuz this dpl store is an older app)
 looking at instructions on github
 rails g devise:views
 rails s
