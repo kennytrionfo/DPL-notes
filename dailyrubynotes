@@ -787,6 +787,15 @@ Animal.where(name: "fluffy", age: 3)
 any query we do, we can just add .count onto the end of it and it'll tell us how many records match that query:
 Animal.where(name: "fluffy", age: 3).count
 from the rails console, create 5 more animals in the db
+still in rails c
+do like query using a string:
+Animal.where("name = 'fluffy'") or
+Animal.where("name LIKE 'fluffy%'")
+Insdie this ruby string is raw sql
+to set the name ur looking for to a variable:
+name = "Fluffy"
+and because we're in rubyland, we can do string interpolation
+
 
 
 
