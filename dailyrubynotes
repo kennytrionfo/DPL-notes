@@ -1,6 +1,260 @@
 Notes:
 
 
+Fri June 20, 2014 Day 24
+—————————— AUTHORIZATION FAQS & NAMESPACES ——————————
+Authorization is just assigning roles or clearance level to a user. ie. customer vs. website admin. Could even have different levels for customers. Like various plans. ie free level, platnum, bronze etc.
+
+—————————— CHALLENGE:  add customer and admin roles to the DPL STORE:
+-Add a user account system to the dpl store.
+-Add in roles in the user so we can have a customer role and an admin role within the user.
+-We want a customer to be able to login and see the items they purchased and an admin to be able to manage the products we sell.
+
+-add gems:
+in Gemfile:
+gem ‘bootstrap-sass’
+gem ‘font-awesome-sass’
+gem ‘devise’
+-bundle
+Do devise stuff. follow documentation github
+rails g devise:install
+will see these instructions in term:
+=======================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Ensure you have defined default url options in your environments files. Here
+     is an example of default_url_options appropriate for a development environment
+     in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+     In production, :host should be set to the actual host of your application.
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root to: "home#index"
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  4. If you are deploying on Heroku with Rails 3.2 only, you may want to set:
+
+       config.assets.initialize_on_precompile = false
+
+     On config/application.rb forcing your application to not access the DB
+     or load models when precompiling your assets.
+
+  5. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+
+=======================================================================
+
+follow these instructions in term:
+
+number 1 in term:
+put #1 code in bottom of config/envitronments/development.rb
+step 2 in term instructions:
+put root url in ...
+3. flash notices.
+(these are rails built in helper methods.)
+??
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+vid
+4nothing
+5. we’ll do last
+-Create a User model:
+rails g devise User 
+in migration file in db/migrate:
+rem out trackable
+rem in confirmable
+rem out confirmation token index in the group at the bottom. ‘add_index :users, :unlock_token,..”
+above t.timestamps:
+add:
+t.string :name, null: false
+Now add our roll. can call this field whatever make sense to us but field must be integer.
+t.integer :role, null: false, default: 0
+(can have as many rolls as you want. start with 0 and go up. ie. 0 customer, 1-admin, 2-super admin etc)
+let’s add an index for doing queries
+bottom of add_index list below:
+add_index :users, :role  (don’t want it to be unique)
+Go edit model
+-user.rb
+remove :trackable and add :confirmable
+rake db:migrate (shouldn’t have to create cuz this dpl store is an older app)
+looking at instructions on github
+rails g devise:views
+rails s
+web localhost:3000  /users/sign_in should see sign in.
+Add login link to top:
+layouts/applicatoin.html
+in <nav> add to end of list of link_to’s :
+<%= link_to(‘login’, new_user_session_path) %>
+vews/devise/registrations/new.html
+add:
+<div  <%= f.label :name %><br/>
+	<%= f.text_field :name %>
+  </div>
+to the top of fields
+git instructions - strong params. copy code.
+applications_controller:
+put at top:
+before_action :configure_permitted_paramters, if: :devise_controller?
+in the method below private:
+devise_paramter_sanitizer.for(:sign_up) << :name
+web rf /users/sign_up  should work
+Haven’t done the authorization stuff
+user.rb
+below divise:
+enum role: [:customer, :admin] (this could have all of the ruby syntax ({}) etc)  (this is how you set up authorizations)
+web sign up as a customer
+in term, in serv log  (development log file) will see “Sent mail to .... “ message. a way to verify email was sent and what all the instructions are etc. This will be different for all of us.
+Take the url (don’t copy quotes too) that is inside of the href and put inside browser and rf and should say “Your account was successfully confirmed.”
+web try to sign in should see “signed in successfully”.
+term kill server
+rails c
+User.count should see 1
+u = User.first and u.name should get name
+The enum did more than just give us our roles. We have a predicate method based on what our role is.
+u.customer? returns true
+u.role doesn’t return the integer 0 but “customer”
+Integer fields are the fastest queryable field so rails translates string into integer.
+u.admin? false
+Edum gives us 2 scopes that we can use to get info on each of our roles. WE also get instance predicate methods for finding out if our object falls under that particular role.
+User.customer or User.admin
+Customer can’t sign out. let’s fix
+get out of console and rails s
+We need link to change depending on if we’re signedin or not
+application.html:
+above last link_to in nav:
+<%  if user_signed_in?%>
+<%  else%>
+<%= link_to(‘login’, new_user_session_path) %>
+<%  end%>
+web rf should have login and logout
+under /products we have edit and delete, don't’ want customers to do those.
+products/index.html:
+delete link_to create, edit and delete product
+rf /products  those links shouldn’t be gone
+/products/new we can see that we can make a product but we need to tell rails that we don’t want them to get to this page.
+routes.rb
+resources :products will generate all of our restful actions like edit , create, destroy etc. but we only want show and index (to see all products)
+add ,only: [:index, :show] to the end of the resources line
+web rf should get routing error cuz it thinks we’re trying to go to show action cuz the only route we have is/products/id
+Even though we have those pages in our app and controller, customer can’t get to them which is good.
+Let’s assume we have a secret store that you have to be signedin as amember.
+products_controller.rb
+at top:
+before_action :authenticate_user!  (this is from git documentation)
+rf users/sign_in  says “you need to sign in” also /products page too.
+on /products page sign in should be able to see products.
+Now need to create admin section.
+logout
+create admin namespace:
+routes.rb
+above end
+namespace :admin do  videxp
+next
+   get ‘/’ => ‘base#index’
+create a controller
+rails g controller admin
+now create the base controller, but it’s namespaced
+rails g controller admin/base (we’re specifying that we want to create a basectonroller within the admin namespace)
+look at this term notes. new folders!
+controllers/admin/base_controller.rb
+We don’t want to inherit from application controller so:
+at end of <  AdminController (so class Admin::BaseController < AdminController at top)
+next add:
+def index
+end
+views/devise/admin/base/
+create index.html.erb
+<h1>Admin Dashboard page</h1>
+rf /admin/ should see above
+let’s secure it
+admin_controller.rb
+before_action :authenticate_user! (add to the class)
+rf should say “You need to sign in”
+if you sign in as a customer can still see admin
+admin/controller.rb
+next:
+before_action :ensure_user
+private
+def ensure_user
+redirect_to root_path, alert: “oh no you di’nt” unless current_user && current_user.admin?
+end
+rf 3000 should be logged out and on homepage
+Still don’t have a way to create an admin, only customers.
+rails c  (creating a user in the console when using devise might be tricky, but you’ll need to know how to do this w/o documentation)
+user = User.new
+(what are the four fields that our signup field has? name, email pw, and pw confirmation so when creating a user in console, we have to mimic that)
+user.name = kenny
+user.email = kenny@kenny.com
+user.password = “password”
+user.password_confirmation = “password”
+(our user doesn’t actually have a password column, just an encrypted pw field. whenever creating a user in rails c or seeding it in atom, ur mimicking that sign up process. )
+Set the role for what the admin is. Now it’s customer
+user.role = :admin (not setting the integer, just the symbol for which role it is)
+user.save got error didn’t save
+user.confirm!  (will just make them confirmed)
+user.persisted? true  (asking is this method saved in the db?)
+user.admin? true
+exit
+rf user/sign_up
+sign in with the admin info you just created in the console
+/admin should work.
+We have 2 users, a user and an admin and only admin can access admin section. only one has authorization to get to admin.
+Challenge:
+Want to be able to do all our restful actions from the dashboard area.
+Make the restful actions for the product all scoped inside the customer area.
+What the first thing you need to do?
+add routes to link to page
+how do u make all restful actions? resources
+
+routes.rb (how do I get restful actions for a particular controller?) We want ot create routes in the admin section.
+in the  namespace method and under the get ‘/’ =>’base#index’
+resources :products (this gives you all restul actions (routes). index, show, edit, new, create, destroy)
+rake routes
+now we have to create an admin/products controller (do it the same way we created the base controller above) rake routes also tells you what controllers and actions you need to create. everything inherits from the admin_controller.
+Vid walking through together
+Make sure routes are set up.
+did the resources and rake stuff above.
+Create a controller becusase an admin/producust contrlle rdoesn’t exist
+controllers/admin/
+creaet a new products_controller
+class Admin::ProductsController < AdminController
+end
+views/admin/
+add products_controller file (for veiws)
+Can copy and paste from other products_controller file and put in this one.
+?? updated some code vid
+copy 4 files from products folder and paste in ??
+Im out. - vid
+
+CHALLENGE:
+Build the beaker app
+Course:
+Has a name with a start date & end date. It has many users.
+User:
+Has a name, devise fields for authorization stuff, course_id (which belongs to course), a role [:student, :staff]. Staff doesn’t need to belong to a specific course.
+Routes:
+2 sections.
+Regular section and staff section.
+Staff - authenticate staff.
+Should be able to do all crud actions for courses & users inside staff section.
+Inside route section:
+if I log in as a student should be able to see course, name, start date, end date.
+Use bootstrap to make it look pretty.
+
+
+
+
 
 Thurday June 19, 2014
 —————————— Tweaker app ——————————
@@ -10,7 +264,7 @@ host: localhost in db yml file
 make sure postgress is on.
 in Gemfile:
 at bottom-
-gem ‘bootstrap-sass’
+gem 'bootstrap-sass'
 gem ‘devise’ (our cheater gem that will create authentication etc)
 save atom and bundle
 Look up device documentation on rubygems / github page. This gem is modular which means it has many pieces and can be used like legos and can be added to as needed very easily. it has many modules in it and they alld o something different. The first, “database authenticatable. Omniauthable requires other gems but this one let’s you authentication from other websites like fb and twitter. This uses a system called Oauth.
