@@ -768,7 +768,25 @@ the create method will instantiate the class, set up all the attributes(data) an
 and finally we don't even have to set it to a variable since we're not going to use the variable anywhere. We can just do:
 Animal.create(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
 we dont' have to put in created_at, updated_at or primary key cuz rails takes care of all of that for us. If we did it manually, we would have to do that.
-
+now we have to tell rails to add all of this to the db with:
+rake db:seed
+rails c
+yesterday to get a count in sql we did select count(*) from Animals
+in rails we can ust take the name of our Model(table) and call the .count on it.
+Animal.count
+that gives us some sql
+Animal.first
+when using the where method, we can just pass a hash
+Animal.where(name: "fluffy")
+sql will always return a collection unless you limit it to 1.
+notice it doesn't return an object but an ActiveRecord::Relation which isn't an object but a collection. the ActiveRecordRelation has a bunch of methods called in it and it allows us to chain queries together. so now we can do this:
+Animal.where(name: "fluffy").limit(1)
+the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
+if we want to add another argument we can:
+Animal.where(name: "fluffy", age: 3)
+any query we do, we can just add .count onto the end of it and it'll tell us how many records match that query:
+Animal.where(name: "fluffy", age: 3).count
+from the rails console, create 5 more animals in the db
 
 
 
