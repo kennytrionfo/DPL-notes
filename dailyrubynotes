@@ -93,15 +93,15 @@ Models/user.rb
 remove :trackable and add :confirmable
 rake db:migrate
 (shouldn’t have to create cuz this dpl store is an older app)
-looking at instructions on github
+Still following and looking at instructions on github:
 rails g devise:views
 rails s
 web localhost:3000  /users/sign_in should see sign in.
-Add login link to top:
+-Add login link to top:
 layouts/applicatoin.html
 in <nav> add to end of list of link_to’s :
 <%= link_to(‘login’, new_user_session_path) %>
-vews/devise/registrations/new.html
+views/devise/registrations/new.html
 add:
 <div  <%= f.label :name %><br/>
 	<%= f.text_field :name %>
@@ -256,8 +256,6 @@ Should be able to do all crud actions for courses & users inside staff section.
 Inside route section:
 if I log in as a student should be able to see course, name, start date, end date.
 Use bootstrap to make it look pretty.
-
-
 
 
 
@@ -731,7 +729,6 @@ A model is just a ruby class. the attributes in a model describe the characteris
 Each attribute has a format to it.
 Vid on creating table in rails: 915am
 -Don't mix ruby with raw sequal.
--to
 challenge:
 -create additional trainers
 t = Trainer.create(name: 'Guido')
@@ -743,6 +740,36 @@ a1 = Animal.first
 To put students into Students table
 go into rails console ("rails c" from irb) and type:
 Student.create(:first_name => 'Jason', :last_name => 'Carter', :state => 'Washington', :favorite_color => 'Purple')
+
+-Change something in a table in the dir:
+rails g migration change_column_for_animals
+this will show as the bottom file in the db/migrate folder with nothing in it but:
+def change
+end
+to change ur column, put in the change method:
+remove_column :animals, :hungry
+where animals is the table name and hungry is the column name
+and say you want to change the name of another column, then:
+rename_column :animals, :born_on, :birthday with :born_on being the column you want changed and :birthday being the new name.
+to add a column:
+add_column :animals, :trained, :boolean, default: false
+(so what we just did in rails would have been a lot of code in sql)
+rake db:migrate
+can hop into database to check out the table changes with:
+psql -d sandbox_development
+Seeds file. it's purpose is to set up some default data that we may need to use. since we have an animals table, we can set up some animals.
+animal = Animal.new(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
+animal.save
+this is just a hash of key value pairs
+and we could actually just do this:
+animal = Animal.create(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
+without the save and using create instead of new
+the create method will instantiate the class, set up all the attributes(data) and call save for us to save the new entry.
+and finally we don't even have to set it to a variable since we're not going to use the variable anywhere. We can just do:
+Animal.create(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
+we dont' have to put in created_at, updated_at or primary key cuz rails takes care of all of that for us. If we did it manually, we would have to do that.
+
+
 
 
 Challenge:
@@ -1022,6 +1049,10 @@ shift + ⌘ + left/right
 
 shift + ⌘ + up/down
 Select to top/bottom of document
+
+Transpose characters either side of cursor
+ctrl + t
+
 
 
 Day 14 - June 6, 2014
