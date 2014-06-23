@@ -1,4 +1,4 @@
-Notes:
+
 
 
 Fri June 20, 2014 Day 24
@@ -799,8 +799,16 @@ which lets us use a dynamic name variable or something and pass it right into ou
 name = "Kitters"
 and run that same query again, we'll get a diff value
 WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.
-Rails has fixed this. rails takes the ruby string that looks like sql and creates a placeholder for where the variable is going to be. that placeholder is a questionmark. this makes sure that it's sanitized sql and not sql from the user. 
-
+Rails has fixed this. rails takes the ruby string that looks like sql and creates a placeholder for where the variable is going to be. that placeholder is a questionmark. this makes sure that it's sanitized sql and not sql from the user.
+For each questionmark that you have as a placeholder, you add an additional method to the where method for what that thing is:
+name = "kitters"
+Animal.where("LOWER(name) LIKE ?", "#{name}%")
+date query:
+Animal.where("birthday < ?", 1.year.ago)  (note we used the ? again. ..)
+Animal.where("birthday < ? AND name = ?", 1.year.ago, "Fluffy")
+because we used 2 ?s, we have to pass in 2 arguments.
+for more on ActiveRecord Querying and methods:
+http://guides.rubyonrails.org/active_record_querying.html
 
 
 Challenge:
