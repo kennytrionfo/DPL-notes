@@ -1,3 +1,156 @@
+Monday June 23, 2014, day 25
+Active record enum - You take an array... vid 9:06
+—————————— TESTING
+tdd or bdd is a paridigm that's out there.
+tdd-test drivin development. bdd-behavior driven development. no diff between the two. TDD-you write the test first before the app even exits. I expect it to look like this and do this. duck-typing is "if it walks like a duck, chances are it's a duck". So the first time you write code, you write it to make the test pass. then you have solid code.
+google tdd life cycle. graph. url (pathfindersolns.com...)
+google tdd wikipedia.
+google unit testing. wikipedia. testing one aspect of your app like your methods.
+google functional testing. wikipedia. testing to see "does this product function?"
+google testing types. wiki. integration and validation testing.
+so tdd, bdd, unit, functional, integration and validation testing.
+Let's start writing a few tests.
+cd ruby_stuff
+mkdir simple_tests
+make a new file testing.rb
+let's write a method that returns true or false depending on if test passes.
+def expect_equal(a, b)
+  a == b
+end
+we want to grab result of this so:
+result = expect_equal(1,1)
+if result
+  puts "test passed"
+  else
+
+  puts "test failed"
+  end
+ruby testing.rb in term
+returens - test passed
+change 2nd 1 above to be '1'
+run again in atom:
+test failed cuz integer 1 is not equal to string 1.
+write another test above result line
+def expect_not_equal(a, b)
+a != b
+end
+run ruby testing.rb again in term:
+let's create a new file.
+math.rb
+class MathStuff
+
+  def self.add(this, that)
+    this + that
+  end
+end
+in testing file at top:
+require_relative 'math'
+we want to test that this mehod does that we think.
+in testing.rb
+line 11
+added = MathStuff.add(1,1) (we expect this to be 2)
+result = expect_equal(added, 2)
+ruby testing.rb in term:
+passed
+because we know the test passed, the value of result was true. so our method in math.rb passes. it does exactly what we expect.
+another one:
+in testing.rb;
+16-
+added2 = MathStuff.add(10, 10)
+result = expect_equal(added2, 20)
+run test in term (ruby testing.rb)
+passed
+we now know it works for single and double digits.
+another:
+added3 = MathStuff.add('5', '5')
+result = expect_equal(added3, 10)
+run test
+failed
+this is where life cycle come in.
+so update code now.
+in math.rb
+convert to integers by:
+this.to_i + that.to_i
+run - passed
+Now everything passes so we can go refactor if want to but let's run some mroe tests.
+we know we can add fixed nums and strings. elt's try:
+added4 = MathStuff.add(2.5, 2.5)
+result = expect_equal(added4, 5.0)
+run failed
+math.rb
+we're convering to integers bu tif pass in a float it fails so:
+this.to_f + that.to_f
+run passed
+now we're only runnign the final test or the last test that we run, not all of them. we need to see if our changes affect our other tests so let's refactor. every time we run a text, let' s put the value of that test into a n array so we can see if each index is true and if so, then the whole array is true. if it's falst, then one is off.
+in testing.rb
+line 11:
+results = [] (above first added)
+change teh = to << in all of the results lines below.
+so we want to test of any value is false. if all are true, whole text passes.
+so below in if, else statement:
+abvoe if result below:
+result = results.collect {|r| r if r == false}.compact  (i want to collect the resultif hte result is f. use compact method to remove all nills)
+change if result to:
+if results.empty?
+so we're going to iterate over it and collect all falst values. so we want an empty result array.
+run failed
+it's saying that some reults were false. we know that some failed but let's see how many failed.
+2nd puts, changed to:
+puts "#{result.length} tests failed"
+run 4 tests failed
+we need to fix our method to make all these tests pass. we need to be able to account for two fixnums, two strings should work, and two floats should be equal to a float.
+math.rb
+we don't want ot convert this and that to integers cuz that failed before.
+changed the this and that to this.to_f and that.to_f
+vid 10:07 for some changes above.
+run passed
+actually can shorten above to:
+result = results.any? {|r| r == false}
+and change if else to:
+vid 10:12 changing a lot on the fly.
+one more
+new file colors.rb
+class Colors
+  ALLOWED_COLORS = [
+    'red',
+    'yellow',
+    'blue'
+]
+  def self.add(color1, color2)
+    if ALLOWED_COLORS.include?(color1) &&
+      ALLOWED_COLORS.include?(color2)
+      if color1.eql?('yellow') && color2.eql?('blue')
+        return 'green'
+        end
+    end
+  end
+end
+this will simulate if we add 2 colors together if we get  a diff color
+comment out math results in testing file.
+at top
+require_relative 'colors'
+below remed out resuts:
+write test:
+color = Colors.add('yellow', 'blue')
+result = expect_equal(color, 'green')
+run pass
+change color line to caps
+color = Colors.add('Yellow', 'Blue')
+run failed
+what do we do? .capitalize? where?
+in colors.rb file somewhere.. .
+put .downcase behind all the color1's and color2's.
+run passed
+after break
+jer's going to make tests and we have to make them pass.
+vid 11 for solution
+
+you want to write the least amount of cde possible to get test to pass. all you care about is the test passing.
+
+
+
+
+
 
 
 
