@@ -9,7 +9,9 @@ a marial arts kata is a specific set of moves that you do over and over and memo
 -run to see if runs the test suite
 -using rspec's dsl, write ur top level describe command to write our top level mini block, describing what we're trying to test.
 -create the constant
--inside of ur top level describe block, using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
+-Create ur first method to test something by going inside of ur top level describe block, and using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
+-follow the errors
+-refactor
 
 
 make new katas dir in projects
