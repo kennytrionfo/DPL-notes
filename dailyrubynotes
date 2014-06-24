@@ -1,6 +1,106 @@
+Tuesday June 24, 2014 Day 26
+—————————— TESTING FRAMEWORKS FAQS
+Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use. We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
+—————————— CODE KATA FAQS
+a marial arts kata is a specific set of moves that you do over and over and memorize. Code Kata is the same thing. Taking a bit of code and writing it over and over again to solve that problem until it's memorized. codersdojo.com
+make new katas dir in projects
+new file Gemfile
+sours "https://rubygems.org"
+
+gem 'rspec'
+bundle
+when we're setting up katas, we need gem file, main file and then usualy an associated spec file. named the same thing but with _spec and a file called spec helper.
+new file spec_helper
+and:
+require 'rspec'
+
+RSpec.configure do |c|
+  c.color = true
+  c.filter_run focus: true
+end
+there's lots of options on how to configure rspec. we're saying if things fail red, pass green and we'r adding a focus to be able to run a specific thing in stead of how thigns.
+next set up kata fils:
+fizz_buzz.rb
+and
+fizz_buzz_spec.rb
+in spec file:
+require_relative 'spec_helper'
+require_relative 'fizz_buzz'
+run from katas dir
+should see:
+Run options: include {:focus=>true}
+
+All examples were filtered out
+
+
+Finished in 0.00037 seconds (files took 0.09111 seconds to load)
+0 examples, 0 failures
+-It ran the test suite in .0003 seconds, 0 examples, etc.
+steps again:
+start, create gem file. add rsepc to have access, bundle, crate spec_helper file. will always be spec_helper. can even put this file into others, spec helper lets us reaqurie spec helper and config it, next created the actual program file and the spec for that file, (review vid 9:54), spec_helper requrie spec and main file and done.
+rspec uses it's own dsl (domina specifc langue) sinatr was one. all defined in mini blocks. rspec starts out , top level is describe block, what this file is trying to test. start with this and tell it what to describe.
+we decide what to call it. vid 9:56
+in fizz_buzz_spec.rb:
+  describe FizzBuzz, 'a fun drinking game' do
+
+  end
+This is how we do all katas. our code goes in the block.
+betterspecs.org for good habits for katas, syntax, rspec commands and code examples. look up other cheatsheets and helps online for rspec. we're using v3.0.
+run again error message. learn how to read them!
+atas/fizz_buzz_spec.rb:4:in `<top (required)>': uninitialized constant FizzBuzz (NameError)
+this tells us FizzBuzz doesn't exist, so we need to make it exist.
+in fizzbuzz.rb file:
+    class FizzBuzz
+
+  end
+run works
+fizz_buzz_spec.rb:
+inside this class, we'll use one method. instead of a constant or something, we just pass a string. If ur describing a method, if it's an instance method use
+#method_name
+if it's a class method use:
+.Method_name
+we need to have a method that will count which number we are on and return what the actual method will be. ie if we pass 1 it returns 1, 2 returns 2 etc. We can name this method anything we want.
+So to describe our callout class method:
+describe '.callout' do
+  it 'takes the number 1 and returns 1' do
+  pending 'has not been implemented yet'
+  end
+end
+the inblock of code tells us what it should be doing and also tells us its pending if it didn't happen.
+
+added to helper file:
+  c.run_all_when_everything_filtered = true
+  # if you don't add any focus to anything, it'll run the whole test sutie
+  c.formatter = :documentation
+  # this is just a formatter
+this allows us to write out our story and write out our specs and it'll write out the story for us.
+spec.rb
+remove the pending line in inner block so we can start writing code.
+let's write our expectation. our expecation is that when we call this class method callout, and we pass it the number 1, it should return #1. so it looks like this:
+expect(FizzBuzz.callout(1)).to eq 1
+the argument that we're passing in to the expect method is the:
+FizzBuzz.callout(1)
+So we're expecting the return value of this method to be 1.
+
+
+
+# and . used. vid
+add something under pending so that it shows up better in term
+         something here that means nothing fr pending
+add a few more configurations:
+spec helper.rb
+fbs file remvoe pending lines
+vid 10:35
+
+11:16 now do red green refactor
+clean up code
+refactor the whole thing to be by three and five to be a single method.
+
+
+
 Monday June 23, 2014, day 25
 Active record enum - You take an array... vid 9:06
-—————————— TESTING
+—————————— TESTING FAQS
 tdd or bdd is a paridigm that's out there.
 tdd-test drivin development. bdd-behavior driven development. no diff between the two. TDD-you write the test first before the app even exits. I expect it to look like this and do this. duck-typing is "if it walks like a duck, chances are it's a duck". So the first time you write code, you write it to make the test pass. then you have solid code.
 google tdd life cycle. graph. url (pathfindersolns.com...)
@@ -47,8 +147,9 @@ in testing file at top:
 require_relative 'math'
 we want to test that this mehod does that we think.
 in testing.rb
-line 11
-added = MathStuff.add(1,1) (we expect this to be 2)
+above result:
+added = MathStuff.add(1,1)
+(we expect this to be 2)
 result = expect_equal(added, 2)
 ruby testing.rb in term:
 passed
@@ -60,7 +161,7 @@ added2 = MathStuff.add(10, 10)
 result = expect_equal(added2, 20)
 run test in term (ruby testing.rb)
 passed
-we now know it works for single and double digits.
+we now know it works for single and double digits but you have to account for as many scenarios as you can so let's test for a few more.
 another:
 added3 = MathStuff.add('5', '5')
 result = expect_equal(added3, 10)
@@ -73,7 +174,7 @@ convert to integers by:
 this.to_i + that.to_i
 run - passed
 Now everything passes so we can go refactor if want to but let's run some mroe tests.
-we know we can add fixed nums and strings. elt's try:
+we know we can add fixed nums and strings. let's try:
 added4 = MathStuff.add(2.5, 2.5)
 result = expect_equal(added4, 5.0)
 run failed
@@ -81,15 +182,19 @@ math.rb
 we're convering to integers bu tif pass in a float it fails so:
 this.to_f + that.to_f
 run passed
-now we're only runnign the final test or the last test that we run, not all of them. we need to see if our changes affect our other tests so let's refactor. every time we run a text, let' s put the value of that test into a n array so we can see if each index is true and if so, then the whole array is true. if it's falst, then one is off.
+-Refactor and optimize your testing:
+now we're only runnign the final test or the last test that we run, not all of them. we need to see if our changes affect our other tests so let's refactor. every time we run a text, let' s put the value of that test into a n array so we can see if each index is true and if so, then the whole array is true. if it's false, then one is off.
 in testing.rb
 line 11:
 results = [] (above first added)
 change teh = to << in all of the results lines below.
-so we want to test of any value is false. if all are true, whole text passes.
+so we want to test if any value is false. if all are true, whole text passes.
 so below in if, else statement:
 abvoe if result below:
-result = results.collect {|r| r if r == false}.compact  (i want to collect the resultif hte result is f. use compact method to remove all nills)
+result = results.collect {|r| r if r == false}.compact
+The above says:
+collect all the results and collect all the values in this array that are equal to false. So if the return of the array is empty, that means that there were no false values. So again, we're going to iterate over this results array, and collect every value that is = false, and then we're going to return an array of all the false values.
+(i want to collect the resultif hte result is f. use compact method to remove all nills)
 change if result to:
 if results.empty?
 so we're going to iterate over it and collect all falst values. so we want an empty result array.
@@ -100,17 +205,19 @@ puts "#{result.length} tests failed"
 run 4 tests failed
 we need to fix our method to make all these tests pass. we need to be able to account for two fixnums, two strings should work, and two floats should be equal to a float.
 math.rb
-we don't want ot convert this and that to integers cuz that failed before.
+we don't want ot convert this and that to integers cuz that failed before for some of the variables.
 changed the this and that to this.to_f and that.to_f
 vid 10:07 for some changes above.
 run passed
 actually can shorten above to:
 result = results.any? {|r| r == false}
-and change if else to:
-vid 10:12 changing a lot on the fly.
-one more
-new file colors.rb
+
+then changed the results var line to:
+results = results.all? {|r| r == true }
+
+create new file colors.rb
 class Colors
+then create an allowed colors constant:
   ALLOWED_COLORS = [
     'red',
     'yellow',
