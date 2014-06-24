@@ -3,10 +3,18 @@ Tuesday June 24, 2014 Day 26
 Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use. We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
 —————————— CODE KATA FAQS
 a marial arts kata is a specific set of moves that you do over and over and memorize. Code Kata is the same thing. Taking a bit of code and writing it over and over again to solve that problem until it's memorized. codersdojo.com
+—————————— CHALLENGE: DO A KATA
+-make new dir
+-set up 4 files - Gemfile(add gem), main file, spec file(require ur main file and helper), helper file.
+-run to see if runs the test suite
+-using rspec's dsl, write ur top level describe command to write our top level mini block, describing what we're trying to test.
+-create the constant
+-inside of ur top level describe block, using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
+
+
 make new katas dir in projects
 new file Gemfile
-sours "https://rubygems.org"
-
+source "https://rubygems.org"
 gem 'rspec'
 bundle
 when we're setting up katas, we need gem file, main file and then usualy an associated spec file. named the same thing but with _spec and a file called spec helper.
@@ -80,7 +88,8 @@ let's write our expectation. our expecation is that when we call this class meth
 expect(FizzBuzz.callout(1)).to eq 1
 the argument that we're passing in to the expect method is the:
 FizzBuzz.callout(1)
-So we're expecting the return value of this method to be 1.
+So we're expecting the return value of this method to = 1 (.to eq 1).
+
 
 
 
