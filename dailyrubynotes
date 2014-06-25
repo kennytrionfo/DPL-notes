@@ -4,17 +4,19 @@ Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it 
 —————————— CODE KATA FAQS
 a marial arts kata is a specific set of moves that you do over and over and memorize. Code Kata is the same thing. Taking a bit of code and writing it over and over again to solve that problem until it's memorized. codersdojo.com
 —————————— CHALLENGE: DO A KATA
--make new dir
--set up 4 files - Gemfile(add gem), main file, spec file(require ur main file and helper), helper file.
--run to see if runs the test suite
--using rspec's dsl, write ur top level describe command to write our top level mini block, describing what we're trying to test.
--create the constant
--Create ur first method to test something by going inside of ur top level describe block, and using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
--follow the errors
--refactor
+-make new dir:
+-set up 4 files: Gemfile(add gem), main file, spec file(require ur main file and helper), helper file.
+-run to see if runs the test suite:
+-write ur top level describe block/method/command: using rspec's dsl, write our top level mini block, describing what we're trying to test.
+-create the constant:
+-Add an intention expression: a statement to express intent: (this is from http://blog.davidchelimsky.net/blog/2007/05/14/an-introduction-to-rspec-part-i/)-Create ur first method/mini block: to test something by going inside of ur top level describe block, and using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
+-follow the errors and fix:
+-refactor: look for instances of where ur using the same bit of code twice or more, then create another describe block below your current '.callout' describe method to take the place of ur count % 3 == 0 code and count % 5 == 0 code that is duplicated.
 
 
-make new katas dir in projects
+-make new dir:
+mkdir project_name
+-set up 4 files: Gemfile(add gem), main file, spec file(require ur main file and helper), helper file.
 new file Gemfile
 source "https://rubygems.org"
 gem 'rspec'
@@ -36,6 +38,7 @@ fizz_buzz_spec.rb
 in spec file:
 require_relative 'spec_helper'
 require_relative 'fizz_buzz'
+-run to see if runs the test suite:
 run from katas dir
 should see:
 Run options: include {:focus=>true}
@@ -49,6 +52,7 @@ Finished in 0.00037 seconds (files took 0.09111 seconds to load)
 steps again:
 start, create gem file. add rsepc to have access, bundle, crate spec_helper file. will always be spec_helper. can even put this file into others, spec helper lets us reaqurie spec helper and config it, next created the actual program file and the spec for that file, (review vid 9:54), spec_helper requrie spec and main file and done.
 rspec uses it's own dsl (domina specifc langue) sinatr was one. all defined in mini blocks. rspec starts out , top level is describe block, what this file is trying to test. start with this and tell it what to describe.
+-write ur top level describe block/method/command:
 we decide what to call it. vid 9:56
 in fizz_buzz_spec.rb:
   describe FizzBuzz, 'a fun drinking game' do
@@ -91,21 +95,24 @@ expect(FizzBuzz.callout(1)).to eq 1
 the argument that we're passing in to the expect method is the:
 FizzBuzz.callout(1)
 So we're expecting the return value of this method to = 1 (.to eq 1).
-
-
-
-
-# and . used. vid
+-follow the errors and fix:
+# and . for
 add something under pending so that it shows up better in term
          something here that means nothing fr pending
 add a few more configurations:
 spec helper.rb
-fbs file remvoe pending lines
-vid 10:35
-
-11:16 now do red green refactor
+fizz_buzz_spec file remvoe pending lines
 clean up code
 refactor the whole thing to be by three and five to be a single method.
+End up with new methods:
+    describe '.by_three?', :focus do
+      it 'takes the number 3 and returns true' do
+        expect(FizzBuzz.by_three?(3)).to eq true
+      end
+      it 'takes the number 4 and returns false' do
+        expect(FizzBuzz.by_three?(4)).to eq false
+      end
+    end
 
 
 
