@@ -1,3 +1,143 @@
+Wed June 25, 2014 Day 26
+from the homework: today's code would be expect(user) to be_in_role "assigned role"
+Build out rails app and testing
+we'll rebuild beakr
+projects$ rails new campus_life -d postgresql
+cd in
+host localhost
+rake db create
+Gemfile
+within a rails app, we'll use rspec rails gem which is a little different bu tgives us some rails stuff to use. look at on rubygems
+add:
+  group :development, :test do
+   gem 'rspec-rails'
+ end
+follow online instructions but add in some other gems first
+addign pry so we can test in middle of app
+added all these in groups:
+group :test do
+  gem 'shoulda-matcher'
+  gem 'database_cleaner'
+end
+
+ group :development, :test do
+    gem 'ffaker'
+   gem 'rspec-rails'
+   gem 'pry-rails'
+   gem 'factory_girl_rails'
+ end
+the test group says include these gems in only ur test group, development says include on both development and test. we dont' need any of these for a production envorinment, just for development and testing.
+shoulda-matcher - collection of special matchers that we can use to easily help validate and test modeles.
+databast cleaner - we have a development db (look in db file). when we run tests, we save evertying into a test db. this gem will clean out everything from our test db. it slows us down but it assures our tests are always clean.
+ffaker - generates fake data. if u want to generate a random email, street address, person's name, etc can do this w this gem. instead of doing user.create  name = bob, can just pass in faker methods.
+rspec-rails - just rspec with some extras
+factory_girl_rails - allows u to create new records from ur models. if you say create user, it will set up all ur attributes for you. it will override anything u pass in though.
+install gems
+bundle
+web rials g rspec: install
+notice it created a spec helper!
+will see spec file in atom with these 2 files
+configure stuff in rails_helper.rb:
+add:
+DatabaseCleaner.strategy = :transaction
+under ActiveRecord...
+this was from spec_helper.rb
+add
+  config.include FactoryGirl::Syntax::Methods
+under Rspec.configure...
+add
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+above end at bottom
+add below last:
+  config.before :each do
+    DatabaseCleaner.start
+  end
+  config.after :each do
+    DatabaseCleaner.clean
+  end
+  (see vid 943 for explaination on these)
+to know how/what to add like above read documentation
+add
+    config.generators do |g|
+      g.test_framework :rspec
+    end
+in config/application.rb, under class Application...
+we have 2 helpes in our spec folder
+term
+    campus_life$ rspec spec/
+we can now just run
+in term
+rspec
+rails g model user
+this created a user model
+in first migration file now add attributes:
+      t.string :first_name
+      t.string :last_name
+      t.string :email
+      t.string :encrypted_password
+      t.date :birthday
+      t.text :hobbies
+      t.string :github_username
+      t.boolean :active, default: true
+spec/ has 2 new folders. factories and models. models is where all models specs will go. user_spec.rb is the same name as primary file above but with _spec. factories defines a factory called user where we can set up the attributes about the user.
+in factories/users.rb added
+attritubes:
+vid 10 on adding eachof these
+  factory :user do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    birthday { rand(30).years.ago }
+    email { Faker::Internet.email }
+    github_username { Faker::Internet.user_name }
+    hobbies { Faker::BaconIpsum.words.join(', ') }
+    active { true }
+  rails c
+  [1] pry(main)> u = FactoryGirl.create(:user)
+try:
+u.birthday
+u.name
+etc
+will see there is prepopluated info already in there.
+by using u = FactoryGirl.create(:user) soemthing... vid 1008
+exit
+models/user_spec.rb
+delete pending
+add
+      it { should validate_presence_of :first_name }
+run rspec
+lots of errors
+now make it pass
+app/models/user.rb
+  validates :first_name, presence: true
+run passed
+break
+remove --warnings from .rspec file to get rid of warnings in term
+user_spec.rb
+      it { should validate_presence-of :last_name }
+run
+pass
+add :last_name to user.rb
+run pass
+set up a new method in user_spec.rb
+1035...
+... 1052
+install timcop gem
+bundle
+1055...
+
+
+
+
+
+
+
+
+
+
+
+
+
 Tuesday June 24, 2014 Day 26
 —————————— TESTING FRAMEWORKS FAQS
 Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use. We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
