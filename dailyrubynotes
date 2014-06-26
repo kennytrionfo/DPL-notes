@@ -1,11 +1,40 @@
+
+
 Wed June 25, 2014 Day 26
 from the homework: today's code would be expect(user) to be_in_role "assigned role"
-Build out rails app and testing
+—————————— BUILD RAILS MODEL W RSPEC
+--create new rails app (with postgresql)
+--cd in
+--Point your program to the ruby-made local hosted server
+--rake db create
+--Install gems & bundle
+--Install rspec
+--Configure the rails helper.
+--Configure application.rb file
+--Remove --warnings from .rspec file
+--rspec spec/
+--Run the test file or rspec (depending on how u set it up)
+--Create ur first Model
+--Add ur fields & rake db:migrate
+--Set up the attributes of ur Model in the factory & migrate.
+--Test ur Model
+-Validate stuff (ie. text presence)
+-Validate predicate vars like Incomplete?
+--Create another Model with fields in migration file and rake.
+--Test associations in ur new Model
+--Describe ur(write ur specs) validations for the Model in the
+--Make specs for ur instance methods.
+--Fix away.
+
 we'll rebuild beakr
-projects$ rails new campus_life -d postgresql
-cd in
-host localhost
+--create new rails app (with postgresql)
+rails new campus_life -d postgresql
+--cd in
+--Point your program to the ruby-made local hosted server
+config/database.yml
+host: localhost
 rake db create
+--Install gems
 Gemfile
 within a rails app, we'll use rspec rails gem which is a little different bu tgives us some rails stuff to use. look at on rubygems
 add:
@@ -32,18 +61,19 @@ databast cleaner - we have a development db (look in db file). when we run tests
 ffaker - generates fake data. if u want to generate a random email, street address, person's name, etc can do this w this gem. instead of doing user.create  name = bob, can just pass in faker methods.
 rspec-rails - just rspec with some extras
 factory_girl_rails - allows u to create new records from ur models. if you say create user, it will set up all ur attributes for you. it will override anything u pass in though.
-install gems
+install more gems
 bundle
-web rials g rspec: install
+--Install rspec
+from web:
+  rails g rspec:install
 notice it created a spec helper!
 will see spec file in atom with these 2 files
+--Configure the rails helper.
+(below is incomplete and choppy. see 25w1RspecInModels.MP4 min28)
 configure stuff in rails_helper.rb:
-add:
+add under ActiveRecord... :
 DatabaseCleaner.strategy = :transaction
-under ActiveRecord...
-this was from spec_helper.rb
-add
-  config.include FactoryGirl::Syntax::Methods
+config.include FactoryGirl::Syntax::Methods
 under Rspec.configure...
 add
   config.filter_run focus: true
@@ -58,19 +88,19 @@ add below last:
   end
   (see vid 943 for explaination on these)
 to know how/what to add like above read documentation
-add
+--Configure application.rb file
+in config/application.rb, under class Application...
     config.generators do |g|
       g.test_framework :rspec
     end
-in config/application.rb, under class Application...
 we have 2 helpes in our spec folder
-term
-    campus_life$ rspec spec/
-we can now just run
+--Remove --warnings from .rspec file to get rid of warnings in term
 in term
-rspec
+--rspec
+--Create ur first model
 rails g model user
 this created a user model
+--Add ur fields
 in first migration file now add attributes:
       t.string :first_name
       t.string :last_name
@@ -81,9 +111,10 @@ in first migration file now add attributes:
       t.string :github_username
       t.boolean :active, default: true
 spec/ has 2 new folders. factories and models. models is where all models specs will go. user_spec.rb is the same name as primary file above but with _spec. factories defines a factory called user where we can set up the attributes about the user.
+--Set up the attributes of ur Model in the factory & migrate.
 in factories/users.rb added
 attritubes:
-vid 10 on adding eachof these
+vid 10 on adding each of these
   factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
@@ -92,6 +123,7 @@ vid 10 on adding eachof these
     github_username { Faker::Internet.user_name }
     hobbies { Faker::BaconIpsum.words.join(', ') }
     active { true }
+rake db:migrate
   rails c
   [1] pry(main)> u = FactoryGirl.create(:user)
 try:
@@ -101,10 +133,13 @@ etc
 will see there is prepopluated info already in there.
 by using u = FactoryGirl.create(:user) soemthing... vid 1008
 exit
-models/user_spec.rb
+--Describe ur validations for the Model
+spec/models/user_spec.rb
 delete pending
 add
+  describe
       it { should validate_presence_of :first_name }
+  end
 run rspec
 lots of errors
 now make it pass
@@ -112,7 +147,6 @@ app/models/user.rb
   validates :first_name, presence: true
 run passed
 break
-remove --warnings from .rspec file to get rid of warnings in term
 user_spec.rb
       it { should validate_presence-of :last_name }
 run
@@ -125,15 +159,44 @@ set up a new method in user_spec.rb
 install timcop gem
 bundle
 1055...
+challenge:
+Test Assignment Model
+1. Association to user
+2. Validate text presence
+3. Incomplete?
 
+projects for end of class:
+need to be full scale applications.
 
+Challenge:
+Create a shout-out app that has model tests. We're going to be testing our validations, associations, and methods.
+The shout out app is going to be very similar to the tweaker app so feel free to use that as reference.
 
+https://github.com/jwoertink/dpl-tweaker
 
+Shout-out app
+Models:
+	- Users
+		○ Validations
+			§ First Name
+			§ Last Name
+			§ Mood
+		○ Associations
+			§ has_many :shouts
+		○ by_mood method
+			§ Find user by mood
+	- Shout
+		○ Validations
+			§ Message
+		○ Associations
+			§ belongs_to :user
+		○ Angrify method
+			§ Upcases the shout
+			§ Adds exclamation points to the end
+		○ by_time method
+			§ Find shouts posted before a certain tie
 
-
-
-
-
+Write specs for the validations, associations, and methods of the User and Shout model.
 
 
 
@@ -1461,6 +1524,9 @@ From the "elephant directory" - rails generate scaffold Animal name:string etc..
 -join js meetups and html
 
 ———————— ATOM HOTKEYS ————————
+Transpose characters either side of cursor
+ctrl + t
+
 Hotkey erb shortcuts
 control shift .
 
@@ -1509,8 +1575,7 @@ shift + ⌘ + left/right
 shift + ⌘ + up/down
 Select to top/bottom of document
 
-Transpose characters either side of cursor
-ctrl + t
+
 
 
 
