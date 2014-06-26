@@ -1,3 +1,55 @@
+Thurs June 26, 2014 Day 27
+—————————— USE RSPEC WITH CONTROLLERS
+use campus life project
+create a new model call notes
+rails g model note
+in it's migration file:
+      t.text :text
+migrate
+update factory/notes
+    text { Faker::BaconIpsum.paragraph}
+create controller
+rails g controller notes
+now have controllers folder in spec file
+delete notes file in helper folder
+spec/controllers/notes_controller_spec.rb
+we need to test 7 actions
+set up describe for them
+start with index action
+what is the purpose?
+display a collection of whatever our app has in it so:
+it 'displays a collection of ntoes' do
+so then for us to have a collection, we need to have some notes, so:
+before do
+  @notes = create_list(:note, 3)
+
+Fill them in
+...vid
+--Challenge
+Do the update spec
+hint
+after lunch challenge:
+Shoutout appllication from yesterday
+Users Controller
+-index
+-show
+-new
+-create
+-edit
+-udpate
+-destroy
+Shouts Controller
+-index
+-show
+-new
+-create
+-edit
+-update
+-destroy
+
+
+
+
 
 
 Wed June 25, 2014 Day 26
