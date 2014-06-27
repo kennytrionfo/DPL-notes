@@ -1,3 +1,22 @@
+Friday June 27, 2014 day 28
+review today in mind first.
+qustion from Landon - how to test index action with namespacing.
+on campus_life. good practice on scoping.
+—————————— NODE JS FAQS
+programming language like js but it's a server side implementation. it contains things that js does not. js can only be ran on client side and inside of a brower but node can be ran on server side. created to be highly concurrent which means if you have two tasks to do, you can run both at the same time, in parllel. non blocking IO means that two things running at the same time that don't conflict like a notification in chat that other person is typing. sports scores or weathre updating in real time. ruby doesn't do that so well and doesn't scale it so well.
+node has a lot like ruby
+type node into term for it's "irb"
+ie 1  + 1
+this is a repl where we can test code like irb for ruby.
+many functions are similar to js. like "hello".toUpperCase()
+to exit control c twice
+so you can hop into here if u want to test some stuff ur doing in ur application.
+
+
+
+
+
+
 Thurs June 26, 2014 Day 27
 —————————— USE RSPEC WITH CONTROLLERS
 use campus life project
