@@ -7,6 +7,7 @@ will return an array of strings. but instead of having to put in commas and quot
 - %q will return a string.
 let's practice in campus_life. will be good practice on scoping.
 —————————— NODE JS FAQS
+(come back and review vid if we're gonna really use Node)
 programming language like js but it's a server side implementation. it contains things that js does not. js can only be ran on client side and inside of a brower but node can be ran on server side. created to be highly concurrent which means if you have two tasks to do, you can run both at the same time, in parllel. non blocking IO means that two things running at the same time that don't conflict like a notification in chat that other person is typing. sports scores or weathre updating in real time. ruby doesn't do that so well and doesn't scale it so well.
 node has a lot like ruby
 type "node" into term for it's "irb"
@@ -38,6 +39,7 @@ create new file:
 have to be explicit like in js and use return keyword.
 just like ruby has gems and can do gem install, node has a package manager called NPMs (node package managers) (like ruby's gems)
 —————————— EXPRESS FAQs
+(come back and review vid if we're gonna really use express)
 let's look at express - a sinatra inspired npm
 npm works like gems and bundle together to be careful how you install. install globally means...
 check to make sure have npm
@@ -47,6 +49,7 @@ going to learn sails.js
 node_stuff(master)$ npm install -g sails@0.9.8
 ...
 —————————— SAILS FAQS
+(come back and review vid if we're gonna really use sails)
 sails lift to start sails server
 quite server with control c
 generate a new controller is similar to rails. from ur dir:
@@ -113,11 +116,7 @@ Shouts Controller
 
 
 
-
-
-
 Wed June 25, 2014 Day 26
-from the homework: today's code would be expect(user) to be_in_role "assigned role"
 —————————— BUILD RAILS MODEL W RSPEC
 --create new rails app (with postgresql)
 --cd in
@@ -319,7 +318,9 @@ Write specs for the validations, associations, and methods of the User and Shout
 
 Tuesday June 24, 2014 Day 26
 —————————— TESTING FRAMEWORKS FAQS
-Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use. We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
+Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+—————————— RSPEC FAQs
+We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
 —————————— CODE KATA FAQS
 a marial arts kata is a specific set of moves that you do over and over and memorize. Code Kata is the same thing. Taking a bit of code and writing it over and over again to solve that problem until it's memorized. codersdojo.com
 —————————— CHALLENGE: DO A KATA
@@ -331,7 +332,6 @@ a marial arts kata is a specific set of moves that you do over and over and memo
 -Add an intention expression: a statement to express intent: (this is from http://blog.davidchelimsky.net/blog/2007/05/14/an-introduction-to-rspec-part-i/)-Create ur first method/mini block: to test something by going inside of ur top level describe block, and using describe again, inside of a string, using '.' cuz it's a class, name ur method that will test whatever it is that u need to test and write your block with ur it/do string statement and expectation of what we want our new method to do when we pass in an arugument.
 -follow the errors and fix:
 -refactor: look for instances of where ur using the same bit of code twice or more, then create another describe block below your current '.callout' describe method to take the place of ur count % 3 == 0 code and count % 5 == 0 code that is duplicated.
-
 
 -make new dir:
 mkdir project_name
@@ -361,10 +361,7 @@ require_relative 'fizz_buzz'
 run from katas dir
 should see:
 Run options: include {:focus=>true}
-
 All examples were filtered out
-
-
 Finished in 0.00037 seconds (files took 0.09111 seconds to load)
 0 examples, 0 failures
 -It ran the test suite in .0003 seconds, 0 examples, etc.
@@ -592,9 +589,6 @@ vid 11 for solution
 you want to write the least amount of cde possible to get test to pass. all you care about is the test passing.
 go back and review youtube vid as mine ran out of battery between 11:30-noon.
 include is used for modules so we need to make a module
-
-
-
 
 
 
