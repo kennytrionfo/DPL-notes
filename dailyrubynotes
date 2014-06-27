@@ -1,6 +1,11 @@
 Friday June 27, 2014 day 28
 review today in mind first.
 qustion from Landon - how to test index action with namespacing.
+my question about %w:
+will return an array of strings. but instead of having to put in commas and quotes etc, it just does it for you. 
+- %i will be an array of symbols.
+- %q will return a string.
+
 on campus_life. good practice on scoping.
 —————————— NODE JS FAQS
 programming language like js but it's a server side implementation. it contains things that js does not. js can only be ran on client side and inside of a brower but node can be ran on server side. created to be highly concurrent which means if you have two tasks to do, you can run both at the same time, in parllel. non blocking IO means that two things running at the same time that don't conflict like a notification in chat that other person is typing. sports scores or weathre updating in real time. ruby doesn't do that so well and doesn't scale it so well.
@@ -11,6 +16,46 @@ this is a repl where we can test code like irb for ruby.
 many functions are similar to js. like "hello".toUpperCase()
 to exit control c twice
 so you can hop into here if u want to test some stuff ur doing in ur application.
+the way you name things is important.
+node has moduels but they are diff than ruby.
+project dir/
+new file called Person.js using CAPITAl.
+node has exports
+the capital P means...
+the return value of require
+this is how you define classes.
+exports.name = 'Kenny T';
+exports.age = 32;
+exports.hobbies = ['Ruby', 'Node', 'Food'];
+exit out and in of node
+> var me = require('./Person');
+undefined
+> me.age
+32
+> me.hobbies
+[ 'Ruby', 'Node', 'Food' ]
+comments are //
+create new file:
+have to be explicit like in js and use return keyword.
+just like ruby has gems and can do gem install, node has a package manager called npm (like ruby's gems)
+looked at express - a sinatra inspired npm
+npm works like gems and bundle together to be careful how you install. install globally means...
+check to make sure have npm
+npm -v in node
+lots of other bootcamps are teaching express rather than rails
+going to learn sails.js
+node_stuff(master)$ npm install -g sails@0.9.8
+...
+—————————— SAILS FAQS
+sails lift to start sails server
+quite server with control c
+chatter(master)$ sails generate controller chats
+open chats controller in atom
+is sails a node nps?
+--challenge:
+get this thing to connect to postgress and store records in the db
+
+
 
 
 
