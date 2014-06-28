@@ -434,6 +434,16 @@ End up with new methods:
 
 Monday June 23, 2014, day 25
 Active record enum - You take an array... vid 9:06
+—————————— ENUM FAQS
+Enum is an active record. It takes an integer field, you specify an array of values and it maps each value in each index field to a number that it will store in an integer. for ex:
+say ur working on a membership model, you could do:
+so
+class Membership
+enum plans [bronze, gold, platnum ]
+end
+so plans would be an integer field here. and the enum takes each one of the index fields, converts it to the value of it's index (ie. 0,1,2) and stores it in the method plans. it also kinda masks that number because it would be hard to remember , if you said that the value of plans is 1, it's hard to know what that value actually means, so it kind of overrides the method to say "plans will return gold" or "plans will return bronze" etc and behind the scenes it just knows that it's one of those integers. when you have a field that's an integer in your database, it's much faster to query on then also using symbols is a lot cleaner than using messy stings etc. You also get all kinds of predicate methods like @member.gold? which would return true if the plan was 1 so you can say "if the membership is gold" then do something like present special features or something. You can use enum for doing user roles, 
+
+
 —————————— TESTING FAQS
 tdd or bdd is a paridigm that's out there.
 tdd-test drivin development. bdd-behavior driven development. no diff between the two. TDD-you write the test first before the app even exits. I expect it to look like this and do this. duck-typing is "if it walks like a duck, chances are it's a duck". So the first time you write code, you write it to make the test pass. then you have solid code.
