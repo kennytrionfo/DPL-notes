@@ -1,5 +1,19 @@
 June 30, 2014 day 29
 —————————— JS FRAMEWORKS FAQs
+A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
+—————————— new js app
+create file jquery.js
+minify is taking original source, removing whitespace and putting on one line.
+copy file into fil from web
+make index file
+put in html basics
+put in script tags where you need them. depends on when you need ur js stuff to run. pages load top down.
+set up stuff....
+js is event drivin. onload belongs to the window object. onload is a function, it firesoff when the window is loaded but u might have things still loading on ur site like espn, the window was loaded but things were still loading. document on ready is when the document is all loaded, not just the window so best tim to start doign stuff.
+;
+4 diff functions to put text into
+Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
+before puts it above, after puts it after, prependt at top of object and append at the bottom of object. 
 
 
 
