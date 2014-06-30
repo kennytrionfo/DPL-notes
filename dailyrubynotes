@@ -79,13 +79,8 @@ ends up like this:
   window.setTimeout(function() {
     console.log('timeout fired');
     }, 2500);
-  
 
-
-
-
-
-
+...taking notes on vid....
 
 4 diff functions to put text into
 Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
@@ -97,6 +92,17 @@ when click on circle - it should move it to the right hand side of page and clic
 -Create a select tag with 3 options.
 -The value of each option will be a programming language. (put that in side ur htm file)
 -when you select a new language, change the text of the sandbox to be that language.
+--After lunch Challenge:
+Memory game. 10x10.
+1.Set up board to have 10x10
+2.make them a div. give it a background color
+3.by clicking on a tile, should change background to white with black boarder still with words.
+4. will have to do clicks
+5.will have to know what each are. when u click on em, store the value and if they are the same, remove from board.
+
+
+
+bind a lcick event. the click stores the action in a variable that you'll have reference to later.
 
 
 
@@ -1764,6 +1770,12 @@ From the "elephant directory" - rails generate scaffold Animal name:string etc..
 -join js meetups and html
 
 ———————— ATOM HOTKEYS ————————
+Global find and replace - all files in dir
+Command + shift + f
+
+Local find and replace - local file only
+command + f
+
 Transpose characters either side of cursor
 ctrl + t
 
