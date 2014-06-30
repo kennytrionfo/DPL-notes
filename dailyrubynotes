@@ -13,7 +13,9 @@ js is event drivin. onload belongs to the window object. onload is a function, i
 ;
 4 diff functions to put text into
 Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
-before puts it above, after puts it after, prependt at top of object and append at the bottom of object. 
+before puts it above, after puts it after, prependt at top of object and append at the bottom of object.
+lookup jq functions resource - http://api.jquery.com/category/events/
+
 
 
 
