@@ -1,16 +1,92 @@
 June 30, 2014 day 29
 —————————— JS FRAMEWORKS FAQs
 A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
-—————————— new js app
-create file jquery.js
+—————————— NEW JQUERY APP FAQs
+-create file jquery.js
 minify is taking original source, removing whitespace and putting on one line.
-copy file into fil from web
-make index file
+copy file from web page: http://code.jquery.com/jquery-2.1.1.min.js
+-paste into jquery.js file
+-make mew index.html file
 put in html basics
 put in script tags where you need them. depends on when you need ur js stuff to run. pages load top down.
-set up stuff....
+add script tag into html file to connect to the jq file
+will look like:
+    <script charset="utf-8" src="jquery.js"></script>
+then add
+    <script charset="utf-8" src="sandbox.js"></script>
+to connect to sandbox.js file
+jquery src is put before sandbox cuz the website reads top down and we need jqury to run before it runs any of our own js.
+we're not putting our js in this html file because we want to be unobtrusive so we'll just src it here and create another file to write our js in.
+create new file
+sandbox.js
+create div with id sandbox with "playing in the sand"
+open in browser
 js is event drivin. onload belongs to the window object. onload is a function, it firesoff when the window is loaded but u might have things still loading on ur site like espn, the window was loaded but things were still loading. document on ready is when the document is all loaded, not just the window so best tim to start doign stuff.
-;
+When the document is ready, is the best time to write scripts.
+let's fire off an event when the doc is ready:
+We'll use the jquery function $ which is an aliase for Qjuery.
+$()
+pass () like all functions, cuz it's a function
+this jquery function can take all kinds of arguments, strings, arrays, etc. if ti's an object, it's wraps jq all around it.
+so take the document object and wrap it in jq:
+$(document)
+this allows us to run jq methods
+many js functions are "on" like onclick, onready, but when  using jq, we can remove the on so
+$(document).ready
+and ready takes an annymouse function
+$(document).ready(function() {
+
+});
+So everything we put inside this block, fires only AFTER the document is ready.
+we can put
+alert('the audience is ready');
+to see if an alert pops AFTER the doc is ready.
+but if we switch to
+console.log('document now ready');
+will tell us in our console in our browsewr the message 'docuemnt now ready'
+make sure to opon firebug and console to see
+use console to find html elements
+so to find the div's css id sandbox by passing in a css selector to our jq function
+$('#sandbox')
+so this will return a collection of elements that match that css selector. go see in firebug.
+Store this object into a variable:
+  var sandbox = $('#sandbox');
+print the text that's inside the sandbox css by
+console.log(sandbox.text());
+because sandbox is now a jq object, we can now run one of the jq functions .text on it which will return all the text that is inside of the collection of elements sandbox
+let's look at styling the element
+we normally use a style element with .style.color = red etc
+with jq it's cleaner. we use the css funtion which takes a collection of key value pairs where the key is the css property, and the value is the value of the css property :
+  sandbox.css({
+    'color': '#ff0000',
+    'border': '1px solid #ff0000',
+    'padding': '10px',
+    'background-color': '#ffeeee'
+  });
+The alternative to this would be doing div.style.color = or div.style.border =
+rf for changes
+2 time based events. timeout which fires aftre certain miliseconds and interval whcih will repeatedly fire off after those miliseconds.
+create timeout.
+window.setTimeout()
+no $ cuz this isn't jq, it's just js.
+setTimout takes 2 arguments:
+function() is the function you want to run,
+{console.log('timeout fired');
+},
+2nd is the amount of milisecs you want to wait
+2500);
+ends up like this:
+  window.setTimeout(function() {
+    console.log('timeout fired');
+    }, 2500);
+  
+
+
+
+
+
+
+
 4 diff functions to put text into
 Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
 before puts it above, after puts it after, prependt at top of object and append at the bottom of object.
