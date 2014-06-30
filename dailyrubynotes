@@ -1,3 +1,24 @@
+June 30, 2014 day 29
+—————————— JS FRAMEWORKS FAQs
+
+
+
+
+
+—————————— FULLSTACK TDD APP FAQS
+-Create rails app (put jason's reference sheet in here)(RAILS APP FAQs)
+-Set up Rspec for testing (RSPEC FAQS)
+-Create DB with postgresql (??)
+-Create Models (MODELS FAQs)
+-Create controllers & views (CONTROLLERS)
+-Authorization for different role access
+-Authentication w Devise
+-Style it with Bootstrap
+
+
+
+
+
 Friday June 27, 2014 day 28
 review today in mind first.
 qustion from Landon - how to test index action with namespacing.
@@ -341,24 +362,27 @@ source "https://rubygems.org"
 gem 'rspec'
 bundle
 when we're setting up katas, we need gem file, main file and then usualy an associated spec file. named the same thing but with _spec and a file called spec helper.
-new file spec_helper
 and:
 require 'rspec'
 
 RSpec.configure do |c|
   c.color = true
   c.filter_run focus: true
+(let's us use the focus method to focus in on one block of code.)
+    c.run_all_when_everything_filtered = true
+(says that if we don't add a focus to anything, it'll run our whole test suite.)
+  c.formatter = :documentation
+(add a formatter. there are many diff formatters. this :documentation formatter allows us to write into our code what we're doing in a story format that shows up in your feedback in the term to better help you undersand what's going on)
 end
 there's lots of options on how to configure rspec. we're saying if things fail red, pass green and we'r adding a focus to be able to run a specific thing in stead of how thigns.
-next set up kata fils:
+next set up ur main & spec files:
 fizz_buzz.rb
 and
 fizz_buzz_spec.rb
 in spec file:
 require_relative 'spec_helper'
 require_relative 'fizz_buzz'
--run to see if runs the test suite:
-run from katas dir
+run from katas dir to see if runs the test suite:
 should see:
 Run options: include {:focus=>true}
 All examples were filtered out
@@ -437,11 +461,10 @@ Active record enum - You take an array... vid 9:06
 —————————— ENUM FAQS
 Enum is an active record. It takes an integer field, you specify an array of values and it maps each value in each index field to a number that it will store in an integer. for ex:
 say ur working on a membership model, you could do:
-so
 class Membership
 enum plans [bronze, gold, platnum ]
 end
-so plans would be an integer field here. and the enum takes each one of the index fields, converts it to the value of it's index (ie. 0,1,2) and stores it in the method plans. it also kinda masks that number because it would be hard to remember , if you said that the value of plans is 1, it's hard to know what that value actually means, so it kind of overrides the method to say "plans will return gold" or "plans will return bronze" etc and behind the scenes it just knows that it's one of those integers. when you have a field that's an integer in your database, it's much faster to query on then also using symbols is a lot cleaner than using messy stings etc. You also get all kinds of predicate methods like @member.gold? which would return true if the plan was 1 so you can say "if the membership is gold" then do something like present special features or something. You can use enum for doing user roles, 
+so plans would be an integer field here. and the enum takes each one of the index fields, converts it to the value of it's index (ie. 0,1,2) and stores it in the method plans. it also kinda masks that number because it would be hard to remember , if you said that the value of plans is 1, it's hard to know what that value actually means, so it kind of overrides the method to say "plans will return gold" or "plans will return bronze" etc and behind the scenes it just knows that it's one of those integers. when you have a field that's an integer in your database, it's much faster to query on then also using symbols is a lot cleaner than using messy stings etc. You also get all kinds of predicate methods like @member.gold? which would return true if the plan was 1 so you can say "if the membership is gold" then do something like present special features or something. You can use enum for doing user roles,
 
 
 —————————— TESTING FAQS
@@ -489,7 +512,7 @@ class MathStuff
 end
 in testing file at top:
 require_relative 'math'
-we want to test that this mehod does that we think.
+we want to test that this method does that we think.
 in testing.rb
 above result:
 added = MathStuff.add(1,1)
@@ -619,6 +642,7 @@ gem ‘bootstrap-sass’
 gem ‘font-awesome-sass’
 gem ‘devise’
 -bundle
+—————————— DEVISE FAQs
 Do devise stuff. follow documentation github
 rails g devise:install
 will see these instructions in term:
@@ -1721,7 +1745,7 @@ NodsJS(express, sails), python(cake, fuel, symphony, kohana)
 -scaffolding generates a lot of stuff for you that you would normally have to do it by hand. we'll be doing more by hand later.
 -it's a way to do a quick protocal but is very unsecure.
 
-———————— SETTING UP RAILS (Jeremy's slide)————————
+———————— SETTING UP RAILS APP FAQs (Jeremy's slide)————————
 FACTS:
 -went through all files required to set up a new program. see vid h3.
 
@@ -1739,16 +1763,21 @@ Prototyping in Rails (ie.making a new basic site)
 8. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
 
 
-———————— SETTING UP RAILS (My notes)————————
-Facts:
+———————— SETTING UP RAILS APP FAQs (My notes)————————
 Steps:
 1.Create new projects/app:
-in terminal: rails new 'project_name' (what does this do? What will you see if successful or not?)
+
+
+
+1.Create new projects/app in rails using postgresql for db:
+in terminal:
+rails new myapp -d postgresql
+(Creates a new Rails Application entitled myapp using Potsgresql for the database. Will see a new file created in the dir u made this in entitled myapp with ??? files in it.)
 2.Set up version & gemset files in the new directory:
 in term (in the directory) or in atom - create new files: .ruby-version and .ruby-gemset. In term - type "atom .ruby-version" and "atom .ruby-gemset"
 3. In the ruby-version file put in the ruby version "2.1.2"
 4. In the ruby-gemset file put the name of the file ie. "todo"
-5. Cd out and then back in .
+5. Cd out and then back in.
 Will see something like this:
 ruby-2.1.2 - #gemset created /Users/user/.rvm/gems/ruby-2.1.2@todoapp3
 ruby-2.1.2 - #generating todoapp3 wrappers...........
@@ -1786,7 +1815,7 @@ In term type: rake db:migrate in the direcotry your file is in. Should see..?? =
 
 
 Day 13 - June 5, 2014
-————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE ;EB
+————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE
 FACTS:
 -MUST SET EVENT Listeners up when page loads so it tells the page that when these events happen, do something.
 -This overrides something...
