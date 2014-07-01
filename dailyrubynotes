@@ -26,6 +26,13 @@ make div in html above scripts:
 in application.js below fancy title:
 $('#calendar').fullCalendar();
 break
+--Challenge
+Create a new page with 2 new jq plugins on it.
+after lunch
+model, objects, for our projects.
+gitflow & github
+diagrams, domain names, 
+
 
 
 
