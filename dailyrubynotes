@@ -1,3 +1,34 @@
+July 1, 2014
+—————————— JQUERY PLUGINS FAQs
+look at plugins for our slider and/or arrow buttons etc.
+amsul.ca/pickadate.js is cool calendar maybe for our site.
+
+implement fullcalendar plugin
+on arshaw.com/fullcalendar
+go to download
+download latest fullcalendar zipfile
+put the file into your folder (unzip it)
+checkout documentation , basic usage. need to link to stylesheet
+in html in header put link tag to it
+<link rel="stylesheet"
+href="/"...
+docuemtations says include jquery gem(we laready have it)
+also says include lib
+so add in html
+script src="fullcalendar-2.0.2/lib/moment.min.js"></script>
+doc says inclue fullcalednar.js
+after fullcaldenar script:
+script src="fullcalendar-2.0.2/lib/fullcalendar.min.js"></script>
+doc-
+make div in html above scripts:
+<div  id="calendar">
+  </div>
+in application.js below fancy title:
+$('#calendar').fullCalendar();
+break
+
+
+
 June 30, 2014 day 29
 —————————— JS FRAMEWORKS FAQs
 A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
