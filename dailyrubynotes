@@ -3,9 +3,19 @@ June 30, 2014 day 29
 A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
 —————————— NEW JQUERY APP FAQs
 -create file jquery.js
+-make mew index.html file
+-make an main.js file
+-make a .css file and link the html to it with a <link rel= >
+-start main.js file with the document ready function
+-Style it inside the main.js file or...
+-Style it in the .css file.
+-Build out html, css and .jq
+
+vid 1
+-create file jquery.js
 minify is taking original source, removing whitespace and putting on one line.
 copy file from web page: http://code.jquery.com/jquery-2.1.1.min.js
--paste into jquery.js file
+paste into jquery.js file
 -make mew index.html file
 put in html basics
 put in script tags where you need them. depends on when you need ur js stuff to run. pages load top down.
@@ -17,7 +27,7 @@ then add
 to connect to sandbox.js file
 jquery src is put before sandbox cuz the website reads top down and we need jqury to run before it runs any of our own js.
 we're not putting our js in this html file because we want to be unobtrusive so we'll just src it here and create another file to write our js in.
-create new file
+-create new main.js file
 sandbox.js
 create div with id sandbox with "playing in the sand"
 open in browser
@@ -37,6 +47,9 @@ and ready takes an annymouse function
 $(document).ready(function() {
 
 });
+the shorthand way to do this is:
+$(function() {
+});
 So everything we put inside this block, fires only AFTER the document is ready.
 we can put
 alert('the audience is ready');
@@ -46,14 +59,17 @@ console.log('document now ready');
 will tell us in our console in our browsewr the message 'docuemnt now ready'
 make sure to opon firebug and console to see
 use console to find html elements
+find elements that are using a certain css selector..
 so to find the div's css id sandbox by passing in a css selector to our jq function
 $('#sandbox')
 so this will return a collection of elements that match that css selector. go see in firebug.
+return text that's inside of an element by calling text function..
 Store this object into a variable:
   var sandbox = $('#sandbox');
 print the text that's inside the sandbox css by
 console.log(sandbox.text());
 because sandbox is now a jq object, we can now run one of the jq functions .text on it which will return all the text that is inside of the collection of elements sandbox
+-Style it inside the main.js file or...
 let's look at styling the element
 we normally use a style element with .style.color = red etc
 with jq it's cleaner. we use the css funtion which takes a collection of key value pairs where the key is the css property, and the value is the value of the css property :
@@ -79,19 +95,54 @@ ends up like this:
   window.setTimeout(function() {
     console.log('timeout fired');
     }, 2500);
-
 ...taking notes on vid....
-
 4 diff functions to put text into
 Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
 before puts it above, after puts it after, prependt at top of object and append at the bottom of object.
 lookup jq functions resource - http://api.jquery.com/category/events/
+insert an html element..
+use append & after functions..
+insert some css styling..
+create an onclick function on a ball element..
+use the (this) command..
+use console.log to show changes and effects in the console..
+find out of something's value is equal to a string or rgb..
+create a property that tells us if something is green or not or on or off..
+use data function() to set a switch (set metadata onto an object)..
+we're basically looking at something's state, seeing what state it's in, and based on that, doing something like changing it's state.
+Vid 2
+animate jq function..
+it takes several arguments. first is css and 2nd is optional duration, 3rd is optional easing, 4th is optional callback option.
+use formarea function to create a text form..
+find an element using psudoclass :text that will return inputs that are text fields..
+bind a blur function that gets called when clicking away from a text field..
+bind focus function to start an event when clicking into a text form..
+binding is attaching an event, one to another.
+create an a tag href to link to google..
+link to place in doc with #linkarea a..
+how to prevent browswer from doing default click or link using preventDefault..
+bind event to entire document..
+us .on to bind a switch to events with a certain class, even future ones..
+use click to bind an event to a single event and use click to bind to mutiple of the same class or new ones throughout the doc..
+jquery-rails gem comes with rails..
 --Challenge:
 when click on circle - it should move it to the right hand side of page and clicking again should send back over to left hand side.
+vid 3
+answer to challenge..
+find out length of window..
+using .animate to do more animation on circle to move across screen..
 --Challenge:
 -Create a select tag with 3 options.
 -The value of each option will be a programming language. (put that in side ur htm file)
 -when you select a new language, change the text of the sandbox to be that language.
+vid 4
+answer to challenge..
+use jq change event function..
+vid 5
+--Challenge. Memory game instructions.
+vid 6 & 7 answer to mem game
+vid 8 line by line explantion of jq for mem game
+
 --After lunch Challenge:
 Memory game. 10x10.
 1.Set up board to have 10x10
@@ -99,8 +150,6 @@ Memory game. 10x10.
 3.by clicking on a tile, should change background to white with black boarder still with words.
 4. will have to do clicks
 5.will have to know what each are. when u click on em, store the value and if they are the same, remove from board.
-
-
 
 bind a lcick event. the click stores the action in a variable that you'll have reference to later.
 
@@ -113,8 +162,9 @@ bind a lcick event. the click stores the action in a variable that you'll have r
 -Create DB with postgresql (??)
 -Create Models (MODELS FAQs)
 -Create controllers & views (CONTROLLERS)
--Authorization for different role access
--Authentication w Devise
+-Authorization for different role access if needed
+-Authentication w Devise if needed
+-Put in js with jq if needed
 -Style it with Bootstrap
 
 
