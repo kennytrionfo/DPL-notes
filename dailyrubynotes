@@ -1,4 +1,142 @@
-July 1, 2014
+July 2, 2014 day 31
+js can go into a rails app, it just goes in a specific place.
+boot up app - rails s
+try localhost: 3000 in browser
+in Gemfile is jquery-rails gem so good to go.
+also have Coffee-rails which comes with rails and converts coffee into js for you
+also have bootstrap-sass which give us some nice bootstrap stuff out of box.
+take a look on getbootstrap.com. http://getbootstrap.com/javascript/#transitions
+we get lots of stuff like modals which is something where you can't interact w background at all.
+with rails, some plugins are even easier to install!
+let's do some model stuff
+create a model on homepage:
+include all js needed
+application.js
+delete comments except for requires
+the //= is a rails thing and it's called a manifest, a js manifest. it takes all these diff js files and compiles into a single file. in a normal stie if you need 20 pligins, the server reads them one by one so it takes 20 server calls to load something and if one fails, anything below it stops loading. but with the asset manifest you list them as you would with jq first and then others and then rails complies into a single file. with one file, it will always work and it's compressed so it minifys the files.
+so the //=require jquery.js can drop the .js
+the //= require jquery_ujs should most alwasy be next.
+delete turbolinks, it's garbage
+require_tree requries all the js files that are in whatever dir this is in. and the . means the dir we're in.  don't really need this one so we'll delete also
+we do want:
+//= require bootstrap (this is bootstrap.js, we're leaving off the js)
+also put in:
+//= require_self to require the file we're in. this will always be last.
+set up
+$(function() {
+
+})
+and put
+startTheParty(); in it.
+above it define:
+var startTheParty = function() {
+  console.log('it works');
+};
+at this point the application.js is same excetp we ahve the manifest at top.
+server booted
+bring up console in browser
+if refresh "it works" shows up. when the doc is ready, it'll run our custom funciton
+now we want to create the modal.
+go to the bootstrap documentation and see how it works.
+go to site index file:
+create a div and give it any id
+<div id= "hello" class= "modal fade" tabindex= "-1" role= "dialog">
+</div>
+next give it class modal and fade (a bootstrap animation)
+tabindex...
+aria attributes... (hides somethng?? till you want it to shwo)
+create a few more divs
+inner divs (all inside each) with
+fire alarm
+class="modal-dialog"
+class="modal-content"
+class="modal-header"
+with the modals set up, inside of modal header, can do a button and use it as a way to close the modal.
+add class= "close" and data-dismiss= "modal" to the button type...
+see vid code to complete...
+<div id="hello" class="modal fade" tabindex="-1" rols="dialog" aria-labelledby="hello-modal-label" aria-hidden="true"  >
+  <div class="modal-dialog"  >
+    <div class="modal-content"  >
+      <div class="modal-header"  >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4>Hello Modal</h4>
+        </div>
+        <div class="modal-body"  >
+          <p> Yo Yo !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+then p tag <p>
+yo yo!
+</p>
+inside of modal-body div
+rf - don't see the modal on page. but if we inspect html markup, it shows so it's actually on the page. so the markup is on the page until we need it.
+documention on bootstrap:
+let's do a link instead of a button to kick off modal
+above divs
+<a href="#hello" data-toggle="modal" class="btn btn-default">Hello</a>
+rf click it, modal should pop
+looking at doc - can call modal show (show function is built into bootstrap?)
+in application.js
+set timout
+vid..
+rf after 1.5 sec, modal shows up.
+so it works.
+let's look at implmenting a plugin not in boottrap
+fullcalendar plugin
+go find it in other files (it in javascript dir from future)
+fullcalendar comes with a lot but we only implemented 2 things before. did we create thsi? no. so don't put inside app assets but inside vendor assests
+copy fullcalendar.min.js file and rename to fullcalendar.js and put into vendor/assests/javascripts
+and then into vendor/assessts/stylsheets:
+the fullcalendar.css file
+now add them in.
+in applicatoin.js
+above requrie_self
+//=require fullcalendar  (without the .js)
+also need to require css
+app/stylsheet/application.css.scss:
+@import "fullcalendar"; on the bottom
+application.js:
+initialize plugin:
+above last line:
+$('#calendar').fullCalendar();
+create the div
+in index.html.erb
+below a href
+<div id="calendar"  >
+
+  </div>
+when somethign doesn't work look at js console
+fix error vid...
+come back to asset manifest
+agove fullcalendar:
+//= require moment
+arshaw.com/fullcalendar/docs/
+we can even change the header option of the plugin itself. vid..
+put 3 key value pairs into the calendar plugin function in application.js:
+header: {
+left: 'prev',
+center: 'title',
+right : 'next',
+}
+rf left and right buttons are on left and right.
+now get rid of popup and customize days to bring up a pop up when clik on.
+vid..
+dayClick: ..
+rf a modal pops up a modal.
+let's add aditional info about each day for the modal that pops up for each day.
+undersatand date object
+read doc..
+let's try it..
+try it in console first..
+now implement..
+
+
+
+
+July 1, 2014 day 30
 —————————— JQUERY PLUGINS FAQs
 look at plugins for our slider and/or arrow buttons etc.
 amsul.ca/pickadate.js is cool calendar maybe for our site.
@@ -31,7 +169,7 @@ Create a new page with 2 new jq plugins on it.
 after lunch
 model, objects, for our projects.
 gitflow & github
-diagrams, domain names, 
+diagrams, domain names,
 
 
 
@@ -331,9 +469,11 @@ Wed June 25, 2014 Day 26
 —————————— BUILD RAILS MODEL W RSPEC
 --create new rails app (with postgresql)
 --cd in
+--create ur .ruby-version and .ruby-gemset files
 --Point your program to the ruby-made local hosted server
 --rake db create
 --Install gems & bundle
+(if using rspec..)
 --Install rspec
 --Configure the rails helper.
 --Configure application.rb file
@@ -341,7 +481,7 @@ Wed June 25, 2014 Day 26
 --rspec spec/
 --Run the test file or rspec (depending on how u set it up)
 --Create ur first Model
---Add ur fields & rake db:migrate
+--Add ur fields (seed ur db) & rake db:migrate
 --Set up the attributes of ur Model in the factory & migrate.
 --Test ur Model
 -Validate stuff (ie. text presence)
@@ -1860,6 +2000,9 @@ From the "elephant directory" - rails generate scaffold Animal name:string etc..
 ———————— ATOM HOTKEYS ————————
 Global find and replace - all files in dir
 Command + shift + f
+
+Delete a word at a time backwards
+option + delete
 
 Local find and replace - local file only
 command + f
