@@ -39,7 +39,92 @@ $.getJSON('/places', function(data) {
 })
 we can only use getJSON if we're using jSon. if we were using xml, it would have to be xml.
 rf homepage. should see in console a get with the path /places, the 200 is server response, and 6ms is total response time. we can also see the data we printed to the console.
+if you don't want to render a...
+in our views/restaurants/ we have two index files..
 
+
+site/index.html.erb
+below calendar div
+<div id="restaurants"  >
+
+  </div>
+application.js
+inside of restaurants json code:
+$(restaurants).each(function(index, restaurants) {
+  $('#restaurants').append('<p>' + restaurant.name + '</p>');
+});
+rf - it appended the name of restaurent. so this allows us to do ajax injection asynchronously.
+create a new restaurant and rf and should see it at the bottom
+start populating calendar
+to do that we need to make a new event model
+rails g model event
+rails g controller events
+(plural)
+open new migration file
+add data to events
+becuase we're creating events for fullcalendar, look up doc on it
+it expects id, title, allDay, start, end, url, color
+so in migration file
+t.string :title, null: false
+t.boolean :all_day, default: false
+t.datetime :starts_at     (don't use "end" cuz would confuse ruby)
+t.datetime :ends_at
+t.string :url
+t.string :color
+rake db:migrate
+for this to work, need to have some event data
+hop into rails c
+Event.create(title: 'Pizza party', starts_at: 2.hours.from_now, ends_at: 3.hours.from_now, url: 'http://beakr.devpointlabs.com', color: '#ff9900')
+should see the new event in console created by sql
+Event.count
+shows 1 event
+exit
+rails s
+set up a few things. (so far pretty normal, make model, controller)
+routes.rb
+resources :events
+events_controller.rb
+def index
+  @events = Event.all
+end
+create view. same as usual but it'll be diff type
+app/views/events/
+add
+index.json.jbuilder
+this is now our view for our json
+add
+json.arry! @events do |event|
+  json.food 'taco'
+  json.name 'Kenny'
+  json.creature 'kraken'
+  json.frizbee 4
+  json.zombies ['moo', 'ahh']
+end
+(vid for exp..)
+lastly, do asychronous requst
+application.js
+below others:
+$.getJSON('/events', function(event) {
+  conole.log(events);
+});
+vid exp..
+rf in console, we see an array
+exp..
+back to index.json.builder
+comment out items in the block
+we wnat to be explicit and adher to doc's structure so:
+json.id event.id
+json.title event.title
+json.allDay event.all_day
+json.start event.starts_at
+json.end event.ends_at
+json.url event.url
+json.color event.color
+rf in console, see it all
+calendar let's us load events iwth an array
+application.js
+vid..
+rf
 
 
 
