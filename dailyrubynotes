@@ -1,5 +1,44 @@
 Thurs July 3, 2014 day 32
+—————————— AJAX FAQs
+Asyncronise Javascript and xml
+The purpose is really the A. it allows you to make asyncronise transactions within ur app. ie. we have a factory with a product on a line, the 'one by one' aspect of each item on an assemply line is asyncronise. only one at a time. IN AN asynchronous situation, individual items from various ares don't depend on each other and have to be done in order. in an asynchronise world, you can do 2 different things at the same time. so the app/customer can start one event while one is still finnishing or running.
+If we take a look at the browser console while loading beakr, we can see all the ajax calls firing off when the page loads.
+facebook has all kinds of stuff loading when their page loads.
+open foodie app
+boot up server
+let's make a simple ajax request.
+what verb do we use?
+in application.js:
+set up a controller to be able to handle recieving an ajax request
+site_controller.rb under index method:
+def places
 
+
+end
+set up a route to go to that:
+in routes: below root 'site#index'
+get '/places' => 'site#places'
+back to site_controller, places action:
+with ajax the format we're using is usually json. by default it assumes html. if we dont' want it to asssume that, we have to tell hte action ...
+in places method:
+respond_to do |format|
+  format.html do
+    render :index
+  end
+  format.json do
+    render json: {name: 'Jeremy'}
+  end
+  end
+end
+end
+3000/places should just show homepage
+let's do an ajax request to /places
+in application.js after at bottom
+$.getJSON('/places', function(data) {
+  console.log(data);
+})
+we can only use getJSON if we're using jSon. if we were using xml, it would have to be xml.
+rf homepage. should see in console a get with the path /places, the 200 is server response, and 6ms is total response time. we can also see the data we printed to the console.
 
 
 
