@@ -125,6 +125,95 @@ calendar let's us load events iwth an array
 application.js
 vid..
 rf
+now create new objects using ajax requests:
+frist, index.html.erb
+let's make a form inside of a modal
+below hello href
+<a href="#create-event" data-toggle="modal" class="btn btn-success">Create Event</a>
+<%= render('events/new_modal') %>
+new file
+app/view/events/_new_modal.html.erb
+<div id="create-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="create-event-label" aria-hidden="true"  >
+  <div class="modal-diallog"  >
+    <div class="modal-content"  >
+      <div class="modal-header"  >
+      <h4>Create New Event<h4>
+      <div class="modal-body"  >
+        <p>Stuff</p>
+      <div class=modal-footer  >
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+rf
+
+site_controller.rb
+in index method
+@event = Event.new
+now can build out form
+put submit butons and stuff in modal footer
+_new_modal.html.erb
+in div class="modal-dialog"
+<%= form_for(@event) do |f| %>
+in div class="modal-body" remove stff in body and put
+<%= f.label(:title) %>
+<%= f.text_field(:title) %>
+<%= f.label(:all_day) %>
+<%= f.select(:all_day, [['Yes', true], ['Nope', false]]) %>
+<%= f.label(:starts_at) %>
+<%= f.datetime_select(:starts_at) %>
+<%= f.label(:ends_at) %>
+<%= f.datetime_select(:end_at) %>
+<%= f.label(:url) %>
+<%= f.text_field(:url) %>
+<%= f.label(:color) %>
+<%= f.text_field(:color) %>
+rf have an ugly form
+make an event. put in title, dates etc
+events_controller.rb
+def create
+@event = Event.new(event_params)
+if @event.save
+redirect_to root_path
+end
+end
+
+def event_params
+  params.require(:event).permit(:title, :all_day, :starts_at, :ends_at, :url, :color)
+end
+end
+rf new event shows on calendar
+didn't use ajax to do this so let's add element of ajax so when we hit save, it closes the modal, it adds the event on the calendar
+application.js
+remove /places and /restaurants json code (or omment out)
+at bottom below these two
+var $form = $('form#new_event');
+
+$('input.btn', $form).click(function() {
+  $.post($form.attr('action'), $form.serialize(), function(data){
+    console.log(data);
+    console.log('Event created');
+
+});
+return false;
+})
+rf create new event
+the output in our console is the entire homepage html
+we did a post and can see that we posted all the data...
+we need to update our action to handle doing ajax
+application.js
+under console.log('Event created')
+$('#create-event').modal('hide');
+now in events_controller.rb
+in create method
+replace redirect with
+  render json: @event
+rf create event, should show up on cal
+it's now doing a full ajax post, it closes our modal for us,
+get json to retrieve and post json to submit form
+
 
 
 
