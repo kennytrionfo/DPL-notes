@@ -213,6 +213,17 @@ replace redirect with
 rf create event, should show up on cal
 it's now doing a full ajax post, it closes our modal for us,
 get json to retrieve and post json to submit form
+take .getJSON('/events') block of code and put it insde of
+var loadEvents = function() {
+
+};
+now under $('input btn block,  under $('#calendar line
+loadEvents();
+rf create a new event
+we've gotten stuff from server and we've posted to the server
+--Challenge
+use the noms controller and list out all the noms to the homepage using ajax
+
 
 
 
