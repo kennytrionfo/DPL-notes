@@ -1,4 +1,12 @@
-July 2, 2014 day 31
+Thurs July 3, 2014 day 32
+
+
+
+
+
+
+
+Wed July 2, 2014 day 31
 js can go into a rails app, it just goes in a specific place.
 boot up app - rails s
 try localhost: 3000 in browser
@@ -138,11 +146,34 @@ chosen-rails gem. try and get it to work.
 
 
 
-July 1, 2014 day 30
+Tues July 1, 2014 day 30
 —————————— JQUERY PLUGINS FAQs
+-Put ur jquery src in ur html:
+<script src="jquery.js"></script>
+-Put ur script for your plugin below ur jq script src:
+<script src="jquery.lettering-0.6.1.min.js"></script>
+Create a new js file called application.js and put our js code in it to instantiate (or run) the plugin:
+$(function) {
+    $('.fancy_title').lettering();
+  });
+then add script/src code to our html file to require it:
+<script src="application.js"></script>
+Go look at cycle plugin for cycling pictures on ur site.
+copy minified source code
+create a new file cycle.min.js and paste in there.
+read doc
+include both jquery and cycle script src files.
+we have jq already but put cycle.min in
+next, set up our markup.
+look at doc and copy and paste html right into html file:
+      <div class="cycle-slideshow">
+        <img src="http://placehold.it/250x100&text=1" >
+        <img src="http://placekitten.it/250x100" >
+        <img src="http://placehold.it/250x100&text=3" >
+        <img src="http://placehold.it/250x100&text=4" >
+      </div>
 look at plugins for our slider and/or arrow buttons etc.
 amsul.ca/pickadate.js is cool calendar maybe for our site.
-
 implement fullcalendar plugin
 on arshaw.com/fullcalendar
 go to download
@@ -176,7 +207,7 @@ diagrams, domain names,
 
 
 
-June 30, 2014 day 29
+Mon June 30, 2014 day 29
 —————————— JS FRAMEWORKS FAQs
 A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
 —————————— NEW JQUERY APP FAQs
