@@ -223,6 +223,9 @@ rf create a new event
 we've gotten stuff from server and we've posted to the server
 --Challenge
 use the noms controller and list out all the noms to the homepage using ajax
+then list all noms for a particular restaurant using ajax
+-do this based on clicking the restaurant, or a link or button with the restaurants name.
+-the noms for this restarant should not load and show on the page until the link/button/whatever is clicked
 
 
 
@@ -1229,6 +1232,7 @@ gem ‘bootstrap-sass’
 gem ‘font-awesome-sass’
 gem ‘devise’
 -bundle
+
 —————————— DEVISE FAQs
 Do devise stuff. follow documentation github
 rails g devise:install
@@ -1285,6 +1289,7 @@ vid
 5. we’ll do last
 -Create a User model:
 rails g devise User
+rake db:create (if this app is built from scratch)
 in migration file in db/migrate:
 rem out trackable
 rem in confirmable
@@ -1292,7 +1297,7 @@ rem out confirmation token index in the group at the bottom. ‘add_index :users
 above t.timestamps:
 add:
 t.string :name, null: false
-(an index is a way to speed up a specific query. and indexed column is the fasted column to query. usually we’ll queary on the primary_id column. So when we want to auth a user, we look them up by email so we want ot make sure the emails are indexed. that’s what the last two “add_index” lines are.)
+(an index is a way to speed up a specific query. and indexed column is the fasted column to query. usually we’ll queary on the primary_id column. So when we want to auth a user, we look them up by email so we want ot make sure the emails are indexed. that’s what the last two “add_index” lines are...)
 -Now add our roll.
 (can call this field whatever make sense to us but field must be integer.)
 t.integer :role, null: false, default: 0
@@ -2510,6 +2515,7 @@ WHAT IT IS:
 -See day 9 video. May 30, 2014
 -It will be very common to use the raise command to debug.
 -Debugging tools - pry is one.
+
 -To set up a gem for a program: create a file in that directory called 'Gemfile' with a capital G and put something like the following in it:
 source "https://rubygems.org"
 gem "pry"
@@ -2934,8 +2940,8 @@ def self.evolve
   puts "evolve from monkey to man"
 end
 
-
-INSTANTIATION:
+—————————— INSTANTIATION FAQs:
+http://ruby.about.com/od/oo/ss/Instantiation-And-The-Initialize-Method.htm
 -Creating a new instance of an object.
 -This method is called initialize.
 ex:
