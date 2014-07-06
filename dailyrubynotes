@@ -1895,7 +1895,8 @@ Thursday June 12, Day 18
 -put resources :products inside of routes.rb inside of config folder.
 -then rake routes in term.
 -vid 10:36 for explanation of what rake routes does.
-—————————— rake routes ——————————
+—————————— RAKE ROUTES FAQs 
+http://guides.rubyonrails.org/routing.html
 -get-get a resource.
 -post-post a new resource.
 -patch - taking a resource and updating it a bit.
