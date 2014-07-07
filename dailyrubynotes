@@ -1,3 +1,118 @@
+—————————— PEs —————————— PRACTICE EXERCISES
+-CREATE RAILS APP
+-SQL STUFF
+-POSTGRESQL STUFF
+-RUBY CODE TO...
+-HTML CODE TO..
+-SET UP A HEROKU REPO AND CONNECT APP TO IT
+-
+-
+
+
+
+
+
+Mon July 7, 2014 day 33
+—————————— HOSTING
+several different kinds: shared, vps, dedicated, cloud. Dedicated and vps is where you need to know devopps, you set it up urself on servers etc. what if ur open ssl that has a bug?? sys admins are doing this kinds of stuff. be ready to use programs written in c, .net or others. Diff between these two: vps (virtual private server) hosting is where a company will take a phyical machine and use virtualzation software to virtualize mini machines, say to have 3 seperate versions of windows running. example site is: 6sync.com, linode.com.
+Dedicated hosting is where you get an entire box all to yourself and can do anything you want with it so you can divide it up if u want.
+Shared hosting. hostgator is great according to jeremy. good cust service.
+Cloud hosting is where you share multiple servers together with everybody else. u get chunks of multiple servers.
+We're going to use heroku.
+—————————— HEROKU FAQs
+download os x toolbelt and install
+-add
+gem 'rails_12factor', group: :production
+to bottom of Gemfile
+-bundle
+-git init and add and commit if haven't already
+read heroku doc online.
+-add:
+ruby '2.1.2'
+under source in Gemfile
+reading article:
+do heroku setup and login stuff. login in term:
+if get key message, type y to get an ssh key completed
+heroku auth:whoami will give us our email
+heroku create
+http://pure-dawn-1644.herokuapp.com/
+is not the url to ur app
+paste in browser will get error
+git remote -v
+do git add Gemfile (or git add -A) and commit
+git push heroku master
+PUT new url address in:
+should get error cuz we haven't migrated the db. just cuz we have a user act locally, don't mean it's in production. So we have an empty db. it doesn't know what models we have etc
+term
+heroku run rake db:migrate
+if app is broken and we need to find out why, we need to read our log files.
+heroku logs -t will run a tail which will continuealy upate logs
+read logs here.
+control c
+make change to app
+go make changes to some file in app
+do git add, commit and push origin heroku master to push up
+
+       Your bundle is complete!
+       Gems in the groups development and test were not installed.
+       It was installed into ./vendor/bundle
+       Bundle completed (2.17s)
+       Cleaning up the bundler cache.
+-----> Preparing app for Rails asset pipeline
+       Running: rake assets:precompile
+       cp public/assets/chosen-sprite@2x-161938c7926814932aacef758979796d.png public/assets/chosen-sprite@2x.png
+       cp public/assets/chosen-sprite-b1e9e37206c5c7746403999b72d58e4f.png public/assets/chosen-sprite.png
+       Asset precompilation completed (2.21s)
+       Cleaning assets
+       Running: rake assets:clean
+-----> WARNINGS:
+       No Procfile detected, using the default web server (webrick)
+       https://devcenter.heroku.com/articles/ruby-default-web-server
+-----> Discovering process types
+       Procfile declares types -> (none)
+       Default types for Ruby  -> console, rake, web, worker
+
+-----> Compressing... done, 25.1MB
+-----> Launching... done, v7
+       http://pure-dawn-1644.herokuapp.com/ deployed to Heroku
+
+To git@heroku.com:pure-dawn-1644.git
+   03c1c6b..a49bb05  master -> master
+next let's make sure we have some data.
+do stuff in production console
+heroku run console
+Rails.env tells us we're in production
+do heroku in term to get a list of commands
+anything we do locally like
+rake db:migrate
+we just put heroku run infront to do to heroku
+heroku run rake db:migrate
+one more change to our app
+heroku looks for Procfile. if you don't specify a Procfile, it will use default server webbrick but it's not good for production. we want to find better ruby webserver.
+webbrick, thin, unicorn, puma, passenger with the last being the best, first being worst.
+-let's implement thin:
+gemfile
+gem 'thin'
+bundle
+boot up local server
+rails s to see...
+exit
+do git add,comm and push
+create file called Procfile in same level as Gemfile and put:
+web: bundle exec thin start -p $PORT
+add,commit and deploy (push?) this change
+should see
+Procfile declares types -> web
+in term notes and should be using thin server now.
+
+
+
+
+
+
+
+
+
 Thurs July 3, 2014 day 32
 —————————— AJAX FAQs
 Asyncronise Javascript and xml
@@ -1895,7 +2010,7 @@ Thursday June 12, Day 18
 -put resources :products inside of routes.rb inside of config folder.
 -then rake routes in term.
 -vid 10:36 for explanation of what rake routes does.
-—————————— RAKE ROUTES FAQs 
+—————————— RAKE ROUTES FAQs
 http://guides.rubyonrails.org/routing.html
 -get-get a resource.
 -post-post a new resource.
