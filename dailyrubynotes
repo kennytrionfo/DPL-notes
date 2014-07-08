@@ -129,7 +129,40 @@ but now we want to create a welcome email for them.
 kill server
 rails g mailer user_mailer
 this is the mailer that will handler emailing our users.
-
+2 open up user_mailer.rb
+3. configure user mailer
+default from: "no-reply@myapp.co.uk.jp.de.ninja"
+  #4 create mailer action
+  def welcome(user_email)
+    user_email = user_email
+    mail(to: @user_email, subject: 'Welcome to club')
+  end
+end
+make sure we have a view same as ..
+inside ... create view.html.erb
+ptu in some html
+<h1>Welcome </h1>
+<p>
+stuff in here
+</p>
+site_controller.rb
+in login method:
+  Usermailer.welcome('dude@party.house').deliver
+  redirect_to root_path
+end
+rails s
+rf /login redirected to home pate and if look in log should see an email was sent.
+now make sure it looks nice.
+do mailer preview
+test/mailer/preview/user_mailer_preview.rb
+create a method with the same name..
+def welcome
+  UserMailer.welcome('billy@cheese.co')
+end
+since we're in a testing ..
+rf /rails/mailers/ should see both and should be able to click on them to see our welcome email.
+--Challenge
+do an admin mailer that will email a report of how many users we have in our database. I want to be able to click a button and that should send me an email showing how many users I have in the db. 
 
 
 
