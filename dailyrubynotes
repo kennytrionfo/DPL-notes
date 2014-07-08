@@ -21,11 +21,11 @@ Tues July 8, 2014 day 34
 when we send a gmail, gmail is actually sending it.
 our application is actually sending the email.
 in rails, we have objects called mailers with views and actions.
-hte views are the actual email body.
+the views are the actual email body.
 open foodie app
 we have a mailers folder in our app folder
 a mailer is just a ...
-create a notification mailer
+-CREATE A NOTIFICATION MAILER:
 term
 rails g mailer notification_mailer
 the name should end in _mailer
@@ -33,20 +33,22 @@ if you just do notificaiton, you actually create a class called noification
 creates mailer file and ..
 in notification_mailer.rb
 default is from@example.com. it's easy to spoof an email address.
-the key;value pair is a hash that can take many options.
+the default method is a key:value pair is a hash that can take many options.
 so
 subjec: '',
 to: 'me@me.com',
 cc: '',
 bcc: '',
-now set up action (which is kind of like a controller):
-this will be teh name of email template
+-NOW SET UP THE MAILER ACTION:
+(which is kind of like a controller):
+this will be the name of email template
 unlike a controller action, in a mailer action, you can pass arguments. these arguments will relate to what info you'll need in email.
 def contact_form(params)
   @params = params
   mail(from: @params[:user_email], to: 'me@myapp.com', subject: 'You have a new contact request')
 end
-create new file in views
+-CREATE THE VIEW:
+create new file in app/views:
 <h1>Contact Request</h1>
 <% @params.each_pair do |key, value| %>
 <p><%= key %> -- <%= value %></p>
@@ -162,8 +164,28 @@ end
 since we're in a testing ..
 rf /rails/mailers/ should see both and should be able to click on them to see our welcome email.
 --Challenge
-do an admin mailer that will email a report of how many users we have in our database. I want to be able to click a button and that should send me an email showing how many users I have in the db. 
-
+do an admin mailer that will email a report of how many users we have in our database. I want to be able to click a button and that should send me an email showing how many users I have in the db.
+--Challenge Answer..
+When a server is sending mail.
+if you host ur site on a vps, you are responsible for sending emails. heroku has sendmail automatically installed.
+if you set up ur own mail server on sendmail, 99% will be blacklisted, cuz gmails and yahoos see the domain of ur website that has only been around for a week and doesn't trust it. there are cos that help with this like mailchimp.com that works directly with the email providers to get ur emails into inboxes. mailchimp is all configured so you just send email to them and they send the email to ur users. sendgrid is another one.
+vid on
+Set up mail
+pushed to heroku
+add, commit
+git push heroku master
+our applicatoin has different environments (ie dev and production)
+in config folder there are 3 diff folders
+in dev folder will see interesting things in notes.
+in prod folder will see diff options,
+we want rails to send email when in production so we need to tell our production envorment to ...
+2 ways to send email. smtp is one protocal used to send email. most common. when configuring prodcustion environment..
+smtp credentials are just a un and pw but we need our app ..
+google rails smtp settings..
+in production.rb
+at bottom:
+add in settings from web:
+vid exp..
 
 
 
@@ -949,8 +971,8 @@ get sails to connect to postgress and store records in the db
 Thurs June 26, 2014 Day 27
 —————————— USE RSPEC WITH CONTROLLERS
 use campus life project
-create a new model call notes
-rails g model note
+create a new model call Note
+rails g model Note
 in it's migration file:
       t.text :text
 migrate
@@ -2001,6 +2023,7 @@ author %></h3>
 
 
 Wed June 18, 2014 day 22
+--BUILD A BLOG
 -in term: rails new blog -d postgresql
 - create ruby version and gemset from term:
 atom .ruby-version and atom .ruby-gemset
