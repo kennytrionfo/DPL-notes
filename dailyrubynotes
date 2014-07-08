@@ -1,5 +1,5 @@
 —————————— PEs —————————— PRACTICE EXERCISES
--CREATE RAILS APP
+-CREATE RAILS APP WITH POSTGRES, DEVISE, RSPEC AND BOOTSRAP
 -SQL STUFF
 -POSTGRESQL STUFF
 -RUBY CODE TO...
@@ -707,6 +707,7 @@ bind a lcick event. the click stores the action in a variable that you'll have r
 
 
 —————————— FULLSTACK TDD APP FAQS
+-CREATE RAILS APP WITH POSTGRES, DEVISE, RSPEC AND BOOTSRAP
 -Create rails app (put jason's reference sheet in here)(RAILS APP FAQs)
 -Set up Rspec for testing (RSPEC FAQS)
 -Create DB with postgresql (??)
@@ -1601,6 +1602,9 @@ Use bootstrap to make it look pretty.
 
 
 
+
+
+
 Thurday June 19, 2014
 —————————— Tweaker app ——————————
 in term: rails -v
@@ -1828,7 +1832,9 @@ Comment.create(author: “Barrack Bush”, message: ‘I so high’ , post_id: 1
 -edit post page to have list of comments on bottom:
 -views/post/show.html.erb/:
 <% @post.comments.each do |comment| %>
-<h3><%= comment.author %></h3>
+<h3><%= comment.
+
+author %></h3>
 <p><%= comment.message %></p>
 -check page. should be two elements.
 -add dependant destroy to model:
