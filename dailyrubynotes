@@ -5,9 +5,11 @@
 -RUBY CODE TO...
 -HTML CODE TO..
 -SET UP A HEROKU REPO AND CONNECT APP TO IT
--
--
-
+-CSS - STYLE SOMETHING (FIND THE HARDEST THING TO DO IN CSS)
+-HTML - CREATE SOMETHING (FIND THE HARDEST THING TO DO IN HTML)
+GEMS:
+-Type the code to add one gem to the group development on the same line.
+-Type the code to add mutiple gems to two groups.
 
 
 
@@ -99,14 +101,11 @@ rails s to see...
 exit
 do git add,comm and push
 create file called Procfile in same level as Gemfile and put:
-web: bundle exec thin start -p $PORT
+web: bundle exec thin start -p $PORT to get thin to work?
 add,commit and deploy (push?) this change
 should see
 Procfile declares types -> web
 in term notes and should be using thin server now.
-
-
-
 
 
 
@@ -839,6 +838,15 @@ Shouts Controller
 -destroy
 
 
+
+-code to add one gem to the group development on the same line.
+gem 'spring',    group: :development
+-code to add mutiple gems to two groups.
+group :development, :test do
+  gem 'something'
+  gem 'something-else'
+  gem 'yet_something_else'
+end
 
 Wed June 25, 2014 Day 26
 —————————— BUILD RAILS MODEL W RSPEC
@@ -1677,7 +1685,7 @@ before_action: configure_permitted_parameters, if: devise_controller?
 put the private… code below “protect_from_” line:
 private
 def configure_permitted_paramters
-	devise_paramter_saitizer…..      add  “<< name”  in at end.
+	devise_paramter_sanitizer…..      add  “<< name”  in at end.
 -rf browswer. put in pw etc - another error “undefind method ‘current… “
 Looking at migration file. can see that trackable commented out. devise needs to know not to use it.
 -models/user.rb:
@@ -1791,8 +1799,6 @@ page - make a message
 Style it with css
 push to github
 
-
-
 —————————— How to link comments ——————————
 what will we need? post id. so let’s build a new model
 rails g scaffold Comment author message:text post_id:integer
@@ -1822,12 +1828,13 @@ Comment.create(author: “Barrack Bush”, message: ‘I so high’ , post_id: 1
 -edit post page to have list of comments on bottom:
 -views/post/show.html.erb/:
 <% @post.comments.each do |comment| %>
-
 <h3><%= comment.author %></h3>
 <p><%= comment.message %></p>
 -check page. should be two elements.
 -add dependant destroy to model:
 -in models/post.rb ??? …
+
+
 
 
 Wed June 18, 2014 day 22
