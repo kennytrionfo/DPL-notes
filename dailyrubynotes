@@ -10,6 +10,130 @@
 GEMS:
 -Type the code to add one gem to the group development on the same line.
 -Type the code to add mutiple gems to two groups.
+-SETTING UP & SENDING EMAILS
+
+
+
+
+
+Tues July 8, 2014 day 34
+—————————— SETTING UP & SENDING EMAILS
+when we send a gmail, gmail is actually sending it.
+our application is actually sending the email.
+in rails, we have objects called mailers with views and actions.
+hte views are the actual email body.
+open foodie app
+we have a mailers folder in our app folder
+a mailer is just a ...
+create a notification mailer
+term
+rails g mailer notification_mailer
+the name should end in _mailer
+if you just do notificaiton, you actually create a class called noification
+creates mailer file and ..
+in notification_mailer.rb
+default is from@example.com. it's easy to spoof an email address.
+the key;value pair is a hash that can take many options.
+so
+subjec: '',
+to: 'me@me.com',
+cc: '',
+bcc: '',
+now set up action (which is kind of like a controller):
+this will be teh name of email template
+unlike a controller action, in a mailer action, you can pass arguments. these arguments will relate to what info you'll need in email.
+def contact_form(params)
+  @params = params
+  mail(from: @params[:user_email], to: 'me@myapp.com', subject: 'You have a new contact request')
+end
+create new file in views
+<h1>Contact Request</h1>
+<% @params.each_pair do |key, value| %>
+<p><%= key %> -- <%= value %></p>
+<% end %>
+site controller.rb
+def contact
+
+end
+make a view associated to that (new file)
+set up route
+get '/contact' => 'site#contact'
+..
+boot up app
+localhost:3000/contact
+going to build an html form
+crate
+contact.html.erb
+build form..
+routes.rb
+specify a post to /contact  as well as a get
+get '/contact' => 'site#contact'
+rf should have contact form for contacting us.
+now make it so that when we submit thsi form it goes to email.
+now our contact action doesn't do anything but default renders the contact view but we need to see if user is posting data to action and if so we want to submit email
+site_controller.rb
+def contact
+  if request.post?
+    NotificationMailer.contact_form(params).deliver
+    #(this will create an instance of mailer class)
+    redirect_to root_path
+  end
+end
+rf submit form with some info
+redirected back to home page
+in development mode, it doesn't send emails.
+in notificatin_mailer.rb says we sent to me@myapp.com but that doesn't exists. the on ly way to know is to look at our log file. scroll up, look for:
+Sent mail to my@myapp.com (11.5ms) etc..
+it sent the entire params. we could remove certain keys and values from the hash if we wanted to.
+have a couple of issues.
+we can see email in term but can't see html
+most email clients only support html4
+95% of email clients don't support css3
+90% don't support loading external files to no using css files etc to connect in to the file.
+So You'll generally just use p tags, divs, and tables is all.
+And it usually has to be done inline.
+so there are services like litmus.com they do cross-platform testing.
+we can now do this in rails
+broswer
+localhost: 3000/rails/mailers/
+if click on mailer
+break..
+now set up mailer preview
+test/mailers/previews/notification_mailer_preview.rb
+create an instance method that corresponds to mailer action
+def contact_form
+    params = {user_email: 'billy@cheese.info', in_regard_to: 'eating cheese', content: 'Blarg! dude'}
+    NotificationMailer.contact_form(params)
+end
+rf
+click on icon, should see email
+now go make change to view:
+contact_form.html.erb
+add some style to h1
+style="font-weight:normal;color:blue;"
+rf see blue h1
+we need to go through the process over again.
+but this time we'll do a user mailer instead of a notification mailer. we'll simulate the process instead of ..
+site_controller.rb
+make a login action
+def login
+  redirect_to root_path
+end
+make a route that goes to this:
+get '/login' => 'site#login'
+so /login should kick back to homepage
+test
+/login should see it takes to hp
+this is us simulating someone signing up for an account and loggin in.
+but now we want to create a welcome email for them.
+kill server
+rails g mailer user_mailer
+this is the mailer that will handler emailing our users.
+
+
+
+
+
 
 
 
