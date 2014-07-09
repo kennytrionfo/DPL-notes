@@ -1,20 +1,17 @@
-—————————— PEs —————————— PRACTICE EXERCISES
--CREATE RAILS APP WITH POSTGRES, DEVISE, RSPEC AND BOOTSRAP
--SQL STUFF
--POSTGRESQL STUFF
--RUBY CODE TO...
--HTML CODE TO..
--SET UP A HEROKU REPO AND CONNECT APP TO IT
--CSS - STYLE SOMETHING (FIND THE HARDEST THING TO DO IN CSS)
--HTML - CREATE SOMETHING (FIND THE HARDEST THING TO DO IN HTML)
-GEMS:
--Type the code to add one gem to the group development on the same line.
--Type the code to add mutiple gems to two groups.
--SETTING UP & SENDING EMAILS
-
-
-
-
 
 Wed Jul 9 Day 35
-——————————
+—————————— File outputs
+uploading images or files that you can upload.
+there are 2 types of resizing. resize to fit and resize to fill.
+FILL WIll drop down both numbers until one of the w h numbers fills it. once it hits the new smaller image, the wider or taller side will just be cropped off. resize to fit means the entire photo will be sqeezed into the new space, but cuz it keeps it's aspect, it will have some empty space somewhere.
+let's add images to our Foodie app and add images to our restaurants page.
+add
+gem 'carrierwave' to gemfile
+bundle
+open up file restaurant_logo_uploader.rb
+RMagick and MiniMagic exp..
+in term which identify to make sure it's fully installed
+add minimagick gem
+bundle
+..
+%W is an array of strings.
