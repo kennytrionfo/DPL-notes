@@ -11,3 +11,321 @@ GEMS:
 -Type the code to add one gem to the group development on the same line.
 -Type the code to add mutiple gems to two groups.
 -SETTING UP & SENDING EMAILS
+
+++++++++++++++++++++++++
+-CREATE RAILS APP W POSTGRESS:
+
+
+BUILDING A RAILS APP USING POSTGRESQL - SHORT
+
+-CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
+-CD INTO UR APP’S DIR:
+-SET UR RUBY VERSION AND GEMSET FOR THIS APP:
+-CONNECT THESE TWO FILES TO RVM:
+-INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
+-INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
+-GENERATE UR FIRST MODEL:
+-CREATE THE DB & MIGRATE THE MODEL TO IT:
+-CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
+-GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
+-UPDATE UR ROUTES:?
+-CREATE YOUR ACTIONS IN THE CONTROLLER:
+-CREATE THE HTML TO LIST ALL POSTS ON THE INDEX PAGE:
+-TRY THE URL FOR YOUR INDEX PAGE:
+-ADD CODE TO SHOW A POST WITH THE TITLE, AUTHOR & BODY AND A LINK BACK TO THE INDEX:
+-CHECK URL FOR THIS POST:
+-CREATE A NEW FORM TO ADD A NEW POST:
+-CHECK UR NEW PAGE:
+-ADD A CREATE ACTION TO POSTS CONTROLLER
+-ADD A NEW POST TO THE INDEX PAGE:
+-CREATE A STATIC HOME AND ABOUT CONTROLLER
+-WHAT ARE WE DOING HERE? ?? CHANGE ROUTES TO
+-CREATE A NAVBAR PARTIAL TO DISPLAY A NAVBAR ON EACH PAGE:
+-CREATE AN HTML FILE THAT SPECIFIES THE BASE HTML FOR EACH PAGE IN OUR SITE:
+-ADD CODE TO EDIT A POST IF A MISTAKE IS MADE:
+-CREATE AN HTML FILE TO EDIT OUR POSTS:
+-ADD A LINK TO THE INDEX PAGE TO BE ABLE TO EDIT EACH POST:
+-MAKE SURE THAT IF THE POST UPDATES, IT IS REDIRECTED TO THE POSTS, AND IF NOT, IT RENDERS THE EDIT PAGE:
+-ADD LINK TO THE INDEX PAGE THAT LETS USERS DELETE A POST:
+-ADD A METHOD THAT SELECTS THE POST THAT WE WANT, DELETES IT AND THEN REDIRECT TO INDEX PAGE:
+-End of App.
+
+
+BUILDING A RAILS APP USING POSTGRESQL - LONG
+Steps for building a new Rails Project without Scaffolds | By Jason Carter
+This application will include:
+1) a Post model with show, index, new, and edit pages.
+Posts can be created, updated, and destroyed.
+2)  A homepage and an about page.
+3) A navbar.
+
+-CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
+in term, in the dir you want to app in:
+rails new myapp -d postgresql
+-CD INTO UR APP’S DIR:
+cd myapp
+Changes into the myapp directory. In order to use any of the rails commands like rails s or rails generate, you need to be in a rails directory.
+-SET UR RUBY VERSION AND GEMSET FOR THIS APP:
+term:
+atom .ruby-version
+or
+in atom, create a new file and name it the above.
+Creates a file that sets the Ruby version of your app. Your computer will automatically change to this version of Ruby when you move into this directory.
+Add this code to the file:
+2.1.2
+atom .ruby-gemset
+or
+in atom, create a new file and name it the above.
+Creates a file that sets the Ruby gemset of your app. Your computer will automatically change to this gemset when you move into this directory.
+It’s good to have unique gemsets for each project as it prevents conflicts with other applications.
+Add this code to the file:
+myapp
+-CONNECT THESE TWO FILES TO RVM:
+in term:?
+rvm use 2.1.2@myapp
+or
+cd .. and cd back in
+Alternatively you can change out of the directory and change back in and your computer will automatically change to the ruby version and gemset that we specified in the .ruby-version and .ruby-gemset files.
+This tells RVM to use ruby version 2.1.2 and our myapp gemset.
+-INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
+bundle install
+Since we created a myapp gemset, we now need to make sure that all of our gems are installed in it.
+-INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
+term:
+git init
+Now that we have a new project with our .ruby-version and .ruby-gemset files, we should initialize a git repository.
+git add -A
+Adds all the files in our project to commit.
+git commit -m “Initial commit”
+This commits our changes with a message. Initial commit is a pretty common first message for a project.
+git remote add origin https://github.com/user/respository.git
+	Create a new repository on Github called myapp. You can either copy the command from Github and paste it into the terminal, or use the format to the left.
+	git push -u origin master
+	This pushes the app to Github (the origin) and to the master branch. The -u specifies that in the future, git push will default to origin master.
+NOTE: From this point on, you are responsible for adding, committing, and pushing to Github on a regular basis.
+-GENERATE UR FIRST MODEL:
+rails generate model Post title:string author:string body:text
+	Creates a Post model with a title, author, and body as attributes. These attributes correspond to columns in the database. Models are always singular (Post instead of Posts).
+-CREATE THE DB & MIGRATE THE MODEL TO IT:
+	rake db:create
+	Creates the database. This must be done after you create your first model.
+	rake db:migrate
+	Migrates the Post model to the database. This should be done after creating any model.
+-CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
+	rails c
+	This opens up the Rails console. Rails console is our window into the Ruby code that our app runs as well as the database. In this case, we want to create a sample Post to verify that all of our views that we create in the future are working properly.
+	Post.create(title: 'Test Post', author: 'Test Author', body: 'This is a test. This is a test. This is a test')
+quit
+Quit exits out of the Rails console.
+	This uses Ruby to create a Post in our database. We pass in strings for our title and author, and text for our body.
+After running this command, the console will show you the SQL that it runs in the database to create the Post.
+or
+You could also put this code in /db/seeds.rb and run rake:db seed in your terminal. This allows you to create test data for your app.
+-GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
+rails generate controller Posts index show new
+	Generates a Posts Controller and a posts folder for your views. By adding index, show, and new to the end those views and corresponding controller actions will be generated. Controllers are always plural (Posts instead of Post). This will also generate some routes in routes.rb, but we’re going to change those.
+-UPDATE UR ROUTES:?
+	/config/routes.rb
+	Add this code to the file:
+   get 'posts/index'
+   get 'posts/show'
+   get 'posts/new'
+   resources :posts
+Resources automatically generates routes for the basic actions of a controller. Run rake routes in your terminal if you want to see what routes are created.
+-CREATE YOUR ACTIONS IN THE CONTROLLER:
+	/app/controllers/posts_controller.rb
+	Add this code to the file:
+   def index
+     @posts = Post.all
+   end
+
+   def show
+     @post = Post.find(params[:id])
+   end
+
+   def new
+     @post = Post.new
+   end
+Each of these actions in the controller corresponds to a view with the same name. The controller makes information from the database available to the views. For example, the index displays a list of all posts in the database by setting @posts.
+-CREATE THE HTML TO LIST ALL POSTS ON THE INDEX PAGE:
+/app/views/posts/index.html.erb
+	Add this code to the file:
+<h1> Posts </h1>
+<% @posts.each do |post| %>
+    <h2><%= post.title %></h2>
+    <h3><%= post.author %></h2>
+    <p><%= post.body %></p>
+    <%= link_to ‘Show post’, post_path(post.id) %>
+<% end %>
+This will list out every post in the database with their title, author and body. It also includes a link to each post’s show page.
+-TRY THE URL FOR YOUR INDEX PAGE:
+The URL for this page is localhost:3000/posts
+-ADD CODE TO SHOW A POST WITH THE TITLE, AUTHOR & BODY AND A LINK BACK TO THE INDEX:
+/app/views/posts/show.html.erb
+Add this code to the file:
+<h1> Post </h1>
+<h2><%= @post.title  %></h2>
+<h3><%= @post.author %></h2>
+<p><%= @post.body %></p>
+<%= link_to ‘Back’, posts_path %>
+This will show the post with it’s title, author and body. It also includes a link back to the index page.
+-CHECK URL FOR THIS POST:
+The URL for this page varies depending on the post. It follows this format:
+localhost:3000/posts/1
+The number at the end refers to the Post id.
+-CREATE A NEW FORM TO ADD A NEW POST:
+/app/views/posts/new.html.erb
+Add this code to the file:
+<h1> New Post </h1>
+<%= form_for @post do |f| %>
+ <%= f.label :title %>:
+ <%= f.text_field :title %>
+ <%= f.label :author %>
+ <%= f.text_field :author %>
+  <%= f.label :body %>
+ <%= f.text_field :body %>
+ <%= f.submit %>
+<% end %>
+This uses the Rails form_for helper to generate a form for us. We need fields for title, author, and body as they are the attributes of a Post. We also need a submit button to create it.
+-CHECK UR NEW PAGE:
+The URL for this page is:
+localhost:3000/posts/new
+-ADD A CREATE ACTION TO POSTS CONTROLLER
+/app/controllers/posts_controllers.rb
+Add this code to the file:
+def create
+    @post = Post.new(post_params)
+
+    if @post.save
+        redirect_to posts_path
+    else
+        render :new
+    end
+end
+
+private
+def post_params
+    params.require(:post).permit(:title, :author, :body)
+end
+(The create action takes information from the form on the new view and uses it to create a Post in the database. If it successfuly saves, we redirect to the index. If not, it renders the new page so that we can make corrections.
+The private method post_params allows us to pass in the parameters that we need to the create the post. This is a security feature that prevents people from hacking our site through SQL injection.)
+-ADD A NEW POST TO THE INDEX PAGE:
+/app/views/posts/index.html.erb
+Add this code to the file:
+<p><%= link_to ‘New Post’, new_post_path %></p>
+(This adds a new post link to your index page. If you’ve followed all of the instructions up to this point, you should be able to try out your new post view and successfully create a post.)
+-CREATE A STATIC HOME AND ABOUT CONTROLLER
+rails generate controller Static home about
+(This will generate a new static controller with a home and about page in views/static/
+This will also create routes which we’ll modify in the next step.
+-WHAT ARE WE DOING HERE? ?? CHANGE ROUTES TO
+	/config/routes.rb
+Make these changes to this code to the file:
+
+delete     get ‘static/home’
+insert    root ‘static#home’
+add ‘/about’, to:  &  as: :about to:
+get ‘/about’, to: 'static#about, as: :about
+(We did a few things in this file. First we set the root or homepage of our app to be static/home. Now when you go to localhost:3000 you’ll see home.html.erb.
+Next we changed the route for the about page. The first part specifies the URL in the browser (i.e. localhost:3000/about). The second part specified the static#about action and its corresponding view as what we are referring to. The third part sets the name for the rails link_to helper. In this case, since we set it as :about, if we want to link to this page in Rails we would set the path as “about_path”. But don’t take my word for it. Run rake routes to verify this yourself.
+If you’ve done this step right, ‘localhost:3000’ should display your homepage, and ‘localhost:3000/about’ should display your about page.)
+-CREATE A NAVBAR PARTIAL TO DISPLAY A NAVBAR ON EACH PAGE:
+cd app/views/layouts
+(We’re going to change into our app/views/layouts directory to create a navbar partial and display it on each page.
+You could do this in three steps likes this:
+cd app
+cd views
+cd layouts
+But one line is always better than three.
+atom _navbar.html.erb
+This creates a navbar partial and opens it in Atom.
+/app/views/layouts/_navbar.html.erb
+Add this code to the file:
+<%= link_to ‘Home’, root_path %>
+<%= link_to ‘About’, about_path %>
+<%= link_to ‘Posts’, posts_path %>
+This links to the main pages in our site. This file is called a partial. Partials always start with an underscore and are useful when you have to display the same html on multiple pages.
+-CREATE AN HTML FILE THAT SPECIFIES THE BASE HTML FOR EACH PAGE IN OUR SITE:
+/app/views/layouts/application.html.erb
+Add this code to the file:
+<body>
+<%= render 'layouts/navbar' %>
+<%= yield %>
+</body>
+(This file specifies base html for each page in our site. The yield tag automatically pulls in HTML from whatever page we’re on. The render rails helper allows us to display partials. In this case we’re rendering our navbar partial at the top of our site.
+If you refresh your browser, you should see a navbar on each page in your application.)
+-ADD CODE TO EDIT A POST IF A MISTAKE IS MADE:
+/app/controllers/posts_controller.rb
+Add this code to the file after your create action and before the private method.
+    def edit
+        @post = Post.find(params[:id])
+    end
+(This allows us to edit a post if we have made a mistake. You’ll notice that it looks a lot like the show action. That’s because we need to select a post to edit, and save it for our edit form that we’re going to write in the next step.
+cd ../posts
+If you’ve been following along exactly, you should still be in app/views/layouts in your terminal. The next file we create is going to be in our app/views/posts folder.
+This command takes us to our posts folder. The ‘..’ takes us up one level to the views folder, and then the /posts takes us to the posts folder.
+CD is a very powerful command and can be used to move around really quickly. You could break this command into two like this:
+cd ..
+cd posts
+But isn’t it better to do it in one?
+-CREATE AN HTML FILE TO EDIT OUR POSTS:
+atom edit.html.erb
+This creates a file called edit.html.erb and opens it in Atom.
+/app/views/posts/edit.html.erb
+Add this code to the file:
+<h1> Edit Post </h1>
+<%= form_for @post do |f| %>
+ <%= f.label :title %>:
+ <%= f.text_field :title %>
+
+ <%= f.label :author %>
+ <%= f.text_field :author %>
+
+  <%= f.label :body %>
+ <%= f.text_field :body %>
+
+ <%= f.submit %>
+<% end %>
+(You’ll notice this looks almost exactly like our new.html.erb page. It’s the same form. Since we set @post in our controller, the form will already have the current contents of the post inside the form fields.
+The URL for this page varies depending on the post. It follows this format:
+localhost:3000/posts/1/edit
+The number in the middle refers to the Post id.
+-ADD A LINK TO THE INDEX PAGE TO BE ABLE TO EDIT EACH POST:
+/app/views/posts/index.html.erb
+Add this code to your file:
+<%= link_to 'Show post', post_path(post.id) %>
+  <%= link_to 'Edit post', edit_post_path(post.id) %>
+<% end %>
+(This will display a link to edit the post on each post in our index page.
+-MAKE SURE THAT IF THE POST UPDATES, IT IS REDIRECTED TO THE POSTS, AND IF NOT, IT RENDERS THE EDIT PAGE:
+/app/controllers/posts_controller.rb
+	Add this code to the file after your edit action and before the private method.
+    def update
+        @post = Post.find(params[:id])
+
+        if @post.update_attributes(post_params)
+            redirect_to posts_path
+        else
+            render :edit
+        end
+     end
+(Just like new and create work hand in hand, so do edit and update. If the post successfully updates the params passed in by post_params, then it will redirect to the posts index. If not, it will render the edit page.
+Go ahead and try it out in your browser. You should see an edit link on your index page. If you can successfully edit a post, then you’re still on track.)
+-ADD LINK TO THE INDEX PAGE THAT LETS USERS DELETE A POST:
+/app/views/posts/index.html.erb
+Add the following to your file:
+  <%= link_to 'Edit post', edit_post_path(post.id) %>
+<%= link_to ‘Destroy Post’, post, method: :delete %>
+<% end %>
+This adds a link allowing users to destroy a post. There are two things to take note of here:
+We pass post in as a parameter since the that refers to the Post that we want to delete. This also means that we have to specify the :delete method in order for our controller to perform the right action.
+-ADD A METHOD THAT SELECTS THE POST THAT WE WANT, DELETES IT AND THEN REDIRECT TO INDEX PAGE:
+/app/controllers/posts_controller.rb
+Add this code to the file after your update action and before the private method.
+    def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
+        redirect_to posts_path
+     end
+(This method selects the post that we want and destroys it. It will then redirect us to the index.
+Check to see if you can successfully delete posts in your app. Your app is now complete!)
