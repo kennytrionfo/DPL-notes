@@ -2007,6 +2007,7 @@ Comment.create(author: “Barrack Bush”, message: ‘I so high’ , post_id: 1
 -rails c: Comment.all to see sql of all
 -@post
 -@post.comments should show all posts with comments.
+made a bunch of associations in the console..
 -quit console
 -edit post page to have list of comments on bottom:
 -views/post/show.html.erb/:
@@ -2023,6 +2024,10 @@ author %></h3>
 
 
 Wed June 18, 2014 day 22
+-PARAMS REVIEW
+-TABLE ASSOCIATIONS REVIEW
+-REVIEW ROUTES
+-REVIEW RAILS QUIZ
 --BUILD A BLOG
 -in term: rails new blog -d postgresql
 - create ruby version and gemset from term:
@@ -2050,7 +2055,6 @@ past a few more times:
 -git push
 now with one model, we have to build controllers and views.
 -rails g controller Posts index show new edit
--gitty gitty
 let’s work on index page frist. what do have to do to get index page up and running?
 -controllers/posts_controller.rb:
 <h1>Posts</h1>
@@ -2070,19 +2074,13 @@ resources :post
 <h1><%= post.title%></h1>
 <h2><%= post.author%></h2>
 <p><%= post.description%></p>
-
-
-
-
-CHALLENGE:
+--CHALLENGE:
 -Create a static home page:
 in config/route.rb -  root 'static#home'
 sv, rails s, go to localhost: 3000
-
 -Create a global navbar in your layout:
 gto views/layouts/application.html.erb
 under section - div class = "row", withing that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
-
 -Add a link to the home page
 -Add a link to the noms page
 -Fix the style on the show page
@@ -2437,9 +2435,7 @@ select make, model from cars where year < 2005;
 
 USE IT WHEN:
 
-
 EXAMPLE:
-
 
 CHALLENGE:
 -Create a table with everyone's info in it from class.
@@ -3102,7 +3098,6 @@ class Router
 end
 more on these advanced ways of passing various types of arguments into varios types of parameters in dpl day 10 vid 24minutes.
 -The ampersand "*" in a parameter means that it is a block.
-
 —————————— —————————— ——————————
 -Variables have different scopes. Local variable are only accessable inside the block/scope where it's created.
 -Making this dynamic looks like this:
@@ -3111,22 +3106,18 @@ meals = [
   {food: 'sushi', drink: 'sake'}
   {food: 'pasta', drink: 'wine'}
 ]
-
 -Call it like this:
 meals.each do |meal|
   grab_food(meal[:food], meal[:drink])
 end
-
 -Instance variables have @. ie. @meals. And they will have a larger scope and will always be available to us.
 -More dynamic example with user input:
 meals= []
 dinner = {}
-
 puts "Please enter in a food"
 food = gets.chomp
 puts "Please enter a drink"
 drink = gets.chomp
-
 dinner[:food] = food
 dinner[:drink] = drink
 meals << dinner
@@ -3180,7 +3171,7 @@ class Child < Parent
 
 class Boat
 class Sailboat < Boat
-
+current study
 ATTRIBUTE ACCESSORS:
 class Chair
   attr_writter :color, :size, :arms, :design, :weight
