@@ -1,4 +1,5 @@
 —————————— PEs —————————— PRACTICE EXERCISES
+-CREATE A RAILS APP USING POSTGRESQL
 -CREATE RAILS APP WITH POSTGRES, DEVISE, RSPEC AND BOOTSRAP
 -SQL STUFF
 -POSTGRESQL STUFF
@@ -12,12 +13,11 @@ GEMS:
 -Type the code to add mutiple gems to two groups.
 -SETTING UP & SENDING EMAILS
 
+
 ++++++++++++++++++++++++
 -CREATE RAILS APP W POSTGRESS:
 
-
-BUILDING A RAILS APP USING POSTGRESQL - SHORT
-
+-CREATE A RAILS APP USING POSTGRESQL - SHORT:
 -CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
 -CD INTO UR APP’S DIR:
 -SET UR RUBY VERSION AND GEMSET FOR THIS APP:
@@ -51,7 +51,7 @@ BUILDING A RAILS APP USING POSTGRESQL - SHORT
 -End of App.
 
 
-BUILDING A RAILS APP USING POSTGRESQL - LONG
+-CREATE A RAILS APP USING POSTGRESQL - SHORT:
 Steps for building a new Rails Project without Scaffolds | By Jason Carter
 This application will include:
 1) a Post model with show, index, new, and edit pages.

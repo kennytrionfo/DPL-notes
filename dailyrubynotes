@@ -2170,14 +2170,20 @@ Admin page: Form with Title, location, Times, descriptions for both Theaters and
 
 
 
+
+
 Friday June 13, 2014
 -Use
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
 to help validate?..
+-Vid all morning..
 
--Vid all morning
+
+
+
+
 
 Thursday June 12, Day 18
 -put resources :products inside of routes.rb inside of config folder.
@@ -2200,7 +2206,6 @@ http://guides.rubyonrails.org/routing.html
 -for erb comments use: use a ruby comment '#' to comment out inside of of the erb tags instead of the equals.
 -use raise to raise an error and as a method to debug. it stops the application at this point.
 -putting 'private' in your products_controller file means that all methods below that are methods and not actions and are not public and can only be instantiated insdie the class.
--product idea for hackathon: class feedback tool.
 - review all morning until 2:20 pm of June 12, 2014.
 CHALLENGE:
 -Create a new rails application called student_union.
@@ -2213,11 +2218,9 @@ CHALLENGE:
  -The index view should list all of the Students with their name and course. The index view should also have a link to your new view, and each student should have a link to their show view.
   -The new view should have a form for creating a new student.
   -The show view should show the selected student with their name and course.
-**notes:
-Student vs Students
 Model should be Student
  - student.rb
-Controler should be Students
+Controller should be Students
  - students_controller.rb
  - in that file: StudentsController
 Views folder should be Students
@@ -2232,7 +2235,7 @@ Views folder should be Students
 Wednesday June 11,  Day 17
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc) ——————————
--The name of your model will be the singular version of soemthing.
+-The name of your model will be the singular version of something.
 A model is just a ruby class. the attributes in a model describe the characteristics of the model.
 Each attribute has a format to it.
 Vid on creating table in rails: 915am
@@ -2279,7 +2282,7 @@ now we have to tell rails to add all of this to the db with:
 rake db:seed
 rails c
 yesterday to get a count in sql we did select count(*) from Animals
-in rails we can ust take the name of our Model(table) and call the .count on it.
+in rails we can just take the name of our Model(table) and call the .count on it.
 Animal.count
 that gives us some sql
 Animal.first
@@ -2768,11 +2771,6 @@ FACTS:
 -u should never use the back button cuz it keeps the errors that were there before.
 -textarea tag does need to have an end tag!
 
-
-USE IT WHEN:
-
-EXAMPLE:
-
 CHALLENGE:
 1. Add these form elements
 -at least 2 checkboxes
@@ -2785,8 +2783,6 @@ CHALLENGE:
 2.style all the form elements to make them look nice. ADD CSS
 3. Add some js validation to prevent the name field from being empty.
 
--------------reddit brian holt------
--contribute github
 
 
 
@@ -2856,13 +2852,6 @@ end
 20. to create other pages, create new erb files in the views foler, put the name of them into the .rb file so it links to them and restart server.
 
 
-USE IT WHEN:
-
-
-EXAMPLE:
-
-
-CHALLENGE:
 
 
 
@@ -3019,15 +3008,6 @@ Nissan = Business::Car
 USE IT WHEN:
 -you want to treat the two car classes totally seperately. A Namespace keeps classes of the same name seperate.
 
-
-EXAMPLE:
-
-
-CHALLENGE:
-
-
-————————————————————
-
 SCOPING CONTANTS:
 Kenny::Person
 
@@ -3035,6 +3015,9 @@ CLASS EXORCISE:
 -Do tictactoe with require method like a board.rb or a class for x or o, create new instnace of each that inherit from a player class etc.
 class Player
   def wins?(marker) #this takes the marker and returns true or false
+
+
+
 
 
 
@@ -3051,7 +3034,6 @@ def grab_food
   puts "grabbing food"
   puts "and it's good"
 end
-
 -Blocks of code are scopes that define everything.
 -Put () next to your new defined method to make it dynamic:
 def grab_food(food)
@@ -3059,6 +3041,7 @@ def grab_food(food)
 end
 -call this method by:
 grab_food("sushi")
+
 —————————— ARGUMENTS ——————————
 -"wrong number of arguments (0 for 1)" means you didn't put in the required amount of arguments. Will also get (1 for 2) if there are two required arguments and you're only passing 1. ie grab_food ("sushi") instead of grab_food("sushi", "juice")
 -Pass multiple arguments on a method by:
@@ -3080,7 +3063,7 @@ class Router
 end
 more on these advanced ways of passing various types of arguments into varios types of parameters in dpl day 10 vid 24minutes.
 -The ampersand "*" in a parameter means that it is a block.
-—————————— —————————— ——————————
+
 -Variables have different scopes. Local variable are only accessable inside the block/scope where it's created.
 -Making this dynamic looks like this:
 meals = [
