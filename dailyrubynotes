@@ -2186,9 +2186,35 @@ to help validate?..
 
 
 Thursday June 12, Day 18
+—————————— review
 -put resources :products inside of routes.rb inside of config folder.
 -then rake routes in term.
 -vid 10:36 for explanation of what rake routes does.
+--short sql review:
+the .find method only takes an ID so it will only return..
+.find() is the fastest and most efficient query you can do.
+but if we do animal = animal.find(50) and there is not an animial with id 50, rails blows up but we can use rescue to fix this. rescue is a ruby thing.
+  begin
+    puts "trying to do stuff"
+  rescue
+    puts "there was an error"
+  end
+so when our app tanks like this, it's bad. we want the app to throw an error not tank. remember when looking at error messages, they always show the name of the class that throw that error.
+So you can go get that error message (in irb here):
+ActiveRecord::RecordNotFound
+and do:
+begin
+  animal = Animal.find(50)
+  rescue ActiveRecord::RecordNotFound
+  puts "could not load animal"
+end
+which will prevent the app from crashing but will throw the error message that you put in there.
+try to pluralize your where queries to help find your object.
+.find is pretty magical..
+rails does some cool things here..
+
+—————————— CONTROLLERS
+
 —————————— RAKE ROUTES FAQs
 http://guides.rubyonrails.org/routing.html
 -get-get a resource.
@@ -2234,7 +2260,7 @@ Views folder should be Students
 
 Wednesday June 11,  Day 17
 -Vid: first 15 min-review of Joining tables.
-—————————— MODELS (from mvc) ——————————
+—————————— MODELS (from mvc)
 -The name of your model will be the singular version of something.
 A model is just a ruby class. the attributes in a model describe the characteristics of the model.
 Each attribute has a format to it.
