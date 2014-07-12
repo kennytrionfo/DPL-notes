@@ -1,0 +1,932 @@
+July 11, 2014 day 37
+——————————
+?- why didn't we add localhost:3000 to database.yml file?
+geo coding
+review namespacing
+latituds and longitude are floats
+geocoding requires that you use an external service
+
+
+
+
+
+July 10, 2014 Day 36
+—————————— Review day
+going to create a website for a taco shop called tacoz
+see vid..
+-Start w a model
+-List it's attributes.
+-Generate a new app - rails g new tacoz
+-Add ruby version and gemset files
+-Add gems
+source first, then ruby version, then rails gem, then others
+  source 'https://rubygems.org'
+  ruby '2.1.2'
+  gem 'rails', '4.1.1'
+bundle
+-generate ur model
+rails g model menu_item
+add attributes to table in migration file
+t.string :name, null: false
+etc
+-add any index items that you want to make searching for faster:
+add_index :menu_items, :vegetarian
+create and rake db
+Create homepage. start server and check localhost: 3000 for rails "Welcome Aboard" message.
+-set up routes. first one is the root route. name it with the name of ur controller(which is also the name of ??) and the name of the action(and consquent view) ur going to put in that controller.
+
+
+
+
+
+
+Wed Jul 9 Day 35
+—————————— File outputs
+uploading images or files that you can upload.
+there are 2 types of resizing. resize to fit and resize to fill.
+FILL WIll drop down both numbers until one of the w h numbers fills it. once it hits the new smaller image, the wider or taller side will just be cropped off. resize to fit means the entire photo will be sqeezed into the new space, but cuz it keeps it's aspect, it will have some empty space somewhere.
+let's add images to our Foodie app and add images to our restaurants page.
+add
+gem 'carrierwave' to gemfile
+bundle
+open up file restaurant_logo_uploader.rb
+RMagick and MiniMagic exp..
+in term which identify to make sure it's fully installed
+add minimagick gem
+bundle
+..
+%W is an array of strings.
+..
+my vid of creating a new model and associating it to another Model
+create a new model..
+
+
+
+
+
+
+Tues July 8, 2014 day 34
+—————————— SETTING UP & SENDING EMAILS
+when we send a gmail, gmail is actually sending it.
+our application is actually sending the email.
+in rails, we have objects called mailers with views and actions.
+the views are the actual email body.
+open foodie app
+we have a mailers folder in our app folder
+a mailer is just a ...
+-CREATE A NOTIFICATION MAILER:
+term
+rails g mailer notification_mailer
+the name should end in _mailer
+if you just do notificaiton, you actually create a class called noification
+creates mailer file and ..
+in notification_mailer.rb
+default is from@example.com. it's easy to spoof an email address.
+the default method is a key:value pair is a hash that can take many options.
+so
+subjec: '',
+to: 'me@me.com',
+cc: '',
+bcc: '',
+-NOW SET UP THE MAILER ACTION:
+(which is kind of like a controller):
+this will be the name of email template
+unlike a controller action, in a mailer action, you can pass arguments. these arguments will relate to what info you'll need in email.
+def contact_form(params)
+  @params = params
+  mail(from: @params[:user_email], to: 'me@myapp.com', subject: 'You have a new contact request')
+end
+-CREATE THE VIEW:
+create new file in app/views:
+<h1>Contact Request</h1>
+<% @params.each_pair do |key, value| %>
+<p><%= key %> -- <%= value %></p>
+<% end %>
+site controller.rb
+def contact
+
+end
+make a view associated to that (new file)
+set up route
+get '/contact' => 'site#contact'
+..
+boot up app
+localhost:3000/contact
+going to build an html form
+crate
+contact.html.erb
+build form..
+routes.rb
+specify a post to /contact  as well as a get
+get '/contact' => 'site#contact'
+rf should have contact form for contacting us.
+now make it so that when we submit thsi form it goes to email.
+now our contact action doesn't do anything but default renders the contact view but we need to see if user is posting data to action and if so we want to submit email
+site_controller.rb
+def contact
+  if request.post?
+    NotificationMailer.contact_form(params).deliver
+    #(this will create an instance of mailer class)
+    redirect_to root_path
+  end
+end
+rf submit form with some info
+redirected back to home page
+in development mode, it doesn't send emails.
+in notificatin_mailer.rb says we sent to me@myapp.com but that doesn't exists. the on ly way to know is to look at our log file. scroll up, look for:
+Sent mail to my@myapp.com (11.5ms) etc..
+it sent the entire params. we could remove certain keys and values from the hash if we wanted to.
+have a couple of issues.
+we can see email in term but can't see html
+most email clients only support html4
+95% of email clients don't support css3
+90% don't support loading external files to no using css files etc to connect in to the file.
+So You'll generally just use p tags, divs, and tables is all.
+And it usually has to be done inline.
+so there are services like litmus.com they do cross-platform testing.
+we can now do this in rails
+broswer
+localhost: 3000/rails/mailers/
+if click on mailer
+break..
+now set up mailer preview
+test/mailers/previews/notification_mailer_preview.rb
+create an instance method that corresponds to mailer action
+def contact_form
+    params = {user_email: 'billy@cheese.info', in_regard_to: 'eating cheese', content: 'Blarg! dude'}
+    NotificationMailer.contact_form(params)
+end
+rf
+click on icon, should see email
+now go make change to view:
+contact_form.html.erb
+add some style to h1
+style="font-weight:normal;color:blue;"
+rf see blue h1
+we need to go through the process over again.
+but this time we'll do a user mailer instead of a notification mailer. we'll simulate the process instead of ..
+site_controller.rb
+make a login action
+def login
+  redirect_to root_path
+end
+make a route that goes to this:
+get '/login' => 'site#login'
+so /login should kick back to homepage
+test
+/login should see it takes to hp
+this is us simulating someone signing up for an account and loggin in.
+but now we want to create a welcome email for them.
+kill server
+rails g mailer user_mailer
+this is the mailer that will handler emailing our users.
+2 open up user_mailer.rb
+3. configure user mailer
+default from: "no-reply@myapp.co.uk.jp.de.ninja"
+  #4 create mailer action
+  def welcome(user_email)
+    user_email = user_email
+    mail(to: @user_email, subject: 'Welcome to club')
+  end
+end
+make sure we have a view same as ..
+inside ... create view.html.erb
+ptu in some html
+<h1>Welcome </h1>
+<p>
+stuff in here
+</p>
+site_controller.rb
+in login method:
+  Usermailer.welcome('dude@party.house').deliver
+  redirect_to root_path
+end
+rails s
+rf /login redirected to home pate and if look in log should see an email was sent.
+now make sure it looks nice.
+do mailer preview
+test/mailer/preview/user_mailer_preview.rb
+create a method with the same name..
+def welcome
+  UserMailer.welcome('billy@cheese.co')
+end
+since we're in a testing ..
+rf /rails/mailers/ should see both and should be able to click on them to see our welcome email.
+--Challenge
+do an admin mailer that will email a report of how many users we have in our database. I want to be able to click a button and that should send me an email showing how many users I have in the db.
+--Challenge Answer..
+When a server is sending mail.
+if you host ur site on a vps, you are responsible for sending emails. heroku has sendmail automatically installed.
+if you set up ur own mail server on sendmail, 99% will be blacklisted, cuz gmails and yahoos see the domain of ur website that has only been around for a week and doesn't trust it. there are cos that help with this like mailchimp.com that works directly with the email providers to get ur emails into inboxes. mailchimp is all configured so you just send email to them and they send the email to ur users. sendgrid is another one.
+vid on
+Set up mail
+pushed to heroku
+add, commit
+git push heroku master
+our applicatoin has different environments (ie dev and production)
+in config folder there are 3 diff folders
+in dev folder will see interesting things in notes.
+in prod folder will see diff options,
+we want rails to send email when in production so we need to tell our production envorment to ...
+2 ways to send email. smtp is one protocal used to send email. most common. when configuring prodcustion environment..
+smtp credentials are just a un and pw but we need our app ..
+google rails smtp settings..
+in production.rb
+at bottom:
+add in settings from web:
+vid exp..
+
+
+
+
+
+
+
+Mon July 7, 2014 day 33
+—————————— HOSTING
+several different kinds: shared, vps, dedicated, cloud. Dedicated and vps is where you need to know devopps, you set it up urself on servers etc. what if ur open ssl that has a bug?? sys admins are doing this kinds of stuff. be ready to use programs written in c, .net or others. Diff between these two: vps (virtual private server) hosting is where a company will take a phyical machine and use virtualzation software to virtualize mini machines, say to have 3 seperate versions of windows running. example site is: 6sync.com, linode.com.
+Dedicated hosting is where you get an entire box all to yourself and can do anything you want with it so you can divide it up if u want.
+Shared hosting. hostgator is great according to jeremy. good cust service.
+Cloud hosting is where you share multiple servers together with everybody else. u get chunks of multiple servers.
+We're going to use heroku.
+—————————— HEROKU FAQs
+download os x toolbelt and install
+-add
+gem 'rails_12factor', group: :production
+to bottom of Gemfile
+-bundle
+-git init and add and commit if haven't already
+read heroku doc online.
+-add:
+ruby '2.1.2'
+under source in Gemfile
+reading article:
+do heroku setup and login stuff. login in term:
+if get key message, type y to get an ssh key completed
+heroku auth:whoami will give us our email
+heroku create
+http://pure-dawn-1644.herokuapp.com/
+is not the url to ur app
+paste in browser will get error
+git remote -v
+do git add Gemfile (or git add -A) and commit
+git push heroku master
+PUT new url address in:
+should get error cuz we haven't migrated the db. just cuz we have a user act locally, don't mean it's in production. So we have an empty db. it doesn't know what models we have etc
+term
+heroku run rake db:migrate
+if app is broken and we need to find out why, we need to read our log files.
+heroku logs -t will run a tail which will continuealy upate logs
+read logs here.
+control c
+make change to app
+go make changes to some file in app
+do git add, commit and push origin heroku master to push up
+
+       Your bundle is complete!
+       Gems in the groups development and test were not installed.
+       It was installed into ./vendor/bundle
+       Bundle completed (2.17s)
+       Cleaning up the bundler cache.
+-----> Preparing app for Rails asset pipeline
+       Running: rake assets:precompile
+       cp public/assets/chosen-sprite@2x-161938c7926814932aacef758979796d.png public/assets/chosen-sprite@2x.png
+       cp public/assets/chosen-sprite-b1e9e37206c5c7746403999b72d58e4f.png public/assets/chosen-sprite.png
+       Asset precompilation completed (2.21s)
+       Cleaning assets
+       Running: rake assets:clean
+-----> WARNINGS:
+       No Procfile detected, using the default web server (webrick)
+       https://devcenter.heroku.com/articles/ruby-default-web-server
+-----> Discovering process types
+       Procfile declares types -> (none)
+       Default types for Ruby  -> console, rake, web, worker
+
+-----> Compressing... done, 25.1MB
+-----> Launching... done, v7
+       http://pure-dawn-1644.herokuapp.com/ deployed to Heroku
+
+To git@heroku.com:pure-dawn-1644.git
+   03c1c6b..a49bb05  master -> master
+next let's make sure we have some data.
+do stuff in production console
+heroku run console
+Rails.env tells us we're in production
+do heroku in term to get a list of commands
+anything we do locally like
+rake db:migrate
+we just put heroku run infront to do to heroku
+heroku run rake db:migrate
+one more change to our app
+heroku looks for Procfile. if you don't specify a Procfile, it will use default server webbrick but it's not good for production. we want to find better ruby webserver.
+webbrick, thin, unicorn, puma, passenger with the last being the best, first being worst.
+-let's implement thin:
+gemfile
+gem 'thin'
+bundle
+boot up local server
+rails s to see...
+exit
+do git add,comm and push
+create file called Procfile in same level as Gemfile and put:
+web: bundle exec thin start -p $PORT to get thin to work?
+add,commit and deploy (push?) this change
+should see
+Procfile declares types -> web
+in term notes and should be using thin server now.
+
+
+
+
+
+
+Thurs July 3, 2014 day 32
+—————————— AJAX FAQs
+Asyncronise Javascript and xml
+The purpose is really the A. it allows you to make asyncronise transactions within ur app. ie. we have a factory with a product on a line, the 'one by one' aspect of each item on an assemply line is asyncronise. only one at a time. IN AN asynchronous situation, individual items from various ares don't depend on each other and have to be done in order. in an asynchronise world, you can do 2 different things at the same time. so the app/customer can start one event while one is still finnishing or running.
+If we take a look at the browser console while loading beakr, we can see all the ajax calls firing off when the page loads.
+facebook has all kinds of stuff loading when their page loads.
+open foodie app
+boot up server
+let's make a simple ajax request.
+what verb do we use?
+in application.js:
+set up a controller to be able to handle recieving an ajax request
+site_controller.rb under index method:
+def places
+
+
+end
+set up a route to go to that:
+in routes: below root 'site#index'
+get '/places' => 'site#places'
+back to site_controller, places action:
+with ajax the format we're using is usually json. by default it assumes html. if we dont' want it to asssume that, we have to tell hte action ...
+in places method:
+respond_to do |format|
+  format.html do
+    render :index
+  end
+  format.json do
+    render json: {name: 'Jeremy'}
+  end
+  end
+end
+end
+3000/places should just show homepage
+let's do an ajax request to /places
+in application.js after at bottom
+$.getJSON('/places', function(data) {
+  console.log(data);
+})
+we can only use getJSON if we're using jSon. if we were using xml, it would have to be xml.
+rf homepage. should see in console a get with the path /places, the 200 is server response, and 6ms is total response time. we can also see the data we printed to the console.
+if you don't want to render a...
+in our views/restaurants/ we have two index files..
+
+
+site/index.html.erb
+below calendar div
+<div id="restaurants"  >
+
+  </div>
+application.js
+inside of restaurants json code:
+$(restaurants).each(function(index, restaurants) {
+  $('#restaurants').append('<p>' + restaurant.name + '</p>');
+});
+rf - it appended the name of restaurent. so this allows us to do ajax injection asynchronously.
+create a new restaurant and rf and should see it at the bottom
+start populating calendar
+to do that we need to make a new event model
+rails g model event
+rails g controller events
+(plural)
+open new migration file
+add data to events
+becuase we're creating events for fullcalendar, look up doc on it
+it expects id, title, allDay, start, end, url, color
+so in migration file
+t.string :title, null: false
+t.boolean :all_day, default: false
+t.datetime :starts_at     (don't use "end" cuz would confuse ruby)
+t.datetime :ends_at
+t.string :url
+t.string :color
+rake db:migrate
+for this to work, need to have some event data
+hop into rails c
+Event.create(title: 'Pizza party', starts_at: 2.hours.from_now, ends_at: 3.hours.from_now, url: 'http://beakr.devpointlabs.com', color: '#ff9900')
+should see the new event in console created by sql
+Event.count
+shows 1 event
+exit
+rails s
+set up a few things. (so far pretty normal, make model, controller)
+routes.rb
+resources :events
+events_controller.rb
+def index
+  @events = Event.all
+end
+create view. same as usual but it'll be diff type
+app/views/events/
+add
+index.json.jbuilder
+this is now our view for our json
+add
+json.arry! @events do |event|
+  json.food 'taco'
+  json.name 'Kenny'
+  json.creature 'kraken'
+  json.frizbee 4
+  json.zombies ['moo', 'ahh']
+end
+(vid for exp..)
+lastly, do asychronous requst
+application.js
+below others:
+$.getJSON('/events', function(event) {
+  conole.log(events);
+});
+vid exp..
+rf in console, we see an array
+exp..
+back to index.json.builder
+comment out items in the block
+we wnat to be explicit and adher to doc's structure so:
+json.id event.id
+json.title event.title
+json.allDay event.all_day
+json.start event.starts_at
+json.end event.ends_at
+json.url event.url
+json.color event.color
+rf in console, see it all
+calendar let's us load events iwth an array
+application.js
+vid..
+rf
+now create new objects using ajax requests:
+frist, index.html.erb
+let's make a form inside of a modal
+below hello href
+<a href="#create-event" data-toggle="modal" class="btn btn-success">Create Event</a>
+<%= render('events/new_modal') %>
+new file
+app/view/events/_new_modal.html.erb
+<div id="create-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="create-event-label" aria-hidden="true"  >
+  <div class="modal-diallog"  >
+    <div class="modal-content"  >
+      <div class="modal-header"  >
+      <h4>Create New Event<h4>
+      <div class="modal-body"  >
+        <p>Stuff</p>
+      <div class=modal-footer  >
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+rf
+
+site_controller.rb
+in index method
+@event = Event.new
+now can build out form
+put submit butons and stuff in modal footer
+_new_modal.html.erb
+in div class="modal-dialog"
+<%= form_for(@event) do |f| %>
+in div class="modal-body" remove stff in body and put
+<%= f.label(:title) %>
+<%= f.text_field(:title) %>
+<%= f.label(:all_day) %>
+<%= f.select(:all_day, [['Yes', true], ['Nope', false]]) %>
+<%= f.label(:starts_at) %>
+<%= f.datetime_select(:starts_at) %>
+<%= f.label(:ends_at) %>
+<%= f.datetime_select(:end_at) %>
+<%= f.label(:url) %>
+<%= f.text_field(:url) %>
+<%= f.label(:color) %>
+<%= f.text_field(:color) %>
+rf have an ugly form
+make an event. put in title, dates etc
+events_controller.rb
+def create
+@event = Event.new(event_params)
+if @event.save
+redirect_to root_path
+end
+end
+
+def event_params
+  params.require(:event).permit(:title, :all_day, :starts_at, :ends_at, :url, :color)
+end
+end
+rf new event shows on calendar
+didn't use ajax to do this so let's add element of ajax so when we hit save, it closes the modal, it adds the event on the calendar
+application.js
+remove /places and /restaurants json code (or omment out)
+at bottom below these two
+var $form = $('form#new_event');
+
+$('input.btn', $form).click(function() {
+  $.post($form.attr('action'), $form.serialize(), function(data){
+    console.log(data);
+    console.log('Event created');
+
+});
+return false;
+})
+rf create new event
+the output in our console is the entire homepage html
+we did a post and can see that we posted all the data...
+we need to update our action to handle doing ajax
+application.js
+under console.log('Event created')
+$('#create-event').modal('hide');
+now in events_controller.rb
+in create method
+replace redirect with
+  render json: @event
+rf create event, should show up on cal
+it's now doing a full ajax post, it closes our modal for us,
+get json to retrieve and post json to submit form
+take .getJSON('/events') block of code and put it insde of
+var loadEvents = function() {
+
+};
+now under $('input btn block,  under $('#calendar line
+loadEvents();
+rf create a new event
+we've gotten stuff from server and we've posted to the server
+--Challenge
+use the noms controller and list out all the noms to the homepage using ajax
+then list all noms for a particular restaurant using ajax
+-do this based on clicking the restaurant, or a link or button with the restaurants name.
+-the noms for this restarant should not load and show on the page until the link/button/whatever is clicked
+
+
+
+
+
+
+
+Wed July 2, 2014 day 31
+js can go into a rails app, it just goes in a specific place.
+boot up app - rails s
+try localhost: 3000 in browser
+in Gemfile is jquery-rails gem so good to go.
+also have Coffee-rails which comes with rails and converts coffee into js for you
+also have bootstrap-sass which give us some nice bootstrap stuff out of box.
+take a look on getbootstrap.com. http://getbootstrap.com/javascript/#transitions
+we get lots of stuff like modals which is something where you can't interact w background at all.
+with rails, some plugins are even easier to install!
+let's do some model stuff
+create a model on homepage:
+include all js needed
+application.js
+delete comments except for requires
+the //= is a rails thing and it's called a manifest, a js manifest. it takes all these diff js files and compiles into a single file. in a normal stie if you need 20 pligins, the server reads them one by one so it takes 20 server calls to load something and if one fails, anything below it stops loading. but with the asset manifest you list them as you would with jq first and then others and then rails complies into a single file. with one file, it will always work and it's compressed so it minifys the files.
+so the //=require jquery.js can drop the .js
+the //= require jquery_ujs should most alwasy be next.
+delete turbolinks, it's garbage
+require_tree requries all the js files that are in whatever dir this is in. and the . means the dir we're in.  don't really need this one so we'll delete also
+we do want:
+//= require bootstrap (this is bootstrap.js, we're leaving off the js)
+also put in:
+//= require_self to require the file we're in. this will always be last.
+set up
+$(function() {
+
+})
+and put
+startTheParty(); in it.
+above it define:
+var startTheParty = function() {
+  console.log('it works');
+};
+at this point the application.js is same excetp we ahve the manifest at top.
+server booted
+bring up console in browser
+if refresh "it works" shows up. when the doc is ready, it'll run our custom funciton
+now we want to create the modal.
+go to the bootstrap documentation and see how it works.
+go to site index file:
+create a div and give it any id
+<div id= "hello" class= "modal fade" tabindex= "-1" role= "dialog">
+</div>
+next give it class modal and fade (a bootstrap animation)
+tabindex...
+aria attributes... (hides somethng?? till you want it to shwo)
+create a few more divs
+inner divs (all inside each) with
+fire alarm
+class="modal-dialog"
+class="modal-content"
+class="modal-header"
+with the modals set up, inside of modal header, can do a button and use it as a way to close the modal.
+add class= "close" and data-dismiss= "modal" to the button type...
+see vid code to complete...
+<div id="hello" class="modal fade" tabindex="-1" rols="dialog" aria-labelledby="hello-modal-label" aria-hidden="true"  >
+  <div class="modal-dialog"  >
+    <div class="modal-content"  >
+      <div class="modal-header"  >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4>Hello Modal</h4>
+        </div>
+        <div class="modal-body"  >
+          <p> Yo Yo !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+then p tag <p>
+yo yo!
+</p>
+inside of modal-body div
+rf - don't see the modal on page. but if we inspect html markup, it shows so it's actually on the page. so the markup is on the page until we need it.
+documention on bootstrap:
+let's do a link instead of a button to kick off modal
+above divs
+<a href="#hello" data-toggle="modal" class="btn btn-default">Hello</a>
+rf click it, modal should pop
+looking at doc - can call modal show (show function is built into bootstrap?)
+in application.js
+set timout
+vid..
+rf after 1.5 sec, modal shows up.
+so it works.
+let's look at implmenting a plugin not in boottrap
+fullcalendar plugin
+go find it in other files (it in javascript dir from future)
+fullcalendar comes with a lot but we only implemented 2 things before. did we create thsi? no. so don't put inside app assets but inside vendor assests
+copy fullcalendar.min.js file and rename to fullcalendar.js and put into vendor/assests/javascripts
+and then into vendor/assessts/stylsheets:
+the fullcalendar.css file
+now add them in.
+in applicatoin.js
+above requrie_self
+//=require fullcalendar  (without the .js)
+also need to require css
+app/stylsheet/application.css.scss:
+@import "fullcalendar"; on the bottom
+application.js:
+initialize plugin:
+above last line:
+$('#calendar').fullCalendar();
+create the div
+in index.html.erb
+below a href
+<div id="calendar"  >
+
+  </div>
+when somethign doesn't work look at js console
+fix error vid...
+come back to asset manifest
+agove fullcalendar:
+//= require moment
+arshaw.com/fullcalendar/docs/
+we can even change the header option of the plugin itself. vid..
+put 3 key value pairs into the calendar plugin function in application.js:
+header: {
+left: 'prev',
+center: 'title',
+right : 'next',
+}
+rf left and right buttons are on left and right.
+now get rid of popup and customize days to bring up a pop up when clik on.
+vid..
+dayClick: ..
+rf a modal pops up a modal.
+let's add aditional info about each day for the modal that pops up for each day.
+undersatand date object
+read doc..
+let's try it..
+try it in console first..
+now implement..
+--Challenge: add one of yesterdays's plugins into our rails app.
+chosen-rails gem. try and get it to work.
+
+
+
+
+Tues July 1, 2014 day 30
+—————————— JQUERY PLUGINS FAQs
+-Put ur jquery src in ur html:
+<script src="jquery.js"></script>
+-Put ur script for your plugin below ur jq script src:
+<script src="jquery.lettering-0.6.1.min.js"></script>
+Create a new js file called application.js and put our js code in it to instantiate (or run) the plugin:
+$(function) {
+    $('.fancy_title').lettering();
+  });
+then add script/src code to our html file to require it:
+<script src="application.js"></script>
+Go look at cycle plugin for cycling pictures on ur site.
+copy minified source code
+create a new file cycle.min.js and paste in there.
+read doc
+include both jquery and cycle script src files.
+we have jq already but put cycle.min in
+next, set up our markup.
+look at doc and copy and paste html right into html file:
+      <div class="cycle-slideshow">
+        <img src="http://placehold.it/250x100&text=1" >
+        <img src="http://placekitten.it/250x100" >
+        <img src="http://placehold.it/250x100&text=3" >
+        <img src="http://placehold.it/250x100&text=4" >
+      </div>
+look at plugins for our slider and/or arrow buttons etc.
+amsul.ca/pickadate.js is cool calendar maybe for our site.
+implement fullcalendar plugin
+on arshaw.com/fullcalendar
+go to download
+download latest fullcalendar zipfile
+put the file into your folder (unzip it)
+checkout documentation , basic usage. need to link to stylesheet
+in html in header put link tag to it
+<link rel="stylesheet"
+href="/"...
+docuemtations says include jquery gem(we laready have it)
+also says include lib
+so add in html
+script src="fullcalendar-2.0.2/lib/moment.min.js"></script>
+doc says inclue fullcalednar.js
+after fullcaldenar script:
+script src="fullcalendar-2.0.2/lib/fullcalendar.min.js"></script>
+doc-
+make div in html above scripts:
+<div  id="calendar">
+  </div>
+in application.js below fancy title:
+$('#calendar').fullCalendar();
+break
+--Challenge
+Create a new page with 2 new jq plugins on it.
+after lunch
+model, objects, for our projects.
+gitflow & github
+diagrams, domain names,
+
+
+
+
+Mon June 30, 2014 day 29
+—————————— JS FRAMEWORKS FAQs
+A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
+—————————— NEW JQUERY APP FAQs
+-create file jquery.js
+-make mew index.html file
+-make an main.js file
+-make a .css file and link the html to it with a <link rel= >
+-start main.js file with the document ready function
+-Style it inside the main.js file or...
+-Style it in the .css file.
+-Build out html, css and .jq
+
+vid 1
+-create file jquery.js
+minify is taking original source, removing whitespace and putting on one line.
+copy file from web page: http://code.jquery.com/jquery-2.1.1.min.js
+paste into jquery.js file
+-make mew index.html file
+put in html basics
+put in script tags where you need them. depends on when you need ur js stuff to run. pages load top down.
+add script tag into html file to connect to the jq file
+will look like:
+    <script charset="utf-8" src="jquery.js"></script>
+then add
+    <script charset="utf-8" src="sandbox.js"></script>
+to connect to sandbox.js file
+jquery src is put before sandbox cuz the website reads top down and we need jqury to run before it runs any of our own js.
+we're not putting our js in this html file because we want to be unobtrusive so we'll just src it here and create another file to write our js in.
+-create new main.js file
+sandbox.js
+create div with id sandbox with "playing in the sand"
+open in browser
+js is event drivin. onload belongs to the window object. onload is a function, it firesoff when the window is loaded but u might have things still loading on ur site like espn, the window was loaded but things were still loading. document on ready is when the document is all loaded, not just the window so best tim to start doign stuff.
+When the document is ready, is the best time to write scripts.
+let's fire off an event when the doc is ready:
+We'll use the jquery function $ which is an aliase for Qjuery.
+$()
+pass () like all functions, cuz it's a function
+this jquery function can take all kinds of arguments, strings, arrays, etc. if ti's an object, it's wraps jq all around it.
+so take the document object and wrap it in jq:
+$(document)
+this allows us to run jq methods
+many js functions are "on" like onclick, onready, but when  using jq, we can remove the on so
+$(document).ready
+and ready takes an annymouse function
+$(document).ready(function() {
+
+});
+the shorthand way to do this is:
+$(function() {
+});
+So everything we put inside this block, fires only AFTER the document is ready.
+we can put
+alert('the audience is ready');
+to see if an alert pops AFTER the doc is ready.
+but if we switch to
+console.log('document now ready');
+will tell us in our console in our browsewr the message 'docuemnt now ready'
+make sure to opon firebug and console to see
+use console to find html elements
+find elements that are using a certain css selector..
+so to find the div's css id sandbox by passing in a css selector to our jq function
+$('#sandbox')
+so this will return a collection of elements that match that css selector. go see in firebug.
+return text that's inside of an element by calling text function..
+Store this object into a variable:
+  var sandbox = $('#sandbox');
+print the text that's inside the sandbox css by
+console.log(sandbox.text());
+because sandbox is now a jq object, we can now run one of the jq functions .text on it which will return all the text that is inside of the collection of elements sandbox
+-Style it inside the main.js file or...
+let's look at styling the element
+we normally use a style element with .style.color = red etc
+with jq it's cleaner. we use the css funtion which takes a collection of key value pairs where the key is the css property, and the value is the value of the css property :
+  sandbox.css({
+    'color': '#ff0000',
+    'border': '1px solid #ff0000',
+    'padding': '10px',
+    'background-color': '#ffeeee'
+  });
+The alternative to this would be doing div.style.color = or div.style.border =
+rf for changes
+2 time based events. timeout which fires aftre certain miliseconds and interval whcih will repeatedly fire off after those miliseconds.
+create timeout.
+window.setTimeout()
+no $ cuz this isn't jq, it's just js.
+setTimout takes 2 arguments:
+function() is the function you want to run,
+{console.log('timeout fired');
+},
+2nd is the amount of milisecs you want to wait
+2500);
+ends up like this:
+  window.setTimeout(function() {
+    console.log('timeout fired');
+    }, 2500);
+...taking notes on vid....
+4 diff functions to put text into
+Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
+before puts it above, after puts it after, prependt at top of object and append at the bottom of object.
+lookup jq functions resource - http://api.jquery.com/category/events/
+insert an html element..
+use append & after functions..
+insert some css styling..
+create an onclick function on a ball element..
+use the (this) command..
+use console.log to show changes and effects in the console..
+find out of something's value is equal to a string or rgb..
+create a property that tells us if something is green or not or on or off..
+use data function() to set a switch (set metadata onto an object)..
+we're basically looking at something's state, seeing what state it's in, and based on that, doing something like changing it's state.
+Vid 2
+animate jq function..
+it takes several arguments. first is css and 2nd is optional duration, 3rd is optional easing, 4th is optional callback option.
+use formarea function to create a text form..
+find an element using psudoclass :text that will return inputs that are text fields..
+bind a blur function that gets called when clicking away from a text field..
+bind focus function to start an event when clicking into a text form..
+binding is attaching an event, one to another.
+create an a tag href to link to google..
+link to place in doc with #linkarea a..
+how to prevent browswer from doing default click or link using preventDefault..
+bind event to entire document..
+us .on to bind a switch to events with a certain class, even future ones..
+use click to bind an event to a single event and use click to bind to mutiple of the same class or new ones throughout the doc..
+jquery-rails gem comes with rails..
+--Challenge:
+when click on circle - it should move it to the right hand side of page and clicking again should send back over to left hand side.
+vid 3
+answer to challenge..
+find out length of window..
+using .animate to do more animation on circle to move across screen..
+--Challenge:
+-Create a select tag with 3 options.
+-The value of each option will be a programming language. (put that in side ur htm file)
+-when you select a new language, change the text of the sandbox to be that language.
+vid 4
+answer to challenge..
+use jq change event function..
+vid 5
+--Challenge. Memory game instructions.
+vid 6 & 7 answer to mem game
+vid 8 line by line explantion of jq for mem game
+
+--After lunch Challenge:
+Memory game. 10x10.
+1.Set up board to have 10x10
+2.make them a div. give it a background color
+3.by clicking on a tile, should change background to white with black boarder still with words.
+4. will have to do clicks
+5.will have to know what each are. when u click on em, store the value and if they are the same, remove from board.
+
+bind a lcick event. the click stores the action in a variable that you'll have reference to later.
