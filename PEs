@@ -10,7 +10,7 @@
 -HTML - CREATE SOMETHING (FIND THE HARDEST THING TO DO IN HTML)
 GEMS:
 -Type the code to add one gem to the group development on the same line.
--Type the code to add mutiple gems to two groups.
+-Type the code to add multiple gems to two groups.
 -SETTING UP & SENDING EMAILS
 
 
@@ -25,7 +25,8 @@ GEMS:
 -INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
 -INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
 -GENERATE UR FIRST MODEL:
--CREATE THE DB & MIGRATE THE MODEL TO IT:
+-CONNECT RAILS TO OUR DATABASE
+-CREATE THE DB & MIGRATE THE TABLE TO IT:
 -CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
 -GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
 -UPDATE UR ROUTES:?
@@ -106,7 +107,9 @@ NOTE: From this point on, you are responsible for adding, committing, and pushin
 -GENERATE UR FIRST MODEL:
 rails generate model Post title:string author:string body:text
 	Creates a Post model with a title, author, and body as attributes. These attributes correspond to columns in the database. Models are always singular (Post instead of Posts).
--CREATE THE DB & MIGRATE THE MODEL TO IT:
+-CONNECT RAILS TO OUR DATABASE
+in database.yml file put host: localhost in(under) the development section.
+-CREATE THE DB & UPDATE (MIGRATE) THE MODEL(table?) TO IT:
 	rake db:create
 	Creates the database. This must be done after you create your first model.
 	rake db:migrate

@@ -2262,9 +2262,30 @@ Wednesday June 11,  Day 17
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc)
 -The name of your model will be the singular version of something.
-A model is just a ruby class. the attributes in a model describe the characteristics of the model.
+A model is just a ruby class. the attributes in a model describe the characteristics of the model. Model is singular, the table is the pluralized version of the model. ie:
+tree, trees
+book, books
 Each attribute has a format to it.
-Vid on creating table in rails: 915am
+We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
+To create that table in sql, we use sql commands like create etc but in rails we use ruby migration code.
+rails creates the migration file with the table in it.
+the t.timestamps is really the created_at & updated_at. the primary key for the table items is also created automagically when we create the table.
+Active record migration converts what we do in our migration file and puts it in the sql db for us. Migration is a rails class. google Active Record Migrations for more.
+Set configuration settings so Rails knows how to connect to our db.
+database.yml
+Inside of development(under development section) host: localhost
+hop into postgresql console:
+psql -d sandbox_development (this name is found in the database.yml file in the development section.)
+\d animals shows our table. our 100 limit on breed and other things are now in there thanks to simply ruby code.
+exit postgresql with /q
+another thing we can do with our db through this Ruby Migration Class might be adding another column to our animals table.
+Every time we make a change in our db through sql code using our rails app, we're going to create a new migration. when we create a model, the model runs the migration for us cuz it knows we need to run some sort of sql code. but we already have a migration so we need to generage a new migration seperately.
+so rails g migration and name the migration very explicitly so
+rails g migration add_columns_to_animals
+if we look at our new migration file we'll see we have a new class AddColumnsToAnimals with a new instance method called change with nothing in it.
+if you make a mistake you can do rake db:rollback to undo the last thing you just did.
+
+
 challenge:
 -create additional trainers
 t = Trainer.create(name: 'Guido')
