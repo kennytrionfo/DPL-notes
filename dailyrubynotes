@@ -1404,15 +1404,18 @@ book, books
 Each attribute has a format to it.
 We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
 To create that table in sql, we use sql commands like create etc but in rails we use ruby migration code.
+
 rails creates the migration file with the table in it.
 the t.timestamps is really the created_at & updated_at. the primary key for the table items is also created automagically when we create the table.
 Active record migration converts what we do in our migration file and puts it in the sql db for us. Migration is a rails class. google Active Record Migrations for more.
 Set configuration settings so Rails knows how to connect to our db.
 database.yml
+rake db:create and migrate
+db:migrate basically tells rails to run the code in the method in the migration file that we just created.
 Inside of development(under development section) host: localhost
 hop into postgresql console:
 psql -d sandbox_development (this name is found in the database.yml file in the development section.)
-\d animals shows our table. our 100 limit on breed and other things are now in there thanks to simply ruby code.
+\d (stands for describe) animals shows our table. our 100 limit on breed and other things are now in there thanks to simply ruby code.
 exit postgresql with /q
 another thing we can do with our db through this Ruby Migration Class might be adding another column to our animals table.
 Every time we make a change in our db through sql code using our rails app, we're going to create a new migration. when we create a model, the model runs the migration for us cuz it knows we need to run some sort of sql code. but we already have a migration so we need to generage a new migration seperately.
@@ -1420,48 +1423,36 @@ so rails g migration and name the migration very explicitly so
 rails g migration add_columns_to_animals
 if we look at our new migration file we'll see we have a new class AddColumnsToAnimals with a new instance method called change with nothing in it.
 if you make a mistake you can do rake db:rollback to undo the last thing you just did.
-
-
-challenge:
--create additional trainers
-t = Trainer.create(name: 'Guido')
--add animals to trainers
-d = Animal.new(name: 'Doogy', breed: 'Poog', species: 'Dog', age: 4, birthday: 7.years.ago, trained: true)
-
-a1 = Animal.first
-
-To put students into Students table
-go into rails console ("rails c" from irb) and type:
-Student.create(:first_name => 'Jason', :last_name => 'Carter', :state => 'Washington', :favorite_color => 'Purple')
-
--Change something in a table in the dir:
-rails g migration change_column_for_animals
-this will show as the bottom file in the db/migrate folder with nothing in it but:
-def change
-end
-to change ur column, put in the change method:
-remove_column :animals, :hungry
-where animals is the table name and hungry is the column name
-and say you want to change the name of another column, then:
-rename_column :animals, :born_on, :birthday with :born_on being the column you want changed and :birthday being the new name.
-to add a column:
-add_column :animals, :trained, :boolean, default: false
-(so what we just did in rails would have been a lot of code in sql)
+let's add a boolean sex to our animals table
+to add a new column add in the change method:
+  add_column :animals, :hungry, :boolean, default: true
 rake db:migrate
-can hop into database to check out the table changes with:
+we realize we need to make a few changes.
+rails g migration change_columns_for_animals
+will see in bottom file in migration files.
+we want to remove the last column we did so in our change method:
+remove_column :animals, :hungry
+also let's rename column
+rename_column :animals, :born_on, :birthday
+add another column:
+add_column :animals, :trained, :boolean, default: false
+we can do as many migrations as we want and don't have to make all of these changes in one migration
+rake db:migrate
+double check with psql to make sure table looks good.
 psql -d sandbox_development
-Seeds file. it's purpose is to set up some default data that we may need to use. since we have an animals table, we can set up some animals.
-animal = Animal.new(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
+get out of psql
+let's start adding some data to our columns/db
+seed file
+animal = Animal.new
+animal.name = "Fluffy"
 animal.save
-this is just a hash of key value pairs
-and we could actually just do this:
-animal = Animal.create(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
-without the save and using create instead of new
-the create method will instantiate the class, set up all the attributes(data) and call save for us to save the new entry.
-and finally we don't even have to set it to a variable since we're not going to use the variable anywhere. We can just do:
-Animal.create(name: "fluffy", breed: "beagle", age: 3, birthday: 3.years_ago, trained: true)
-we dont' have to put in created_at, updated_at or primary key cuz rails takes care of all of that for us. If we did it manually, we would have to do that.
-now we have to tell rails to add all of this to the db with:
+but a faster way is to pass in a hash of key value pairs with their attributes' names and values like:
+animal = Animal.new(name: "Fluffy", breed: "Poodle", species: "Dog", age: 3, birthday: 3.years.ago, trained: true)
+animal.save
+we can make it even shorter with the create method:
+Animal.create(name: "Fluffy", breed: "Poodle", species: "Dog", age: 3, birthday: 3.years.ago, trained: true)
+create will instantiate the class, set up all the attributes, and then call save for us.
+now we haven't actually done anything with this file yet. to tell rails to add all of this to the db with:
 rake db:seed
 rails c
 yesterday to get a count in sql we did select count(*) from Animals
@@ -1472,16 +1463,22 @@ Animal.first
 when using the where method, we can just pass a hash
 Animal.where(name: "fluffy")
 sql will always return a collection unless you limit it to 1.
-notice it doesn't return an object but an ActiveRecord::Relation which isn't an object but a collection. the ActiveRecordRelation has a bunch of methods called in it and it allows us to chain queries together. so now we can do this:
+notice it doesn't return an object but an ActiveRecord::Relation which isn't an object but a collection. the ActiveRecordRelation has a bunch of methods called in it and it allows us to chain queries together. so now we can do this: chain em..
 Animal.where(name: "fluffy").limit(1)
 the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
 if we want to add another argument we can:
 Animal.where(name: "fluffy", age: 3)
 any query we do, we can just add .count onto the end of it and it'll tell us how many records match that query:
 Animal.where(name: "fluffy", age: 3).count
+\d to see Schema
+to see the timestamps of each version of the table migrations, from ur directory: select * from schema_migrations:
+Rails checks with this data everytime yo do rake db:migrate to make sure it doesn't always exit. So if you make a mistake AFTER you've done a rake db:migrate you can't change it (by doing a rake db:drop for example), you have to create another migration to change it.
+You could rollback though
+--CHALLANGE:
 from the rails console, create 5 more animals in the db
+end challenge
 still in rails c
-do like query using a string:
+do a like query using a string instead of a hash:
 Animal.where("name = 'fluffy'") or
 Animal.where("name LIKE 'fluffy%'")
 Insdie this ruby string is raw sql
@@ -1505,16 +1502,39 @@ for more on ActiveRecord Querying and methods:
 http://guides.rubyonrails.org/active_record_querying.html
 
 
-Challenge:
+--Challenge:
 -Create a Student model called student with first_name, last_name and state
 from sandbox2 folder:
 rails g model Student first_name last_name state
 
-Challenge:
+--Challenge:
 -Create a migration that adds a favorite_color column to your student table.
 rails generate migration AddsFavoriteColorToStudents favorite_color:string
 (a new file should now show in your migrate folder in db folder in sandbox folder)
--
+
+—————————— RELATIONAL DATABASES
+one to one, one to many, one to many.
+Create a trainer model and create a one to many relationship between ur models.
+rails g model trainer
+in migration file:
+t.string :name
+but now that we want to associate animals to this trainer, we have to add the trainer_id to all the animals table:
+rails g migration add_trainer_id_to_animals (use singular trainer)
+go to migration file and add
+
+
+--challenge:
+-create additional trainers
+t = Trainer.create(name: 'Guido')
+-add animals to trainers
+d = Animal.new(name: 'Doogy', breed: 'Poog', species: 'Dog', age: 4, birthday: 7.years.ago, trained: true)
+
+a1 = Animal.first
+
+To put students into Students table
+go into rails console ("rails c" from irb) and type:
+Student.create(:first_name => 'Jason', :last_name => 'Carter', :state => 'Washington', :favorite_color => 'Purple')
+
 
 —————————— CREATING A NEW APP IN RAILS ——————————
 Steps:
@@ -1537,9 +1557,11 @@ In term type: rake db:migrate in the direcotry your file is in. Should see..?? =
 12. Stop the app from running by hitting control+c in the terminal.
 13. CD .. out of your app's directory.
 14. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
-
-
 -Use rake db:rollback to rollback a mistake.
+
+
+
+
 
 Tuesday June 10, 2014 Day 16
 —————————— SQL ——————————
@@ -1591,19 +1613,12 @@ elephant_development(# for_sale boolean defalut true,
 elephant_development(# created_at timestamp,
 elephant_development(# updated_at timestamp
 elephant_development(# );
-
 Add a new car:
 insert into cars(make, model, year, condition, for_sale, created_at, updated_at) values('bugatti', 'one', 2015, 'good', true, now(), now());
-
 How many cars total do I have?:
 select count(*) from cars;
-
 How many cars do have that are older than 2005?:
 select make, model from cars where year < 2005;
-
-USE IT WHEN:
-
-EXAMPLE:
 
 CHALLENGE:
 -Create a table with everyone's info in it from class.
@@ -1613,29 +1628,19 @@ select * from students where last_name like 'V%';
 select state from students where state = 'Utah';
 -Everyone with fist name David:
 select first_name from students where first_name = 'David';
-
 -In your Aminals table, create a student_id column.
 alter table aminals add column student_id integer;
-
 -Add your student_id to one of the cars:
 update aminals set student_id=6 where id = 15;
-
 Join
  -Join the students and cars table with the student_id foreign key.
 select name, breed from aminals inner join customers on aminals.id = customers.aminals_id;
-
-
-
 -Add a birthday column to the students table.
 alter table students add column birthday timestamp;
-
 -Upate each student with their birthday as a datetime.
 update students set birthday='1993-04-19'::timestamp where id=1;
-
 Selecting all students who were born April 19th, 1993.
-
 extract(year from birthday)
-
 -To delete a table:
 drop table cars
 
@@ -1650,32 +1655,27 @@ select * from students where extract(month from birthday) = 10;
 
 -Select all students named David who were born after 1988.
 select * from students where extract(year from birthday) >1988 and first_name = 'David';
-
 -Select all students who were born between 1980-1990.
 select * from students where extract(year from birthday) between 1980 and 1990;
-
 -Select all students named Jason, Justin and David using an array.
 select * from students where first_name IN ('Jason', 'Justin', 'David');
-
 -Delete birthday column.
 alter table students drop column birthday;
-
 -Delete Jason row.
 delete from students where first_name = 'Jason';
-
 -Delete your state.
 update students set state = '' where id = 6;
-
-
 Group by:
 -In a GROUP BY statement only distinct values are shown.
 -Give a count of how many of each first names there are, by first name.
 select first_name, count(state) from students group by first_name;
-
 Where:
 -Specify the condition or predicate.
 -Kind of like an if statement, your trying to describe something where it's either true or false only.
 select * from students where state = 'Virginia';
+
+
+
 
 
 Monday June 9, 2014 Day 15?

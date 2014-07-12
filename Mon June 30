@@ -251,9 +251,11 @@ Cloud hosting is where you share multiple servers together with everybody else. 
 We're going to use heroku.
 —————————— HEROKU FAQs
 download os x toolbelt and install
+quit and restart terminal after installing toolbelt
 -add
 gem 'rails_12factor', group: :production
 to bottom of Gemfile
+(this helps rails run better on heroku. read up for details)
 -bundle
 -git init and add and commit if haven't already
 read heroku doc online.
@@ -276,6 +278,11 @@ should get error cuz we haven't migrated the db. just cuz we have a user act loc
 term
 heroku run rake db:migrate
 if app is broken and we need to find out why, we need to read our log files.
+heroku logs
+it reads the logs and spits you back to console so you can't continute to watch it.
+but
+heroku logs -t
+keeps the logs open without kicking you back to console and can read what's going on in real time.
 heroku logs -t will run a tail which will continuealy upate logs
 read logs here.
 control c
@@ -334,6 +341,27 @@ add,commit and deploy (push?) this change
 should see
 Procfile declares types -> web
 in term notes and should be using thin server now.
+implementing thin:
+in gemfile
+gem ‘thin’
+you can add Procfile in same level as gemfile
+add file Procfile
+to this file add:
+web: bundle exec thin start -p $PORT
+boot local server and you can see it boots thin instead of webBrick now
+rails s
+=> booting thin
+if you made these changes make sure to git add, git commit, and git push heroku master
+heroku run console
+if you run Rails.env in heroku console should show :
+=> ‘production’
+you can get real live production data just like if you were in development by doing stuff like :
+	Event.count
+	User.count
+	Photo.count
+
+to see heroku commands
+heroku
 
 
 
