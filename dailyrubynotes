@@ -1401,10 +1401,11 @@ Wednesday June 11,  Day 17
 A model is just a ruby class. the attributes in a model describe the characteristics of the model. Model is singular, the table is the pluralized version of the model. ie:
 tree, trees
 book, books
+rails new sandbox -d postgresql
 Each attribute has a format to it.
 We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
 To create that table in sql, we use sql commands like create etc but in rails we use ruby migration code.
-
+rails g model Animal
 rails creates the migration file with the table in it.
 the t.timestamps is really the created_at & updated_at. the primary key for the table items is also created automagically when we create the table.
 Active record migration converts what we do in our migration file and puts it in the sql db for us. Migration is a rails class. google Active Record Migrations for more.
@@ -1476,12 +1477,13 @@ Rails checks with this data everytime yo do rake db:migrate to make sure it does
 You could rollback though
 --CHALLANGE:
 from the rails console, create 5 more animals in the db
+Animals.create(...same format as what we did in seed file)
 end challenge
 still in rails c
-do a like query using a string instead of a hash:
+do a 'like' query using a string instead of a hash:
 Animal.where("name = 'fluffy'") or
 Animal.where("name LIKE 'fluffy%'")
-Insdie this ruby string is raw sql
+Inside this ruby string is raw sql
 to set the name ur looking for to a variable:
 name = "Fluffy"
 and because we're in rubyland, we can do string interpolation
@@ -1515,13 +1517,20 @@ rails generate migration AddsFavoriteColorToStudents favorite_color:string
 —————————— RELATIONAL DATABASES
 one to one, one to many, one to many.
 Create a trainer model and create a one to many relationship between ur models.
-rails g model trainer
+rails g model Trainer
 in migration file:
 t.string :name
 but now that we want to associate animals to this trainer, we have to add the trainer_id to all the animals table:
 rails g migration add_trainer_id_to_animals (use singular trainer)
 go to migration file and add
-
+add_column :animals, :trainer_id, :integer
+rake db:migrate
+we need to make sure rails knows there's this association:
+in the trainer model. trainer.rb
+has_many :animals
+in the animal model. animal.rb
+belongs_to :trainer
+more on vid about working in db in both rails and the rails console..
 
 --challenge:
 -create additional trainers
