@@ -1144,6 +1144,37 @@ author %></h3>
 Wed June 18, 2014 day 22
 -PARAMS REVIEW
 -TABLE ASSOCIATIONS REVIEW
+example of associations:
+Understanding Associations in rails
+
+1. Take 2 models
+2. Associate them
+3. Ensure database has association columns needed
+4. Scope routes
+5. Use the scope in your controller
+
+Example:
+class Meat
+  belongs_to :sandwhich
+end
+class Sandwhich
+  has_many :meats
+end
+
+$ rails g migration add_sandwhich_id_to_meats sandwhich_id:integer
+
+resources :sandwhiches do
+  resources :meats
+end
+
+class MeatsController
+  before_action :find_sandwhich
+
+  private
+  def find_sandwhich
+    @sandwhich = Sandwhich.find(params[:sandwhich_id])
+  end
+end
 -REVIEW ROUTES
 -REVIEW RAILS QUIZ
 --BUILD A BLOG
@@ -1192,6 +1223,7 @@ resources :post
 <h1><%= post.title%></h1>
 <h2><%= post.author%></h2>
 <p><%= post.description%></p>
+
 --CHALLENGE:
 -Create a static home page:
 in config/route.rb -  root 'static#home'
@@ -1323,12 +1355,10 @@ to help validate?..
 
 Thursday June 12, Day 18
 —————————— review
--put resources :products inside of routes.rb inside of config folder.
--then rake routes in term.
--vid 10:36 for explanation of what rake routes does.
---short sql review:
-the .find method only takes an ID so it will only return..
-.find() is the fastest and most efficient query you can do.
+another way to search in db:
+animal = Animal.where(id: 1)
+returns on the one record with the id of 1 but it's still an ActiveRecord::Relation collection
+sql still returns a collection cuz all it knows is it's doing the .where command but rails is smart and gives us an alternate way of searching using .find and it will find only that id that we're looking for. this is also the fastest query.
 but if we do animal = animal.find(50) and there is not an animial with id 50, rails blows up but we can use rescue to fix this. rescue is a ruby thing.
   begin
     puts "trying to do stuff"
@@ -1349,7 +1379,8 @@ try to pluralize your where queries to help find your object.
 .find is pretty magical..
 rails does some cool things here..
 
-—————————— CONTROLLERS
+—————————— CONTROLLERS FAQs
+
 
 —————————— RAKE ROUTES FAQs
 http://guides.rubyonrails.org/routing.html
@@ -1369,7 +1400,8 @@ http://guides.rubyonrails.org/routing.html
 -use raise to raise an error and as a method to debug. it stops the application at this point.
 -putting 'private' in your products_controller file means that all methods below that are methods and not actions and are not public and can only be instantiated insdie the class.
 - review all morning until 2:20 pm of June 12, 2014.
-CHALLENGE:
+
+--CHALLENGE:
 -Create a new rails application called student_union.
 -Generate a Student model with a name and course attributes.
 -Create and migrate your database.
@@ -1403,7 +1435,7 @@ tree, trees
 book, books
 rails new sandbox -d postgresql
 Each attribute has a format to it.
-We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
+We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base that does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
 To create that table in sql, we use sql commands like create etc but in rails we use ruby migration code.
 rails g model Animal
 rails creates the migration file with the table in it.
@@ -1545,7 +1577,7 @@ go into rails console ("rails c" from irb) and type:
 Student.create(:first_name => 'Jason', :last_name => 'Carter', :state => 'Washington', :favorite_color => 'Purple')
 
 
-—————————— CREATING A NEW APP IN RAILS ——————————
+—————————— CREATING A NEW RAILS APP USING SCAFFOLD FAQs ——————————
 Steps:
 1.Create new projects/app:
 In terminal, from the directory you will crate it in(ie.sandox) type:
