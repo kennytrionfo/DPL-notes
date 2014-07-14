@@ -1380,16 +1380,48 @@ try to pluralize your where queries to help find your object.
 rails does some cool things here..
 
 —————————— CONTROLLERS FAQs
-
+Controllers are ruby classes but they don't really act like classes.
+the MVC fits inside of an overarching resource. the resource is based on whatever our model is. say it's animal. so the controllers are animals (plural) and the views are animals_views
+resource examples then would be like animal, trainer, owner etc. resources is just a concept, not a programming class/method/function etc.
+so when we do rails g scaffold, we're really telling rails which resource to generate.
+Routes are how the urls are specified for the views talking to a particular controller.
+let's create a new app called dpl_store
+-rails new kens_store -d postgresql
+-create a develop branch to work on.
+git checkout -b develop
+-generte a model for ur products
+rails g model product
+-add attributes to ur product in ur migration file
+t.string :name, null :false
+t.float :price, default: 0.0
+t.string :sku
+t.boolean :in_stock, default: true
+t.text :description
+-configure db so that rails knows how to access it  - host: localhost
+-create & connect db to rails:
+rake db:create and migrate
+-seed db. in seed.rb
+Product.create(name: 'DPL shirt', price: 14.99, sku: 'dp123', description: 'cool shirt')
+create 1 or 2 more
+rake db:seed
+-create ur controller:
+rails g controller products
+set up an action to show all the products:
+go to routes file
+we can do
+resources :products
+which generates all the routes for us
 
 —————————— RAKE ROUTES FAQs
 http://guides.rubyonrails.org/routing.html
--get-get a resource.
--post-post a new resource.
--patch - taking a resource and updating it a bit.
--put-your updating the entire resource itself.
--this is called REST. representation state transfer. google it.
--prefix-is a prefix to a method that will return a string to the pattern. the _path or _url that will return the URI Pattern. If the uri has a pattern and the variable (ie.:id) is not optinal, you have to supply the variable for taht uri pattern cuz rails doesn't know which id pattern ur talking about.
+get-get a resource. forexample just viewing something. ie getting a product from the server to view.
+post-post a new resource. ie - adding a new product to the server.
+patch - taking a resource and updating it a bit.-put-your updating the entire resource itself.
+delete - deleting an entire resource.
+this is called REST. folling this pattern to connect everything. representation state transfer. google it.
+prefix-is a prefix to a method that will return a string to the uri pattern. there are 2 methods that get generated for each method that return the uri. the _path or _url that will return the URI Pattern. If the uri has a pattern and the variable (ie.:id) is not optinal, you have to supply the variable for taht uri pattern cuz rails doesn't know which id pattern ur talking about.
+the diff between _path method and _url method that you get with each prefix is that the _path method is going to be a relative url. the _url is going to be an absolute url. relative means relative to domain. these are all relative. absolute means the absolute or whole entire address ie. http://something.com/something/id  etc.
+generally inside of ur app, u'll be using _path. _url is used for something like using emails that ur sending to customers. 
 
 -pushed to github using git push origin develop. * also set up a branch on github called develop. review that.
 - any action that do a git, those actions should reflect a view.
