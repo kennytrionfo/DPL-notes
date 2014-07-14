@@ -1421,7 +1421,8 @@ delete - deleting an entire resource.
 this is called REST. folling this pattern to connect everything. representation state transfer. google it.
 prefix-is a prefix to a method that will return a string to the uri pattern. there are 2 methods that get generated for each method that return the uri. the _path or _url that will return the URI Pattern. If the uri has a pattern and the variable (ie.:id) is not optinal, you have to supply the variable for taht uri pattern cuz rails doesn't know which id pattern ur talking about.
 the diff between _path method and _url method that you get with each prefix is that the _path method is going to be a relative url. the _url is going to be an absolute url. relative means relative to domain. these are all relative. absolute means the absolute or whole entire address ie. http://something.com/something/id  etc.
-generally inside of ur app, u'll be using _path. _url is used for something like using emails that ur sending to customers. 
+generally inside of ur app, u'll be using _path. _url is used for something like using emails that ur sending to customers.
+Any action that does a get should relate to a view. if your app has 4 get verbs in your resource, you should have 4 views. and the name of ur page should be what ur action is. 
 
 -pushed to github using git push origin develop. * also set up a branch on github called develop. review that.
 - any action that do a git, those actions should reflect a view.
