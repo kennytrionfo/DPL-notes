@@ -1,5 +1,38 @@
 July 15, 2014 day 40?
-—————————— 
+—————————— NESTED FORMS FAQs NESTED RESOURCES FAQs
+a blog post has many photos..
+we do this on beakr in staff section. when want to make change to schedule, all schedule items are listed.
+we're just taking 2 or more models, putting them on the same page and saving them through 1 form.
+a menu item has many ingredients and an ingredient belongs to menu item.
+rails g model ingredient
+in migratino file:
+      t.belongs_to :menu_item
+      t.string :name
+      t.integer :calories
+also
+    add_index :ingredients, :menu_item_id
+add associations to models
+  belongs_to :menu_item
+to ingredient.rb..
+rake db:migrate
+vid clean up form..
+
+there's a method that we call off of the menu items form called fields_for. we tell it what it's for, here their for ingredients.
+..
+
+use after_initialize to add one ingredient to the array so it can iterate over it.
+
+nested_form gem
+
+--Challenge:
+Create a new employee and build into the form a way to add them.
+employee
+  name
+  badge_number
+a location has many employees
+an employee belongs_to a location
+
+in admin section add new locations and in new locations form add new employees.
 
 
 
@@ -37,7 +70,6 @@ to show us our two keys
 break
 vid on how to set up keys in secrets.yml and .env..
 changing our twitter access to read and write from just read..
-go through twitter stuff.
 
 
 
