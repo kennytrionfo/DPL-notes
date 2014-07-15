@@ -1,6 +1,45 @@
-Do a real assessment of what all and the average students are making from the last cohort and do an analysis on what their cost/benifits are.
--review all my review work and notes that I did on sat.
--review my pics I took of Jason's stuff.
+July 15, 2014 day 40?
+—————————— 
+
+
+
+
+
+
+July 14, 2014 day 38
+—————————— API FAQS
+API - application programming interface.
+everytime ur programming, ur writing and api. the basic concept is.. it's a way for someone to access an application in some way.
+say you write a little helper method that helps you so something in ur app, that's an api.
+api's usually offer an xml api or json api. jsons are better. if they have a json api, there's probably a ruby gem for it. also look to see if it's a REST api. if it's not, it'll be harder to deal with. avoid if you can.
+-let's implment twitter's api:
+-sign in to dev.twitter.com
+-create an account to get a key
+-open our Tacoz app. go to secrets.yml
+use an environment key
+under development section:
+  twitter:
+    api_key: <%= ENV['TWITTER_API_KEY'] %>
+    api_secret: <%= ENV ['TWTTER_API_SECRET'] %>
+now we need to set our envirmment varialbes.
+frist, take the name of the variable,
+term
+export TWITTER_API_KEY=GcEvwC7ygneRCJSED9wjXMR1o
+better way to do this is create a .env inside of app
+look at github gem instruictions to set up this file
+-set up env file in top level of directory of app..
+-put gem in gemfile.
+ -put twitter gemfile in too. under turbolinks
+ bundle
+rails c
+Rails.application.secrets.twitter
+to show us our two keys
+break
+vid on how to set up keys in secrets.yml and .env..
+changing our twitter access to read and write from just read..
+go through twitter stuff.
+
+
 
 
 
@@ -11,7 +50,6 @@ geo coding
 review namespacing
 latituds and longitude are floats
 geocoding requires that you use an external service
-
 
 
 
