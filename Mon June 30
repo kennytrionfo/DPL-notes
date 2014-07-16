@@ -1,9 +1,60 @@
--linked in
--forward email to folks
--
 
 July 16, 2014
 —————————— SEARCHING FAQs
+-Put search feature on Tacoz app:
+one of most common ways to search is to do full-text search. the works like this - u pass it a string and the algorithm knows how to search for anything like that. like it could find Fuzzy when searching for fuzzy. we're using postgresql cuz it comes w a full-text search function so no need to get plugins etc.
+There's another search called a fuzzy search. it's not as efficient.
+say you search for "fuzy" then you see 'Did you mean "fuzzy"?'
+this is fuzzy searching.
+Open tacoz app.
+to make use of postgres engine,
+add pg_search gem & bundle
+read documentation. this one you need to read all of it first before implmenting.
+from doc - multi search let's us search accross multiple models. search scopes let us search down to specific things. ie we can search a specific column of a model.
+we'll use multi search
+creaet migration
+rails g pg_search:migration:multisearch
+checkout mig file.
+t.belongs_to :searchable, :polymorphic => true means it's searching for something but doeosn't knwo what yeet.
+rake db:migrate
+doc
+  include PgSearch
+  multisearchable against: [:name, :description]
+in menu_item.rb file
+we're doing just these two cuz they are the ones that are searchable.
+now set up search:
+doc:
+rake pg_search:multisearch:rebuild[MenuItem]
+this is telling postgress that we want to be able to search on the menu item model.
+(for those )
+go into rails c
+PgSearch::Multisearch.rebuild(MenuItem)
+does what we were trying to do with the above rake command?
+PgSearch.multisearch('taco')
+gives us some sql results
+if we didn't use the pgsearch gem, we'd be writing this stuff out manually.
+all of this is an array so let's assing a var to it to do some quering
+results = PgSearch.multisearch('taco')
+..
+try
+results.first
+result = results.first
+result.searchable
+..
+exit
+rails s
+let's implment a form
+views/layouts/application.html.erb
+coding..
+break
+coding..
+-add ability to search through specific ingredients
+rake db:migrate
+
+--Challenge:
+Add search onto our location.
+
+
 
 
 

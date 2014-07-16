@@ -1458,15 +1458,40 @@ Views folder should be Students
 
 
 
-
 Wednesday June 11,  Day 17
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc)
+-create new model using postgres as db
+-Set configuration settings so Rails knows how to connect to our db. database.yml file
+-rake db:create and migrate
+-from dir use rails to create a migration to add columns to db
+-from dir create a mig to a column in db
+-remove, add & rename a column from db using ruby code in mig file
+-rake db:migrate
+-double check with psql to make sure table looks good.
+-add 3 columns (w rows(attributes)) to our db in the seed file:
+-tell rails to add all of this to the db:
+-go into the rails console (our sandbox) & use .count .first .where .limit .where().count ruby methods on the Model:
+-call .where on the Model to find a name:
+-chain .limit to see how many:
+-pass 2 arguments to where to find 2 attributes:
+-call .count to see how many fit that criteria:
+-do 2 different 'like' queries using a string instead of a hash:
+-add another argument to ur query:
+-add .count onto the end of that multi-argument query to see how many records match that query:
+-set the name ur looking for to a var and use the unsafe way of using string interp to pass a dynamic var into our sql:
+-change the var name and try it again:
+-Use rails sanitized method for taking arguments and repeat above:
+
+
+
+
+
 -The name of your model will be the singular version of something.
 A model is just a ruby class. the attributes in a model describe the characteristics of the model. Model is singular, the table is the pluralized version of the model. ie:
 tree, trees
 book, books
--create new model
+-create new model using postgres as db
 rails new sandbox -d postgresql
 Each attribute has a format to it.
 We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base that does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
@@ -1475,8 +1500,7 @@ rails g model Animal
 rails creates the migration file with the table in it.
 the t.timestamps is really the created_at & updated_at. the primary key for the table items is also created automagically when we create the table.
 Active record migration converts what we do in our migration file and puts it in the sql db for us. Migration is a rails class. google Active Record Migrations for more.
-Set configuration settings so Rails knows how to connect to our db.
--database.yml
+-Set configuration settings so Rails knows how to connect to our db. database.yml file
 -rake db:create and migrate
 db:migrate basically tells rails to run the code in the method in the migration file that we just created.
 Inside of development(under development section) host: localhost
@@ -1513,7 +1537,6 @@ we can do as many migrations as we want and don't have to make all of these chan
 psql -d sandbox_development
 get out of psql
 -add 3 columns (w rows(attributes)) to our db in the seed file:
-seed file
 animal = Animal.new
 animal.name = "Fluffy"
 animal.save
@@ -1542,17 +1565,17 @@ notice it doesn't return an object but an ActiveRecord::Relation which isn't an 
 -pass 2 arguments to where to find 2 attributes:
 -call .count to see how many fit that criteria:
 -do 2 different 'like' queries using a string instead of a hash:
-
 Animal.where(name: "fluffy").limit(1)
 the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
-if we want to add another argument we can:
+-add another argument to ur query:
 Animal.where(name: "fluffy", age: 3)
-any query we do, we can just add .count onto the end of it and it'll tell us how many records match that query:
+-add .count onto the end of that multi-argument query to see how many records match that query:
 Animal.where(name: "fluffy", age: 3).count
 \d to see Schema
 to see the timestamps of each version of the table migrations, from ur directory: select * from schema_migrations:
 Rails checks with this data everytime yo do rake db:migrate to make sure it doesn't already exit. So if you make a mistake AFTER you've done a rake db:migrate you can't change it (by doing a rake db:drop for example), you have to create another migration to change it.
 You could rollback though
+
 --CHALLANGE:
 from the rails console, create 5 more animals in the db
 Animals.create(...same format as what we did in seed file)
@@ -1565,12 +1588,15 @@ Inside this ruby string is raw sql
 to set the name ur looking for to a variable:
 name = "Fluffy"
 and because we're in rubyland, we can do string interpolation
+-set the name ur looking for to a var and use the unsafe way of using string interp to pass a dynamic var into our sql:
 Animal.where("name LIKE '#{name}%'")
-which lets us use a dynamic name variable or something and pass it right into our sql. so if you change the name:
+which lets us use a dynamic name variable or something and pass it right into our sql.
+-change the var name and try it again:
 name = "Kitters"
 and run that same query again, we'll get a diff value
 WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.
 Rails has fixed this. rails takes the ruby string that looks like sql and creates a placeholder for where the variable is going to be. that placeholder is a questionmark. this makes sure that it's sanitized sql and not sql from the user.
+-Use rails sanitized method for taking arguments and repeat above:
 For each questionmark that you have as a placeholder, you add an additional method to the where method for what that thing is:
 name = "kitters"
 Animal.where("LOWER(name) LIKE ?", "#{name}%")
