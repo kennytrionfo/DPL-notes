@@ -1,9 +1,21 @@
+-linked in
+-forward email to folks
+-
+
+July 16, 2014
+—————————— SEARCHING FAQs
+
+
+
+
+
 July 15, 2014 day 40?
 —————————— NESTED FORMS FAQs NESTED RESOURCES FAQs
 a blog post has many photos..
 we do this on beakr in staff section. when want to make change to schedule, all schedule items are listed.
 we're just taking 2 or more models, putting them on the same page and saving them through 1 form.
-a menu item has many ingredients and an ingredient belongs to menu item.
+so using our Tacoz app, we already have a menu_items model. we want to say that a menu item has many ingredients and that an ingredient belongs_to a menu item and in the menu items form we want to be able to add new ingredients to the menu item.
+so a menu item has many ingredients and an ingredient belongs to menu item.
 rails g model ingredient
 in migratino file:
       t.belongs_to :menu_item

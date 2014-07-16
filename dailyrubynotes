@@ -1174,7 +1174,7 @@ class MeatsController
   def find_sandwhich
     @sandwhich = Sandwhich.find(params[:sandwhich_id])
   end
-end 
+end
 -REVIEW ROUTES
 -REVIEW RAILS QUIZ
 --BUILD A BLOG
@@ -1466,6 +1466,7 @@ Wednesday June 11,  Day 17
 A model is just a ruby class. the attributes in a model describe the characteristics of the model. Model is singular, the table is the pluralized version of the model. ie:
 tree, trees
 book, books
+-create new model
 rails new sandbox -d postgresql
 Each attribute has a format to it.
 We dont' have to define attr_accessers cuz in rails they automatically inherit from active record base that does that for us by looking to see what the name of the model is, connects to the database, looks for a table with the pluralized version of the model name, and then reads the table to find all of the columns and then automatically creates an attr_accesor for each one of the columns.
@@ -1475,27 +1476,31 @@ rails creates the migration file with the table in it.
 the t.timestamps is really the created_at & updated_at. the primary key for the table items is also created automagically when we create the table.
 Active record migration converts what we do in our migration file and puts it in the sql db for us. Migration is a rails class. google Active Record Migrations for more.
 Set configuration settings so Rails knows how to connect to our db.
-database.yml
-rake db:create and migrate
+-database.yml
+-rake db:create and migrate
 db:migrate basically tells rails to run the code in the method in the migration file that we just created.
 Inside of development(under development section) host: localhost
-hop into postgresql console:
+-hop into postgresql console to describe(look at ur db):
 psql -d sandbox_development (this name is found in the database.yml file in the development section.)
 \d (stands for describe) animals shows our table. our 100 limit on breed and other things are now in there thanks to simply ruby code.
 exit postgresql with /q
 another thing we can do with our db through this Ruby Migration Class might be adding another column to our animals table.
 Every time we make a change in our db through sql code using our rails app, we're going to create a new migration. when we create a model, the model runs the migration for us cuz it knows we need to run some sort of sql code. but we already have a migration so we need to generage a new migration seperately.
+-from dir use rails to create a migration to add columns to db
 so rails g migration and name the migration very explicitly so
 rails g migration add_columns_to_animals
 if we look at our new migration file we'll see we have a new class AddColumnsToAnimals with a new instance method called change with nothing in it.
 if you make a mistake you can do rake db:rollback to undo the last thing you just did.
+add a new column to the db using ruby code in the mig file
 let's add a boolean sex to our animals table
 to add a new column add in the change method:
   add_column :animals, :hungry, :boolean, default: true
 rake db:migrate
 we realize we need to make a few changes.
+-from dir create a mig to a column in db
 rails g migration change_columns_for_animals
 will see in bottom file in migration files.
+-remove, add & rename a column from db using ruby code in mig file
 we want to remove the last column we did so in our change method:
 remove_column :animals, :hungry
 also let's rename column
@@ -1503,11 +1508,11 @@ rename_column :animals, :born_on, :birthday
 add another column:
 add_column :animals, :trained, :boolean, default: false
 we can do as many migrations as we want and don't have to make all of these changes in one migration
-rake db:migrate
-double check with psql to make sure table looks good.
+-rake db:migrate
+-double check with psql to make sure table looks good.
 psql -d sandbox_development
 get out of psql
-let's start adding some data to our columns/db
+-add 3 columns (w rows(attributes)) to our db in the seed file:
 seed file
 animal = Animal.new
 animal.name = "Fluffy"
@@ -1518,8 +1523,10 @@ animal.save
 we can make it even shorter with the create method:
 Animal.create(name: "Fluffy", breed: "Poodle", species: "Dog", age: 3, birthday: 3.years.ago, trained: true)
 create will instantiate the class, set up all the attributes, and then call save for us.
-now we haven't actually done anything with this file yet. to tell rails to add all of this to the db with:
+now we haven't actually done anything with this file yet.
+-tell rails to add all of this to the db:
 rake db:seed
+-go into the rails console (our sandbox) & use .count .first .where .limit .where().count ruby methods on the Model:
 rails c
 yesterday to get a count in sql we did select count(*) from Animals
 in rails we can just take the name of our Model(table) and call the .count on it.
@@ -1530,6 +1537,12 @@ when using the where method, we can just pass a hash
 Animal.where(name: "fluffy")
 sql will always return a collection unless you limit it to 1.
 notice it doesn't return an object but an ActiveRecord::Relation which isn't an object but a collection. the ActiveRecordRelation has a bunch of methods called in it and it allows us to chain queries together. so now we can do this: chain em..
+-call .where on the Model to find a name:
+-chain .limit to see how many:
+-pass 2 arguments to where to find 2 attributes:
+-call .count to see how many fit that criteria:
+-do 2 different 'like' queries using a string instead of a hash:
+
 Animal.where(name: "fluffy").limit(1)
 the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
 if we want to add another argument we can:
@@ -1538,7 +1551,7 @@ any query we do, we can just add .count onto the end of it and it'll tell us how
 Animal.where(name: "fluffy", age: 3).count
 \d to see Schema
 to see the timestamps of each version of the table migrations, from ur directory: select * from schema_migrations:
-Rails checks with this data everytime yo do rake db:migrate to make sure it doesn't always exit. So if you make a mistake AFTER you've done a rake db:migrate you can't change it (by doing a rake db:drop for example), you have to create another migration to change it.
+Rails checks with this data everytime yo do rake db:migrate to make sure it doesn't already exit. So if you make a mistake AFTER you've done a rake db:migrate you can't change it (by doing a rake db:drop for example), you have to create another migration to change it.
 You could rollback though
 --CHALLANGE:
 from the rails console, create 5 more animals in the db
@@ -1567,17 +1580,6 @@ Animal.where("birthday < ? AND name = ?", 1.year.ago, "Fluffy")
 because we used 2 ?s, we have to pass in 2 arguments.
 for more on ActiveRecord Querying and methods:
 http://guides.rubyonrails.org/active_record_querying.html
-
-
---Challenge:
--Create a Student model called student with first_name, last_name and state
-from sandbox2 folder:
-rails g model Student first_name last_name state
-
---Challenge:
--Create a migration that adds a favorite_color column to your student table.
-rails generate migration AddsFavoriteColorToStudents favorite_color:string
-(a new file should now show in your migrate folder in db folder in sandbox folder)
 
 —————————— RELATIONAL DATABASES
 one to one, one to many, one to many.
