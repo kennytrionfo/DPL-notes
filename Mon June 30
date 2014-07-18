@@ -1,3 +1,20 @@
+July 18, 2014
+—————————— OATH FAQs
+oath is not a ruby thing. 
+
+
+
+
+
+
+July 17, 2014
+—————————— SEARCHING FAQs day two
+apache group created lucene? from that came three searches sphinx, solar and elastic search. sphinx works very well with mysql as a full-text search option. Elastic search has plugin capabilities and uses it's own persisted storage level, so you can actually use elastic search as ur actual storage without even using postgresql.
+The elk stack is where you use elastic search with 2 plugins.
+
+
+
+
 
 July 16, 2014
 —————————— SEARCHING FAQs
@@ -54,10 +71,12 @@ rake db:migrate
 --Challenge:
 Add search onto our location.
 
-
-
-
-
+—————————— misc: (not from this class)
+&: ruby syntax:
+In Ruby, I know that if I do:
+some_objects.each(&:foo)
+It's the same as:
+some_objects.each { |obj| obj.foo }
 
 
 July 15, 2014 day 40?

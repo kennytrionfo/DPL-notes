@@ -1467,7 +1467,7 @@ Wednesday June 11,  Day 17
 -from dir use rails to create a migration to add columns to db
 -from dir create a mig to a column in db
 -remove, add & rename a column from db using ruby code in mig file
--rake db:migrate
+-rake db:migrateca
 -double check with psql to make sure table looks good.
 -add 3 columns (w rows(attributes)) to our db in the seed file:
 -tell rails to add all of this to the db:
@@ -1483,11 +1483,7 @@ Wednesday June 11,  Day 17
 -change the var name and try it again:
 -Use rails sanitized method for taking arguments and repeat above:
 
-
-
-
-
--The name of your model will be the singular version of something.
+The name of your model will be the singular version of something.
 A model is just a ruby class. the attributes in a model describe the characteristics of the model. Model is singular, the table is the pluralized version of the model. ie:
 tree, trees
 book, books
@@ -2100,9 +2096,17 @@ CHALLANGE:
 3.add in the "pry" gem by typing in : source "https://rubygems.org" and on the next line: gem "pry"
 4.require "pry" in your game setup by typing " require "pry" " on the top line.
 5.use the binding.pry at some point in the game and play with pry by typing" "binding.pry" somewhere in your code and watch what happens when you run it.
-—————————— SINATRA ——————————
+
+
+
+
+
 Day 10. Monday, June 2nd
-FACTS:
+arguments review - when passing in arguments, you have to pass in one for each parameter set unless one is optional. in this example:
+def get(path, options = {})
+end
+path is required cuz it's fixed but the second is a default value so it's optional. the value for the default can be a hash, array, string, anything cuz it's just an object, it's just like we're just creating a var.
+—————————— SINATRA
 Steps:
 1.mkdir a sinatra folder in projects with a my_first_site folder in it.
 2. cd into it.
