@@ -1,6 +1,115 @@
 July 18, 2014
-—————————— OATH FAQs
-oath is not a ruby thing. 
+—————————— OUTH FAQs
+oath is not a ruby thing.
+can use devise with oath
+add a few gems:
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-twitter'
+omniauth handles the transaction between you and the other server. it uses a strategy which just mocks the connection ur doing. it has a plugin that let's you use any strategy you want, ie- twitter.
+install devise if not installed
+rails g migration add_fields_to_user
+we're only going to let users sign in to one soc network ever. only twitter and that's it.
+we need to add data that twitter will get to use.
+add
+      add_column :users, :provider, :string
+      add_column :users, :uid, :string
+
+      add_index :users, [:provider, :uid]
+
+to migration file
+rake db:migrate
+in config/initializers/devise under ==> Omniauth:
+  config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
+..-add to user.rb model
+:omniauthable, omniauth_providers: [:twitter]
+that's the main set up.
+..
+create a new onmiauth ..
+rails g controller omniauth_callbacks
+tell routes that we want to use our version. in routes:
+
+add to the devise_for line: {omniauth_callbacks: 'omniauth_callbacks'}
+should look like:
+devise_for :user, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+rake routes
+should see that it goes to our omniauth_callbacks#passthru {...}
+-fix a few things in our controller we created.
+we can't have it inherit from applicaiton controller but change to
+< Devise::OmniauthCallbacksController
+now define an action related to the provider ur implementing.
+def twitter
+
+end
+put in binding.pry in the action above so we can play with it at that point.
+-Give the user a button:
+layouts/application.html
+under search or something
+
+*******
+
+<%= link_to('Login with Twitter', user_omniauth_authorize_path(:twitter)) %>
+rails s
+localhost:3000 - should see twitter message when we click on twitter.
+if you get 401 error, it means that ur key and secret are wrong or missing.
+so check the devise.rb file for this that you added:
+config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
+to make sure that it's exactly the same.
+next, in rails c, check to see if the values that are being returned are the values that you expect them to be. if they are, next login to twitter and verifty that the value of those are what they should be in twitter.
+may need to add .ENV file to main dir again if doesn't exist and add twitter key, secret, token and token_secret to it:
+TWITTER_API_KEY:
+TWITTER_API_SECRET:
+TWITTER_ACCESS_TOKEN:
+TWITTER_ACCESS_TOKEN_SECRET:
+GO to dev.twitter to get these.
+
+also make sure you have gem 'dotenv-rails'
+
+in rails c
+request.env['omniauth.auth']
+return is a hash with uid, info, nickname, etc all our stuff.
+pretty cool, this request command in rails c gives us a ton of info from twitter.
+regardless of which copmany you connect to, they all give you info like this back in this type of structure.
+ Now that we have provider and uid we can ask our db if we have this. if not, create one, if so, we sign them in.
+ ominiauth_callbacks_controller:
+ delete binding.pry
+ add to twitter method:
+ @user = User.find_by_omniauth(auth_hash)
+ private
+ def auth_hash
+   request.env['omniauth.auth']
+ end
+we don't have a find_by_omniauth method yet so we have to create one.
+ ..
+ let's ahve this method handle everything for us.
+ change @user line to
+ @user = User.find_or_create_by_omniauth(auth_hash)
+ if  @user.persisted?
+   sign_in @user
+   redirect_to root_path, notice: 'User now signed in with twitter'
+   else
+   redirect_to root_path, alert: 'Could not sign in'
+  end
+ end
+make the method above.
+user.rb model
+def self.find_or_create_by_omniauth(auth_hash)
+  instance = find_or_initialize_by(provider: auth_hash['provider'], uid: auth_hash['uid'])
+  instance.save(validate: false)
+  instance
+end
+rf - click on twitter link, authorize app. should kick back to home page.
+-put a message on home page that ur singedin
+views/layouts:
+
+under render..
+<%= if user_signed_in? %>
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<% else %>
+<%= link_to('Login with twitter', user_omniauth_authorize_path(:twitter)) %>
+<% end %>
+article: http://sourcey.com/rails-4-omniauth-using-devise-with-twitter-facebook-and-linkedin/
+
 
 
 

@@ -2106,7 +2106,18 @@ arguments review - when passing in arguments, you have to pass in one for each p
 def get(path, options = {})
 end
 path is required cuz it's fixed but the second is a default value so it's optional. the value for the default can be a hash, array, string, anything cuz it's just an object, it's just like we're just creating a var.
-—————————— SINATRA
+&block is optional even though it doesn't have a default value.
+yield in ruby code means - run whatever is inside the block and then continue on.
+putting yield in let's you run some other code inside of the block.
+It also allows you to run code inside of someone else's code.
+min 30ish - splat * - means many. many parameters, many arguments.
+min 44 - DSL - Domain specific language. with dsl, u create a pattern of simplifying processes. dry - don't repeat urself.
+
+—————————— SINATRA GEM min 1:04
+it is a gem that defines a dsl for making small websites.
+it's for making websites not web applications.
+
+
 Steps:
 1.mkdir a sinatra folder in projects with a my_first_site folder in it.
 2. cd into it.
@@ -2116,16 +2127,19 @@ Steps:
 5. create a new file in atom in teh same folder called .ruby-version and type: 2.1.2 on first line and save.
 6. create another new file in ataom in the same folder called .ruby-gemset and type: "my_first_site" on top line and save.
 -We'll create a Gemfile, .ruby-getset and .ruby-version for every new app/program we build.
-7. Tell RVM that we want to use something specific. CD .. out of the directory and cd back in. RVM prints out some stuff to us. This only happens the first time we do this. There is are no gems yet so type in: bundle into term and it will bundle all of our gems. Will show 'your bundle is complete'. typing:gemlist in term will show all gems installed including sinatra. This will create a Gemfile.lock in the same folder.
-8.Make at new file called site.rb in the same folder. this is our ruby file.
+7. Tell RVM that we want to use something specific. CD .. out of the directory and cd back in. RVM prints out some stuff to us. This only happens the first time we do this.
+type rvm current into term and it'll tell us our current ruby version and our project gemset.
+There is are no gems yet so type in: bundle into term and it will bundle all of our gems. Will show 'your bundle is complete'. typing:gem list in term will show all gems installed including sinatra. gem list -d sinatra will give us gems specific to sinatra. This will create a Gemfile.lock in the same folder.
+8.Make at new ruby file called site.rb in the same folder. this is our ruby file.
 9. Since we're going to be using sinatra gem, we type: require 'sinatra' on the top line. And since sinatra uses a dsl, we're going to use the dsl by typing below this:
-get '/' do    #this is an http verb get that allows us to go to '/'
+The '/' below is an http verb get that allows us to go to '/'
+get '/' do
   'yay! my first site'
 end
 -That allows us to acces Sinatra's dsl and use it to run Sinatra code.
 10.Run the program by typing in the term: ruby site.rb and you should see "Sinatra has taken the stage on 4567 (or something) for development..." in the term. Running our program starts up Sinatra. Sinatra has a little mini webserver and when it starts, it boots up this server and sets it to the number 4567. The server is now runnign in the term and the report we see in the term is a log file for our program. To stop the server from running hit: control c in the term. If you refresh broswer now, it will give an "unable to connect" error cuz the server isn't runnign and can't compile the website.
 11. type: localhost:4567 into a browser url.
-12. In the site.rb file type:
+12. Now In the site.rb file type:
 get '/first' do
   'another page on my site'
 end
@@ -2135,10 +2149,34 @@ end
 15.Add folder called views inside of our my_first_site folder. This is were we put all of our html files.
 16.Inside of the views folder create a new file called index.html
 17. type something like  <h1> look ma! </h1> in this index.html file.
-18.To tell Sinatra which templating engine to use, we go to the site.rb file and replace the 'yah! my first site' in the first get statment with: erb :index, giving it the name of the file we want it to load.
+Sinatra has templating which is the ability to mix in ruby code into html. it's default templating engine is called erb - embedded ruby.
+18.To tell Sinatra which templating engine to use, we go to the site.rb file and replace the 'yah! my first site' in the first get statment with: erb :index, giving it the name of the file we want it to load where erb is the templating engine we're going to use and :index is the file view we are redering.
 19. but then we have to rename our index.html file to index.erb so Sinatra can read it and it will treat it like it's html. erb stands for embedded ruby. erb tags look like <% %>. They can be used to DO something or PRINT something. The code to print looks like this <%= %>.
 19. reboot server using instructions from above and refresh website to see new html.
 20. to create other pages, create new erb files in the views foler, put the name of them into the .rb file so it links to them and restart server.
+21- then put some links to each other like:
+<a href="/">Back home</a>
+22 - put some ruby code like Time.now inside of ruby, inside of a p tag or something.
+Puts only prints something to the console log, not to the browser (except when we want to use it for debbugging)
+23- add a symbol (:name) into ur /first path of ur ruby block in the site.rb file and inside the block assign an instance variable of the same name as the symbol (:name) to params. cuz params is a hash, it already has a key defined inside of it called name. we can access the value of that key by putting [:name] after params. we don't know what the value of the instance variable is yet.
+by having this symbol in our route, we're telling sinatra that this is a placeholder var for something and we're just giving that variable a name for now (:name). we can give it whatever name we want. sinatra, when it sees this variable placeholder thing, it take the params hash that it uses and it adds in this key for whatever we called that, and the value of that key/value pair is going to be whatever the user enters into the url.
+so to print out the value of that instance variable, on our first.erb page, we'll do:
+<p><%= @name %></p>
+rf /first - sinatra error. it doesn't know wha that is.
+go to /first/ and put in ur name and rf. ur name should show up cuz it's a variable that could be anything so we gave it a value. you can put anything in there.
+So what is this really good for?
+- add another symbol to the get '/second' block on our .rb file here:
+change to:
+get '/second/:page_id' do
+  @page_id = params[:page_id]
+erb :second
+end
+then on our second.html template:
+<a href="/second/<%= @page_id %> ">Go to page <%= @page_id + 1 %> </a>
+rf /second/1  read error message. this is saying that the instance variable @page_id is a string and we're trying to add a number to it which doesn't work. whatever params passes through to the url is going to be a string so convert to integer using .to_i at the end of:
+  @page_id = params[:page_id].to_i
+kill server, rf /second/2, should see Go to Page 3 and if u click on it, it should keep increasing by 1.
+
 
 
 
@@ -2222,7 +2260,7 @@ in terminal use: gems list to see all gems u have. use gem -v for version.
 -----INCRYPTION
 
 
-/*—————————————— May 28, 2014 ——————————————*/
+—————————————— May 28, 2014
 TERNARY OPERATOR:
 x = 4
 y = 5
@@ -2239,7 +2277,6 @@ LINKING TO FILES:
 require 'date'
 -if it's a file that ends in .rb, we don't need to put it as Ruby knows it.
 - only need to do it once.
-
 example with date object after we've required it.
 - date.method to find out all the methods that can be used on it.
 - date.to_s
@@ -2254,7 +2291,7 @@ LOAD PATH:
 $load_path? shows the array of the directories where ruby files may be.
 to add our new file to the array
 
-—————————— MODULES & MIXES: ——————————
+—————————— MODULES & MIXES:
 FACTS:
 -Modules can be use in two ways. 1.As a Namespace or 2. As a mixin.
 -Modules are constants and are therefore capitalized.
