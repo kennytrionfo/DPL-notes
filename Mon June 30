@@ -1,3 +1,39 @@
+July 21, 2014
+—————————— BACKGROUND TASKS
+It's like prep work for a kitchen for a resaurant.
+to help with this we have workers. the more workers we have the faster we can get things done and the quicker we can get people in and out of the app. shuv as much stuff into the background activities as you can that the user doesn't care about to keep the front end stuff faster.
+There are gems that allow us to do background tasks. one is delayed job. with this one, you create a class and add a method to it and when you call that method on that class, the gem handles it asychronosouly. the only thing is data has to be persisted and sometimes you may have a task that won't happen until tomorrow.
+another one is resque. created by ceo of github. another is sidekiq.org It's the most popular and most companies use it.
+for sidekiq to work, it has to run on a sidekiq/worker server. so you have a have 2 terminals open, one for rails s and one for worker server. sidekiq doesn't store ur data in ur db. use redis to have sidekiq put all of our data into memory. redis is a giant hash that lives in memory.
+homebrew sidekiq
+add redis gem
+bundle
+create a worker..
+start with bundl exec sidekick
+rails c..
+-make new index worker
+-rails s
+-go to menu items, update something.
+-check sidekiq server log
+-update another and check log.
+-open a 3rd term tab. rails c
+-look at some of sidekiq's doc on git
+in rails c
+Sidekiq::Queue
+q = Sidekiq::Queue.new
+-Add sinatra
+--challenge:
+Create a worker that will send off the worker to send out the email..
+create a new worker and then in that worker send off an email.
+
+
+
+
+
+
+
+
+
 July 18, 2014
 —————————— OUTH FAQs
 oath is not a ruby thing.
