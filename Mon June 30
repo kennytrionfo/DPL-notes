@@ -1,6 +1,19 @@
 
+
+
 heroku run for stuff
 heroku run rake db:migrate etc
+heroku logs -t
+heroku run console
+
+
+July 24, 2014
+—————————— REFACTORING FAQS
+First make the code work, then refactor.
+Technical debt is debt u occur when developing an application. say ur getting paid $40 an hour, u spend 200 hrs writing the specs. that's the company's debt. Maybe in the first itertion, you missed a few features, or untested things. these are ur technical debt. a bug is technical debt. a half implemented feature is technical debt. you pay back technical debt by fixing bugs, refactoring, iterating etc.
+
+
+
 
 
 July 21, 2014
@@ -1119,13 +1132,16 @@ diagrams, domain names,
 Mon June 30, 2014 day 29
 —————————— JS FRAMEWORKS FAQs
 A framwork is a collection put together to accomplish a task easier. Like a framwork of a house is the basic set up and you can put rooms whereever you want. Rails is a framwork. a web dev framwork. bootstrap is a framwork with preset classes etc. in Js we have many frameworks. one framwork is jquery. another is prototypejs.org, built by rubyists, it's structured very much like a ruby language structure, a little bulky cuz you get a ton of stuff, scriptaculus is a really cool add on that does awesome animation. Another is mootools, never became big, good for heavy animation, cartoon animation, video games etc, it's really for that. Yui, built by yahoo. Some framworks geared towards doing mobile- jquearymobile.com. ChocolateChip-ui.com for mobile. We'll use jquery cuz it comes in rails.
+
 —————————— NEW JQUERY APP FAQs
 -create file jquery.js
 -make mew index.html file
 -make an main.js file
 -make a .css file and link the html to it with a <link rel= >
 -start main.js file with the document ready function
--Style it inside the main.js file or...
+-Use .css to style it inside the main js file:
+-Change the text that's in the sandbox using .text() jq method:
+
 -Style it in the .css file.
 -Build out html, css and .jq
 
@@ -1187,8 +1203,7 @@ Store this object into a variable:
 print the text that's inside the sandbox css by
 console.log(sandbox.text());
 because sandbox is now a jq object, we can now run one of the jq functions .text on it which will return all the text that is inside of the collection of elements sandbox
--Style it inside the main.js file or...
-let's look at styling the element
+-Use .css to style it inside the main js file:
 we normally use a style element with .style.color = red etc
 with jq it's cleaner. we use the css funtion which takes a collection of key value pairs where the key is the css property, and the value is the value of the css property :
   sandbox.css({
@@ -1197,10 +1212,10 @@ with jq it's cleaner. we use the css funtion which takes a collection of key val
     'padding': '10px',
     'background-color': '#ffeeee'
   });
-The alternative to this would be doing div.style.color = or div.style.border =
+The alternative to this would be doing div.style.color = , then div.style.border = , then div.style.padding = etc.
 rf for changes
-2 time based events. timeout which fires aftre certain miliseconds and interval whcih will repeatedly fire off after those miliseconds.
-create timeout.
+There are 2 time based events that you can do. a timeout which fires aftre certain miliseconds and interval whcih will repeatedly fire off after those miliseconds.
+-Create a timeout.
 window.setTimeout()
 no $ cuz this isn't jq, it's just js.
 setTimout takes 2 arguments:
@@ -1213,7 +1228,11 @@ ends up like this:
   window.setTimeout(function() {
     console.log('timeout fired');
     }, 2500);
-...taking notes on vid....
+-Change the text that's in the sandbox using .text() jq method:
+sandbox.text('ZOMG!');
+-Insert something brand new into the sandbox:
+assign to a var an h1 tag that's inside of jq so we can call jq methods on it.
+var bigText = $('<h1></h1>')
 4 diff functions to put text into
 Before, Prepend, Append, After - taking an html el and putting into our site but we have to have an html el to start cuz jqueary won't know where to put it. it can go into head, div, body tag, whatever.
 before puts it above, after puts it after, prependt at top of object and append at the bottom of object.
