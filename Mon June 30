@@ -1,3 +1,8 @@
+
+heroku run for stuff
+heroku run rake db:migrate etc
+
+
 July 21, 2014
 —————————— BACKGROUND TASKS
 It's like prep work for a kitchen for a resaurant.
@@ -1166,16 +1171,16 @@ $(function() {
 So everything we put inside this block, fires only AFTER the document is ready.
 we can put
 alert('the audience is ready');
-to see if an alert pops AFTER the doc is ready.
+to see if an alert pops AFTER the doc is ready. rf should see the alert.
 but if we switch to
 console.log('document now ready');
-will tell us in our console in our browsewr the message 'docuemnt now ready'
+will tell us in our console(firebug for firefox) in our browsewr the message 'docuemnt now ready'
 make sure to opon firebug and console to see
-use console to find html elements
+use console to find html elements. traverse the dom.
 find elements that are using a certain css selector..
 so to find the div's css id sandbox by passing in a css selector to our jq function
 $('#sandbox')
-so this will return a collection of elements that match that css selector. go see in firebug.
+so this will return a collection of elements (inside a hash) that match that css selector. go see in firebug.
 return text that's inside of an element by calling text function..
 Store this object into a variable:
   var sandbox = $('#sandbox');
@@ -1238,12 +1243,14 @@ bind event to entire document..
 us .on to bind a switch to events with a certain class, even future ones..
 use click to bind an event to a single event and use click to bind to mutiple of the same class or new ones throughout the doc..
 jquery-rails gem comes with rails..
+
 --Challenge:
 when click on circle - it should move it to the right hand side of page and clicking again should send back over to left hand side.
 vid 3
 answer to challenge..
 find out length of window..
 using .animate to do more animation on circle to move across screen..
+
 --Challenge:
 -Create a select tag with 3 options.
 -The value of each option will be a programming language. (put that in side ur htm file)
