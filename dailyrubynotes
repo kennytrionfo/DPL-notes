@@ -502,7 +502,7 @@ if result
   else
 
   puts "test failed"
-  end
+  ends
 ruby testing.rb in term
 returens - test passed
 change 2nd 1 above to be '1'

@@ -1,16 +1,22 @@
 
 
 
-heroku run for stuff
-heroku run rake db:migrate etc
-heroku logs -t
-heroku run console
-
 
 July 24, 2014
 —————————— REFACTORING FAQS
 First make the code work, then refactor.
 Technical debt is debt u occur when developing an application. say ur getting paid $40 an hour, u spend 200 hrs writing the specs. that's the company's debt. Maybe in the first itertion, you missed a few features, or untested things. these are ur technical debt. a bug is technical debt. a half implemented feature is technical debt. you pay back technical debt by fixing bugs, refactoring, iterating etc.
+Refactoring is abstracting out the logic of what part of ur app does what and how it does it. Like a ceo delegating everything in their company to people to delegate other things all the way down the line so that everyone is doing just one simple thing.
+For example, cuz we want to keep our controllers skinny and our models fat, if you have anything in ur controller that you can slim down by labeling it as one object etc do it.
+Look at the sandi metz rules gem.
+Other gems - reek. This will tell u what smells bad in ur code. In code, there are code smells. Some smell worse than others.
+Be descriptive. So like:
+def some_method(y_position, x_position)
+instead of:
+def some_method(y, x)
+Duplicated code is code that doesn't smell. wet code smell.
+Other examples again:
+too many parameters, too large of a class, one class that is excessively referencing another class, a class that does too little (it doesn't inherent from anything, no validations, no methods etc), contrived complexity (writing methods for the sake of writing methods. Too much abstracting. Too deeply nested),
 
 
 
@@ -571,6 +577,11 @@ Shared hosting. hostgator is great according to jeremy. good cust service.
 Cloud hosting is where you share multiple servers together with everybody else. u get chunks of multiple servers.
 We're going to use heroku.
 —————————— HEROKU FAQs
+Commands:
+heroku run in front of stuff to do normal stuff.
+heroku run rake db:migrate
+heroku logs -t  to have log running continuously
+heroku run console
 download os x toolbelt and install
 quit and restart terminal after installing toolbelt
 -add
