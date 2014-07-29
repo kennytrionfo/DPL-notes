@@ -1,4 +1,23 @@
 
+Github on another branch
+When on another branch: add, commit, git push origin name_of_branch, checkout master, pull master, merge name_of_branch, push master
+then git push heroku master if you want
+
+
+
+
+
+
+July 28, 2014
+Agile, scrum and conbon are 3 project management styles.
+Agile is where u do sprints. usually like every two weeks.
+conbon is quicker iterations, like daily.
+sprint.ly is a project management tool where u create stories where the biz dev people can write out the stories.
+Pivotoaltracker.com is similar to sprintly.
+Basecamp.com is the most important of project management tool cuz it's the worlds first rails app. they hired dhh to fix it and he changed it from php to rails.
+
+
+
 
 
 
