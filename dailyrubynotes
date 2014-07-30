@@ -190,6 +190,7 @@ to show method
 rspec passed
 now do the new action
 min 56
+... for new, create and other actions
 
 
 
@@ -197,8 +198,7 @@ min 56
 
 
 
-Fill them in
-...vid
+
 --Challenge
 Do the update spec
 hint
