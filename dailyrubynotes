@@ -87,7 +87,7 @@ get sails to connect to postgress and store records in the db
 Thurs June 26, 2014 Day 27
 —————————— USE RSPEC WITH CONTROLLERS
 use campus life project
-create a new model call Note
+create a new model called Note
 rails g model Note
 in it's migration file:
       t.text :text
@@ -101,13 +101,81 @@ delete notes file in helper folder
 spec/controllers/notes_controller_spec.rb
 we need to test 7 actions
 set up describe for them
-start with index action
-what is the purpose?
-display a collection of whatever our app has in it so:
-it 'displays a collection of ntoes' do
-so then for us to have a collection, we need to have some notes, so:
+start with index action and go down.
+describe '#index' do
+end
+
+describe '#show' do
+end
+etc
+The index action's purpose is to display a collection of whatever our app has in it so in our index action we put:
+it 'displays a collection of notes' do
+end
+so then for us to have a collection, we need to have some notes, so create some notes by inserting before the 'it' statement:
 before do
+  @note1 = create(:note)
+  @note2 = create(:note)
+end
+or facorygirl comes with a way to make lists and pass in what kind of list or collections were making and how many, so we can instead do:
   @notes = create_list(:note, 3)
+So in a controller, we access the index action with a 'get'. when dealing w controller specs, you'll use the http verb you'll normally use to access that controller. so in the 'it' statement:
+  get :index
+rspec knows that we're inside of a controller cuz of the :type => :controller pair in the Rspec.describe method at the top and it knows we're in the notes controller cuz of the NotesController in that same method at the top. so it know here that get :index means do a get to the notes controller.
+When we access the index action there are no requred arguments or parameters that we need to pass.
+Now we can do some things to see what kind of response we get. so:
+under get :index
+  expect(response).to be_success
+next, since the code that you would normally use in an index action would be @note = notes.all we tell rspec to look for that by using the assigns method like:
+  expect(assigns(:notes))
+if you use assigns and pass it a symbol, rspec will look for a symbol of that name and if there is, it'll return the value from the instance variable. so we'll
+  expect(assigns(:notes).count).to eq 3
+since we created 3 above.
+controller specs get indpeth cuz ur doing a lot of stuff. u have to make sure ur doing the request, make sure that the reqeust was successfull so you have to check the server response, you have to make sure that the instance variable returns the thing it's supposed to, and finally you need to make sure it's rendering the right template so for that we can do:
+  expect(response).to render_template('index')
+put the  , :focus  on this spec
+run it - rspec
+get an error that there's no route to notes controller and index action so go fix in routes.rb:
+  resources :notes
+rspec again
+error - action index could not be found for notes controller.
+so in the notes controller:
+  def index
+
+  end
+rspec
+error action view missing template notes/index.html.erb
+so let's create in views/notes new file:
+index.html.erb
+nothing goes in it, just creating it.
+rspec error undefined method count for nil class, means that our assigns(:notes) doesn't exist. So we need to create the assigns(:notes) so:
+@notes = Note.all
+in the Notes Controller
+rspec passing test
+now move onto the show action
+move , :focus to show
+  it 'displays a single note' do
+
+  end
+we would normally access the show action with a get so:
+  get :show
+inside of our 'it' statement to make the request.
+the show action also uses the http verb get. the show action does have the required parameter of id.
+So the 2nd parameter that we can pass in after show is a hash and it has to be specific cuz we can only test specific things not dynamic things.
+ , id: @note.id
+after get :show
+for example if we pass in id 16, we should get the product of #16. So we need the exact id of a/the note. to get that we'll need to make one.
+so above our it method:
+  before do
+    @note = create(:note, text: 'my little note')
+  end
+specify some text in our note by passing in text: 'my little note'
+next in our if method:
+expect(response).to be_success
+expect(assigns(:note).text).to eq 'my little note'
+
+
+
+
 
 Fill them in
 ...vid
