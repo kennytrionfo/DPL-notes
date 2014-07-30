@@ -172,6 +172,26 @@ specify some text in our note by passing in text: 'my little note'
 next in our if method:
 expect(response).to be_success
 expect(assigns(:note).text).to eq 'my little note'
+We know that in the show action we usually do something like @note = note.find etc so here we create an instance var called note and we expect that the text of that note to be eq to 'my little note'
+then
+expect(response).to render_template('show')
+rspec error the action show could not be found for NotesController
+so add show action in the controller
+  def show
+  end
+rspec error missing template notes show html so let's create in:
+app/views/notes/
+show.html.erb and add show method
+  def show
+  end
+rspec error undefined method 'text' for nil:NilClass
+add @note = Note.find(params[:id])
+to show method
+rspec passed
+now do the new action
+min 56
+
+
 
 
 
@@ -201,8 +221,6 @@ Shouts Controller
 -update
 -destroy
 
-
-
 -code to add one gem to the group development on the same line.
 gem 'spring',    group: :development
 -code to add mutiple gems to two groups.
@@ -211,6 +229,8 @@ group :development, :test do
   gem 'something-else'
   gem 'yet_something_else'
 end
+
+
 
 
 
