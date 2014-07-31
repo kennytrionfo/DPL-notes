@@ -109,8 +109,8 @@ describe '#show' do
 end
 etc
 The index action's purpose is to display a collection of whatever our app has in it so in our index action we put:
-it 'displays a collection of notes' do
-end
+  it 'displays a collection of notes' do
+  end
 so then for us to have a collection, we need to have some notes, so create some notes by inserting before the 'it' statement:
 before do
   @note1 = create(:note)
@@ -158,7 +158,7 @@ move , :focus to show
   end
 we would normally access the show action with a get so:
   get :show
-inside of our 'it' statement to make the request.
+inside of our ``'it' statement to make the request.
 the show action also uses the http verb get. the show action does have the required parameter of id.
 So the 2nd parameter that we can pass in after show is a hash and it has to be specific cuz we can only test specific things not dynamic things.
  , id: @note.id
