@@ -124,6 +124,11 @@ Quit exits out of the Rails console.
 After running this command, the console will show you the SQL that it runs in the database to create the Post.
 or
 You could also put this code in /db/seeds.rb and run rake:db seed in your terminal. This allows you to create test data for your app.
+this is an example:
+	Goal.create(category: "I used my own bags at the grocery store.", point_value: 20, frequency: 1)
+	Goal.create(category: "I carpooled to work today.", point_value: 50, frequency: 2)
+	Goal.create(category: "I turned off a light when I left the room.", point_value: 5, frequency: 3)
+
 -GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
 rails generate controller Posts index show new
 	Generates a Posts Controller and a posts folder for your views. By adding index, show, and new to the end those views and corresponding controller actions will be generated. Controllers are always plural (Posts instead of Post). This will also generate some routes in routes.rb, but we’re going to change those.
@@ -158,7 +163,7 @@ Each of these actions in the controller corresponds to a view with the same name
     <h2><%= post.title %></h2>
     <h3><%= post.author %></h2>
     <p><%= post.body %></p>
-    <%= link_to ‘Show post’, post_path(post.id) %>
+    <%= link_to 'Show post', post_path(post.id) %>
 <% end %>
 This will list out every post in the database with their title, author and body. It also includes a link to each post’s show page.
 -TRY THE URL FOR YOUR INDEX PAGE:

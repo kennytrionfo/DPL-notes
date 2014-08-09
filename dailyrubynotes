@@ -2022,11 +2022,9 @@ Prototyping in Rails (ie.making a new basic site)
 7. CD .. out of your app's directory.
 8. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
 
-
 ———————— SETTING UP RAILS APP FAQs (My notes)————————
 Steps:
 1.Create new projects/app:
-
 
 
 1.Create new projects/app in rails using postgresql for db:
@@ -2074,7 +2072,9 @@ In term type: rake db:migrate in the direcotry your file is in. Should see..?? =
 14. delete the app and do it again by typing "rm -rf my_task_app/" into the terminal.
 
 
-Day 13 - June 5, 2014
+
+
+---------Day 13 - June 5, 2014
 ————————CLICK EVENT IN JS, DISAPPEARING JS IMAGE
 FACTS:
 -MUST SET EVENT Listeners up when page loads so it tells the page that when these events happen, do something.
@@ -2429,8 +2429,6 @@ CLASS EXORCISE:
 -Do tictactoe with require method like a board.rb or a class for x or o, create new instnace of each that inherit from a player class etc.
 class Player
   def wins?(marker) #this takes the marker and returns true or false
-
-
 
 
 
