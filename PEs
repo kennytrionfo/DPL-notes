@@ -175,7 +175,7 @@ Add this code to the file:
 <h2><%= @post.title  %></h2>
 <h3><%= @post.author %></h2>
 <p><%= @post.body %></p>
-<%= link_to ‘Back’, posts_path %>
+<%= link_to 'Back', posts_path %>
 This will show the post with it’s title, author and body. It also includes a link back to the index page.
 -CHECK URL FOR THIS POST:
 The URL for this page varies depending on the post. It follows this format:
