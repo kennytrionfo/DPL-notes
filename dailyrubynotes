@@ -2895,6 +2895,19 @@ puts storage["Box 1"]
 - : storage.each_pari do |key, value|
 puts "The key is #{key} and the value is #{value}"
 end
+Just like an array, you can put anything into a hash. ie string, fixnum hash, array.
+but the KEYS need to be unique!
+Can use these formates for the key:  "key" :key 'key'
+Can also iterate over hashes:
+storage.each_pair to iterate over both key/value. or each_key or each_value
+storage.each_pair do |key, value|
+  puts "The key is #{key} and the value is #{value}"
+end
+Add to a hash using = "" so:
+storage[:box3] = "Tons of stuff"
+and again, get the value like storage[:box3]
+You can also use this shorter way of writing a hash:
+{box4: 'so much stuff'} so no rocket and colon on right side. 
 - apidock.com/ruby
 - Scoping - each of the four types of variable (local, instance, class and global) are scoped to their own area execpt the global variable which can be accessed everywhere.
 
