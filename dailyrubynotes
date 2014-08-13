@@ -2807,6 +2807,7 @@ can also:
 HW - complete through 16 on code academy
 
 /*—————----————— May 22, 2014 —————----—————*/
+More ruby. Arrays. 4 types of Variables.
 - PUtting {<someting>} in a string is called interpolation.
 - when you use single quotes, it will return EXACTLY what's between them so you can use things like String Interpolation cuz it will show up.
 - two other data types beyond strings and fixnums. Arrays & Hash ( {} ) & ":" which is a symbol which is usually looks like :name or :bird & Time.
@@ -2895,6 +2896,10 @@ puts storage["Box 1"]
 puts "The key is #{key} and the value is #{value}"
 end
 - apidock.com/ruby
+- Scoping - each of the four types of variable (local, instance, class and global) are scoped to their own area execpt the global variable which can be accessed everywhere.
+
+
+
 
 /*—————————————— May 21, 2014 ——————————————*/
 IRB
