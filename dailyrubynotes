@@ -1919,6 +1919,9 @@ From the "elephant directory" - rails generate scaffold Animal name:string etc..
 -join js meetups and html
 
 ———————— ATOM HOTKEYS ————————
+Select multiple similar words
+command + d
+
 Global find and replace - all files in dir
 Command + shift + f
 
@@ -2907,7 +2910,7 @@ Add to a hash using = "" so:
 storage[:box3] = "Tons of stuff"
 and again, get the value like storage[:box3]
 You can also use this shorter way of writing a hash:
-{box4: 'so much stuff'} so no rocket and colon on right side. 
+{box4: 'so much stuff'} so no rocket and colon on right side.
 - apidock.com/ruby
 - Scoping - each of the four types of variable (local, instance, class and global) are scoped to their own area execpt the global variable which can be accessed everywhere.
 
