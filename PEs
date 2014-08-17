@@ -49,7 +49,7 @@ GEMS:
 -MAKE SURE THAT IF THE POST UPDATES, IT IS REDIRECTED TO THE POSTS, AND IF NOT, IT RENDERS THE EDIT PAGE:
 -ADD LINK TO THE INDEX PAGE THAT LETS USERS DELETE A POST:
 -ADD A METHOD THAT SELECTS THE POST THAT WE WANT, DELETES IT AND THEN REDIRECT TO INDEX PAGE:
--End of App.
+-MARK IT UP & STYLE IT (MOBILE?)
 
 
 -CREATE A RAILS APP USING POSTGRESQL - SHORT:
@@ -89,7 +89,16 @@ cd .. and cd back in
 Alternatively you can change out of the directory and change back in and your computer will automatically change to the ruby version and gemset that we specified in the .ruby-version and .ruby-gemset files.
 This tells RVM to use ruby version 2.1.2 and our myapp gemset.
 -INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
-bundle install
+What gems will you need? Here's a list of some common ones:
+-for testing:
+gem 'rspec-rails'
+gem 'pry-rails'
+gem 'factory_girl_rails'
+Other?:
+gem 'ffaker'
+gem 'shoulda-matcher'
+gem 'database_cleaner'
+Now do bundle install
 Since we created a myapp gemset, we now need to make sure that all of our gems are installed in it.
 -INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
 term:

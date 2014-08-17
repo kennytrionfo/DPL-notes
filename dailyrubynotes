@@ -271,13 +271,13 @@ host: localhost
 rake db create
 --Install gems
 Gemfile
-within a rails app, we'll use rspec rails gem which is a little different bu tgives us some rails stuff to use. look at on rubygems
+within a rails app, we'll use rspec rails gem which is a little different but gives us some rails stuff to use. look at on rubygems
 add:
   group :development, :test do
    gem 'rspec-rails'
  end
 follow online instructions but add in some other gems first
-addign pry so we can test in middle of app
+adding pry so we can test in middle of app
 added all these in groups:
 group :test do
   gem 'shoulda-matcher'
@@ -285,13 +285,13 @@ group :test do
 end
 
  group :development, :test do
-    gem 'ffaker'
+   gem 'ffaker'
    gem 'rspec-rails'
    gem 'pry-rails'
    gem 'factory_girl_rails'
  end
-the test group says include these gems in only ur test group, development says include on both development and test. we dont' need any of these for a production envorinment, just for development and testing.
-shoulda-matcher - collection of special matchers that we can use to easily help validate and test modeles.
+the test group says include these gems in only ur test group, development says include on both development and test. we dont' need any of these for a production environment, just for development and testing.
+shoulda-matcher - collection of special matchers that we can use to easily help validate and test models.
 databast cleaner - we have a development db (look in db file). when we run tests, we save evertying into a test db. this gem will clean out everything from our test db. it slows us down but it assures our tests are always clean.
 ffaker - generates fake data. if u want to generate a random email, street address, person's name, etc can do this w this gem. instead of doing user.create  name = bob, can just pass in faker methods.
 rspec-rails - just rspec with some extras
