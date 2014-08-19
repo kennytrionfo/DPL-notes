@@ -18,6 +18,8 @@ GEMS:
 -CREATE RAILS APP W POSTGRESS:
 
 -CREATE A RAILS APP USING POSTGRESQL - SHORT:
+-SET UP RSPEC FOR TESTING HERE?
+-SET APP UP ON HEROKU HERE?
 -CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
 -CD INTO UR APP’S DIR:
 -SET UR RUBY VERSION AND GEMSET FOR THIS APP:
@@ -59,6 +61,15 @@ This application will include:
 Posts can be created, updated, and destroyed.
 2)  A homepage and an about page.
 3) A navbar.
+-SET UP RSPEC FOR TESTING HERE?
+GO get instructions from other notes and insert here:
+Put in gem.
+Set up test suite.
+Write tests.
+? ?
+
+-SET APP UP ON HEROKU HERE?
+Go get steps from other instructions and put here. . .
 
 -CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
 in term, in the dir you want to app in:
