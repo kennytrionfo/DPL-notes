@@ -315,10 +315,10 @@ API - application programming interface.
 everytime ur programming, ur writing and api. the basic concept is.. it's a way for someone to access an application in some way.
 say you write a little helper method that helps you so something in ur app, that's an api.
 api's usually offer an xml api or json api. jsons are better. if they have a json api, there's probably a ruby gem for it. also look to see if it's a REST api. if it's not, it'll be harder to deal with. avoid if you can.
--let's implment twitter's api:
--sign in to dev.twitter.com
--create an account to get a key
--open our Tacoz app. go to secrets.yml
+IMPLEMENT A TWITTER API:
+1-sign in to dev.twitter.com
+2-create an account to get a key
+3-open our Tacoz app. go to secrets.yml
 use an environment key
 under development section:
   twitter:
