@@ -315,12 +315,16 @@ API - application programming interface.
 everytime ur programming, ur writing and api. the basic concept is.. it's a way for someone to access an application in some way.
 say you write a little helper method that helps you so something in ur app, that's an api.
 api's usually offer an xml api or json api. jsons are better. if they have a json api, there's probably a ruby gem for it. also look to see if it's a REST api. if it's not, it'll be harder to deal with. avoid if you can.
-IMPLEMENT A TWITTER API:
-1-sign in to dev.twitter.com
-2-create an account to get a key
-3-open our Tacoz app. go to secrets.yml
-use an environment key
-under development section:
+IMPLEMENT A TWITTER API IN TACOZ APP:
+1-SIGN IN TO DEV.TWITTER.COM:
+2-CREATE AN ACCOUNT & REGISTER YOUR APPLICATION TO GET A KEY:
+3-GO TO THE API KEYS SECTION INSIDE THE DEVELOPER AREA AND GET THE API KEY:
+Twitter tive you 4 api keys: api key, api secret, 2 access tokens.
+3-INTEGRATE INTO TACOZ APP:
+open our tacoz app.
+In config file, go to secrets.yml
+Create your environment keys under development section:
+Inside the erb tags, give the environment keys their names in all caps. You name these what ever you want. 
   twitter:
     api_key: <%= ENV['TWITTER_API_KEY'] %>
     api_secret: <%= ENV ['TWTTER_API_SECRET'] %>

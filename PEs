@@ -92,14 +92,14 @@ Creates a file that sets the Ruby gemset of your app. Your computer will automat
 It’s good to have unique gemsets for each project as it prevents conflicts with other applications.
 Add this code to the file:
 myapp
--CONNECT THESE TWO FILES TO RVM:
+7-CONNECT THESE TWO FILES TO RVM:
 in term:?
 rvm use 2.1.2@myapp
 or
 cd .. and cd back in
 Alternatively you can change out of the directory and change back in and your computer will automatically change to the ruby version and gemset that we specified in the .ruby-version and .ruby-gemset files.
 This tells RVM to use ruby version 2.1.2 and our myapp gemset.
--INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
+8-INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
 What gems will you need? Here's a list of some common ones:
 -for testing:
 gem 'rspec-rails'
@@ -111,7 +111,7 @@ gem 'shoulda-matcher'
 gem 'database_cleaner'
 Now do bundle install
 Since we created a myapp gemset, we now need to make sure that all of our gems are installed in it.
--INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
+9-INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
 term:
 git init
 Now that we have a new project with our .ruby-version and .ruby-gemset files, we should initialize a git repository.
@@ -124,17 +124,17 @@ git remote add origin https://github.com/user/respository.git
 	git push -u origin master
 	This pushes the app to Github (the origin) and to the master branch. The -u specifies that in the future, git push will default to origin master.
 NOTE: From this point on, you are responsible for adding, committing, and pushing to Github on a regular basis.
--GENERATE UR FIRST MODEL:
+10-GENERATE UR FIRST MODEL:
 rails generate model Post title:string author:string body:text
 	Creates a Post model with a title, author, and body as attributes. These attributes correspond to columns in the database. Models are always singular (Post instead of Posts).
--CONNECT RAILS TO OUR DATABASE
+11-CONNECT RAILS TO OUR DATABASE
 in database.yml file put host: localhost in(under) the development section.
--CREATE THE DB & UPDATE (MIGRATE) THE MODEL(table?) TO IT:
+12-CREATE THE DB & UPDATE (MIGRATE) THE MODEL(table?) TO IT:
 	rake db:create
 	Creates the database. This must be done after you create your first model.
 	rake db:migrate
 	Migrates the Post model to the database. This should be done after creating any model.
--CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
+13-CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
 	rails c
 	This opens up the Rails console. Rails console is our window into the Ruby code that our app runs as well as the database. In this case, we want to create a sample Post to verify that all of our views that we create in the future are working properly.
 	Post.create(title: 'Test Post', author: 'Test Author', body: 'This is a test. This is a test. This is a test')
@@ -149,10 +149,10 @@ this is an example:
 	Goal.create(category: "I carpooled to work today.", point_value: 50, frequency: 2)
 	Goal.create(category: "I turned off a light when I left the room.", point_value: 5, frequency: 3)
 
--GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
+14-GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
 rails generate controller Posts index show new
 	Generates a Posts Controller and a posts folder for your views. By adding index, show, and new to the end those views and corresponding controller actions will be generated. Controllers are always plural (Posts instead of Post). This will also generate some routes in routes.rb, but we’re going to change those.
--UPDATE UR ROUTES:?
+15-UPDATE UR ROUTES:?
 	/config/routes.rb
 	Add this code to the file:
    get 'posts/index'
@@ -160,7 +160,7 @@ rails generate controller Posts index show new
    get 'posts/new'
    resources :posts
 Resources automatically generates routes for the basic actions of a controller. Run rake routes in your terminal if you want to see what routes are created.
--CREATE YOUR ACTIONS IN THE CONTROLLER:
+16-CREATE YOUR ACTIONS IN THE CONTROLLER:
 	/app/controllers/posts_controller.rb
 	Add this code to the file:
    def index
@@ -175,7 +175,7 @@ Resources automatically generates routes for the basic actions of a controller. 
      @post = Post.new
    end
 Each of these actions in the controller corresponds to a view with the same name. The controller makes information from the database available to the views. For example, the index displays a list of all posts in the database by setting @posts.
--CREATE THE HTML TO LIST ALL POSTS ON THE INDEX PAGE:
+17-CREATE THE HTML TO LIST ALL POSTS ON THE INDEX PAGE:
 /app/views/posts/index.html.erb
 	Add this code to the file:
 <h1> Posts </h1>
@@ -186,7 +186,7 @@ Each of these actions in the controller corresponds to a view with the same name
     <%= link_to 'Show post', post_path(post.id) %>
 <% end %>
 This will list out every post in the database with their title, author and body. It also includes a link to each post’s show page.
--TRY THE URL FOR YOUR INDEX PAGE:
+18-TRY THE URL FOR YOUR INDEX PAGE:
 The URL for this page is localhost:3000/posts
 -ADD CODE TO SHOW A POST WITH THE TITLE, AUTHOR & BODY AND A LINK BACK TO THE INDEX:
 /app/views/posts/show.html.erb
