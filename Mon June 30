@@ -320,22 +320,27 @@ IMPLEMENT A TWITTER API IN TACOZ APP:
 2-CREATE AN ACCOUNT & REGISTER YOUR APPLICATION TO GET A KEY:
 3-GO TO THE API KEYS SECTION INSIDE THE DEVELOPER AREA AND GET THE API KEY:
 Twitter tive you 4 api keys: api key, api secret, 2 access tokens.
-3-INTEGRATE INTO TACOZ APP:
+3-INTEGRATE ENVIRONMENT VARIABLES INTO TACOZ APP:
 open our tacoz app.
 In config file, go to secrets.yml
 Create your environment keys under development section:
-Inside the erb tags, give the environment keys their names in all caps. You name these what ever you want. 
+Inside the erb tags, give the environment keys their names in all caps. You name these what ever you want.
   twitter:
     api_key: <%= ENV['TWITTER_API_KEY'] %>
     api_secret: <%= ENV ['TWTTER_API_SECRET'] %>
-now we need to set our envirmment varialbes.
-frist, take the name of the variable,
-term
+4-SET OUR ENVIROMMENT VARIALBES IN TERM:
+frist, take the name of the variable from above inside the '',
+in term do:
 export TWITTER_API_KEY=GcEvwC7ygneRCJSED9wjXMR1o
-better way to do this is create a .env inside of app
-look at github gem instruictions to set up this file
--set up env file in top level of directory of app..
--put gem in gemfile.
+check it in term by:
+echo $TWITTER_API_KEY 
+putting the key in after the name.
+5-EASIER WAY TO INTEGRATE ENVIRONMENT VARIABLES INTO TACOZ APP:
+better way to do this is create a .env inside of app.
+(look at github gem instruictions to set up this file)
+-set up env file in top level of directory of app callled .env:
+...
+-put twitter  gem in gemfile.
  -put twitter gemfile in too. under turbolinks
  bundle
 rails c
