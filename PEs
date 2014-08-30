@@ -13,6 +13,7 @@ GEMS:
 -Type the code to add multiple gems to two groups.
 -SETTING UP & SENDING EMAILS
 
+-CSS FAQs:
 
 ++++++++++++++++++++++++
 -CREATE RAILS APP W POSTGRESS:
@@ -357,3 +358,15 @@ Add this code to the file after your update action and before the private method
      end
 (This method selects the post that we want and destroys it. It will then redirect us to the index.
 Check to see if you can successfully delete posts in your app. Your app is now complete!)
+
+
+
+
+
+——————————  CSS FAQs
+What is a css rule?
+footer {
+  color: green;
+}
+this whole block above me is the rule.
+the selector, the property and the value and the declaration which is both the prop and value.

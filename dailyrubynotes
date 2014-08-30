@@ -2925,3 +2925,6 @@ IRB
 - Use <.class> at the end of a line to know what data type it is. ie- "kenny".class or 345.class or 2.5.class
 - 5.downcase doesn't work cuz fixnums don't know how to downcase. each method only works with certain methods. fixnums don't work or udnerstand downcase. but strings know what they mean.
 - "kennyT".reverse.upcase is method chaining. both can do their thing and upcase works on upcase cuz <"kennyT".reverse> becomes a new string that .upcase recognizes.
+
+—————————— MISC ——————————
+SFTP - Secure file transfer protocal. it's being able to xfer files using a secure connection.
