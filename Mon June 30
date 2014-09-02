@@ -333,7 +333,7 @@ frist, take the name of the variable from above inside the '',
 in term do:
 export TWITTER_API_KEY=GcEvwC7ygneRCJSED9wjXMR1o
 check it in term by:
-echo $TWITTER_API_KEY 
+echo $TWITTER_API_KEY
 putting the key in after the name.
 5-EASIER WAY TO INTEGRATE ENVIRONMENT VARIABLES INTO TACOZ APP:
 better way to do this is create a .env inside of app.
@@ -598,18 +598,25 @@ vid exp..
 
 
 Mon July 7, 2014 day 33
-—————————— HOSTING
+—————————— HOSTING (Hosting lecture is first 1hr 15min of vid!)
 several different kinds: shared, vps, dedicated, cloud. Dedicated and vps is where you need to know devopps, you set it up urself on servers etc. what if ur open ssl that has a bug?? sys admins are doing this kinds of stuff. be ready to use programs written in c, .net or others. Diff between these two: vps (virtual private server) hosting is where a company will take a phyical machine and use virtualzation software to virtualize mini machines, say to have 3 seperate versions of windows running. example site is: 6sync.com, linode.com.
 Dedicated hosting is where you get an entire box all to yourself and can do anything you want with it so you can divide it up if u want.
 Shared hosting. hostgator is great according to jeremy. good cust service.
 Cloud hosting is where you share multiple servers together with everybody else. u get chunks of multiple servers.
 We're going to use heroku.
-—————————— HEROKU FAQs
-Commands:
+
+—————————— HEROKU FAQs (deploying a rails app to Heroku 1:20min on vid)
+Heroku is a wrapper around aws (amazon web services) so ur really hosting with Amazon. It is slow and if someone who is on your app doesn't do anything for 3o min, they'll shut it down to save money with aws so when you go to the site, if no one else is on it, it might be turned off on the server side and take a while to load. if someone else is currently using the site, it may load faster since it's runnign in the background.
+Heroku Commands:
 heroku run in front of stuff to do normal stuff.
 heroku run rake db:migrate
 heroku logs -t  to have log running continuously
 heroku run console
+
+—————————— DEPLOY APP TO HEROKU
+quit terminal all the way and restart
+heroku version
+
 download os x toolbelt and install
 quit and restart terminal after installing toolbelt
 -add
