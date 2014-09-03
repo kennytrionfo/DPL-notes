@@ -638,9 +638,13 @@ if get key message, type y to get an ssh key completed
 heroku auth:whoami will give us our email
 heroku create
 http://pure-dawn-1644.herokuapp.com/
-is not the url to ur app
-paste in browser will get error
+is now the url to ur app
+paste in browser will get error cuz the app doesn't exist yet, but that address is reserved for me.
+You can verify that the remote was added to your project by running
+git config -e
+or
 git remote -v
+for more details
 do git add Gemfile (or git add -A) and commit
 git push heroku master
 PUT new url address in:
