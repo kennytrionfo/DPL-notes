@@ -615,21 +615,24 @@ heroku run console
 
 —————————— DEPLOY APP TO HEROKU
 quit terminal all the way and restart
-heroku version
-
-download os x toolbelt and install
+in term: heroku version to see what version
+want to get:
+heroku-toolbelt/3.10.5 (x86_64-darwin10.8.0) ruby/1.9.3
+If not and needed, download os x toolbelt and install
 quit and restart terminal after installing toolbelt
+Heroku installs a command line application that let's you interface w heroku as well as some other stuff.
+Open the app that you want to deploy to heroku and go to gemfile
 -add
 gem 'rails_12factor', group: :production
 to bottom of Gemfile
 (this helps rails run better on heroku. read up for details)
 -bundle
--git init and add and commit if haven't already
-read heroku doc online.
+-git init and add and commit to github if haven't already.
+read heroku doc online. (it's really good. https://devcenter.heroku.com/articles/getting-started-with-rails4#heroku-gems)
 -add:
 ruby '2.1.2'
 under source in Gemfile
-reading article:
+Following heroku help article:
 do heroku setup and login stuff. login in term:
 if get key message, type y to get an ssh key completed
 heroku auth:whoami will give us our email
