@@ -691,7 +691,8 @@ do git add, commit and push origin heroku master to push up
 
 To git@heroku.com:pure-dawn-1644.git
    03c1c6b..a49bb05  master -> master
-   
+
+When we see "Preparing app for Rails asset pipeline" and "Running: rake assets:precompile" and "Running: rake assets:clean" it's taking our sass files and converting to css, it's compressing coffeescript files into js, creates our asset manifest which minifies all our js and css stylesheets and compresses them into single files and stores all of that into our public directory, then it restarts servers etc.   
 next let's make sure we have some data.
 do stuff in production console
 heroku run console
