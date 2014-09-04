@@ -658,7 +658,7 @@ if app is broken and we need to find out why, we need to read our log files. The
 heroku logs
 it reads the logs and spits you back to console so you can't continute to watch it.
 but
-heroku logs -t
+heroku logs -tail (or -t)
 keeps the logs open without kicking you back to console and can read what's going on in real time.
 heroku logs -t will run a tail which will continualy update logs
 read logs here.
@@ -692,19 +692,32 @@ do git add, commit and push origin heroku master to push up
 To git@heroku.com:pure-dawn-1644.git
    03c1c6b..a49bb05  master -> master
 
-When we see "Preparing app for Rails asset pipeline" and "Running: rake assets:precompile" and "Running: rake assets:clean" it's taking our sass files and converting to css, it's compressing coffeescript files into js, creates our asset manifest which minifies all our js and css stylesheets and compresses them into single files and stores all of that into our public directory, then it restarts servers etc.   
+When we see "Preparing app for Rails asset pipeline" and "Running: rake assets:precompile" and "Running: rake assets:clean" it's taking our sass files and converting to css, it's compressing coffeescript files into js, creates our asset manifest which minifies all our js and css stylesheets and compresses them into single files and stores all of that into our public directory, then it restarts servers etc.   rf and should see changes.
 next let's make sure we have some data.
-do stuff in production console
+To play around in the heroku console like we do sometimes in the rails console:
 heroku run console
 Rails.env tells us we're in production
+There's no difference in whta we can do here than what we did in our rails console when the db was local. we can do queries, create objects etc. And this will be live production data.
 do heroku in term to get a list of commands
 anything we do locally like
 rake db:migrate
 we just put heroku run infront to do to heroku
-heroku run rake db:migrate
+heroku run rake db:migrate for example
+Specifics on all of the settings in heroku ...
+
+You’ve deployed your code to Heroku. You can now instruct Heroku to execute a process type. Heroku does this by running the associated command in a dyno - a lightweight container which is the basic unit of composition on Heroku.
+Let’s ensure we have at least one dyno running the web process type:
+$ heroku ps:scale web=1
+You can check the state of the app’s dynos. The heroku ps command lists the running dynos of your application:
+$ heroku ps
+Should see something like:
+=== web (1X): `bin/rails server -p $PORT -e $RAILS_ENV`
+web.1: starting 2014/04/17 12:54:20 (~ 3s ago)
+Here, one dyno is running.
+Use heroku open to open app in a browser
 one more change to our app
-heroku looks for Procfile. if you don't specify a Procfile, it will use default server webbrick but it's not good for production. we want to find better ruby webserver.
-webbrick, thin, unicorn, puma, passenger with the last being the best, first being worst.
+heroku looks for Procfile. The procfile tells heroku how to configure specific things. if you don't specify a Procfile, it will use default server webbrick but it's not good for production with lots of people only locally with one user or so. we want to find better ruby webserver.
+webbrick, thin, unicorn(heroku recommends), puma, passenger with the last being the best, first being worst.
 -let's implement thin:
 gemfile
 gem 'thin'
@@ -714,7 +727,8 @@ rails s to see...
 exit
 do git add,comm and push
 create file called Procfile in same level as Gemfile and put:
-web: bundle exec thin start -p $PORT to get thin to work?
+web: bundle exec thin start -p $PORT
+to have the procfile tell heroku  we're going to use thin instead of webbrick. PORT is a variable that heroku sets for us.
 add,commit and deploy (push?) this change
 should see
 Procfile declares types -> web
