@@ -612,7 +612,7 @@ heroku run in front of stuff to do normal stuff.
 heroku run rake db:migrate
 heroku logs -t  to have log running continuously
 heroku run console
-use any command you'd normally run locally by putting 'heroku run' in front of it. 
+use any command you'd normally run locally by putting 'heroku run' in front of it.
 
 —————————— DEPLOY APP TO HEROKU
 quit terminal all the way and restart
@@ -648,21 +648,22 @@ git remote -v for more details
 heroku apps:rename new_name to rename ur heroku repo.
 git push heroku master
 to push to heroku. you'll always push master to heroku, not branches.
-PUT new url address in:
+PUT new url address in (can use heroku open in term to have it open it in a browser):
 should get error cuz we haven't migrated the db. just cuz we have a user act locally, don't mean it's in production. So we have an empty db. it doesn't know what models we have etc
 Run a production migration - in term:
 heroku run rake db:migrate
-if app is broken and we need to find out why, we need to read our log files.
+This runs the migrations
+Refreshing browser should give you a working app now
+if app is broken and we need to find out why, we need to read our log files. The error messages we would normally get in our browser from rails when we ran rails s is no longer available. we have to use heroku logs.
 heroku logs
 it reads the logs and spits you back to console so you can't continute to watch it.
 but
 heroku logs -t
 keeps the logs open without kicking you back to console and can read what's going on in real time.
-heroku logs -t will run a tail which will continuealy upate logs
+heroku logs -t will run a tail which will continualy update logs
 read logs here.
-control c
-make change to app
-go make changes to some file in app
+control c to kill logs
+make some change to app
 do git add, commit and push origin heroku master to push up
 
        Your bundle is complete!
@@ -690,6 +691,7 @@ do git add, commit and push origin heroku master to push up
 
 To git@heroku.com:pure-dawn-1644.git
    03c1c6b..a49bb05  master -> master
+   
 next let's make sure we have some data.
 do stuff in production console
 heroku run console
