@@ -598,73 +598,72 @@ vid exp..
 
 
 Mon July 7, 2014 day 33
-—————————— HOSTING (Hosting lecture is first 1hr 15min of vid!)
+—————————— HOSTING
+(lecture on Hosting is first 1hr 15min of vid!)
 several different kinds: shared, vps, dedicated, cloud. Dedicated and vps is where you need to know devopps, you set it up urself on servers etc. what if ur open ssl that has a bug?? sys admins are doing this kinds of stuff. be ready to use programs written in c, .net or others. Diff between these two: vps (virtual private server) hosting is where a company will take a phyical machine and use virtualzation software to virtualize mini machines, say to have 3 seperate versions of windows running. example site is: 6sync.com, linode.com.
 Dedicated hosting is where you get an entire box all to yourself and can do anything you want with it so you can divide it up if u want.
 Shared hosting. hostgator is great according to jeremy. good cust service.
 Cloud hosting is where you share multiple servers together with everybody else. u get chunks of multiple servers.
 We're going to use heroku.
 
-—————————— HEROKU FAQs (deploying a rails app to Heroku 1:20min on vid)
-Heroku is a wrapper around aws (amazon web services) so ur really hosting with Amazon. It is slow and if someone who is on your app doesn't do anything for 3o min, they'll shut it down to save money with aws so when you go to the site, if no one else is on it, it might be turned off on the server side and take a while to load. if someone else is currently using the site, it may load faster since it's runnign in the background.
+—————————— HEROKU FAQs
+(deploying a rails app to Heroku 1:20min on vid)
+Heroku is a wrapper around aws (amazon web services) so ur really hosting with Amazon. It is slow and if someone who is on your app doesn't do anything for 30 or 60? min, they'll shut it down to save money with aws so when you go to the site, if no one else is on it, it might be turned off on the server side and take a while to load. if someone else is currently using the site, it may load faster since it's runnign in the background.
 Heroku Commands:
 heroku run in front of stuff to do normal stuff.
 heroku run rake db:migrate
 heroku logs -t  to have log running continuously
+heroku run rails console  or
 heroku run console
-use any command you'd normally run locally by putting 'heroku run' in front of it.
+to push after adding and commiting: git push heroku master
+for the most part use any command you'd normally run locally by putting 'heroku run' in front of it.
 
 —————————— DEPLOY APP TO HEROKU
-quit terminal all the way and restart
-in term: heroku version to see what version
+QUIT TERMINAL ALL THE WAY AND RESTART(NOT SURE WHY)
+IN TERM: HEROKU VERSION TO SEE WHAT VERSION
 want to get:
 heroku-toolbelt/3.10.5 (x86_64-darwin10.8.0) ruby/1.9.3
-If not and needed, download os x toolbelt and install
-quit and restart terminal after installing toolbelt
+IF NEEDED, DOWNLOAD OS X TOOLBELT AND INSTALL
+QUIT AND RESTART TERMINAL AFTER INSTALLING TOOLBELT
 Heroku installs a command line application that let's you interface w heroku as well as some other stuff.
 Open the app that you want to deploy to heroku and go to gemfile
--add
-gem 'rails_12factor', group: :production
-to bottom of Gemfile
+-ADD GEM 'RAILS_12FACTOR', GROUP: :PRODUCTION TO BOTTOM OF GEMFILE
 (this helps rails run better on heroku. read up for details)
 -bundle
--git init and add and commit to github if haven't already.
+-GIT INIT AND ADD AND COMMIT TO GITHUB IF HAVEN'T ALREADY.
 read heroku doc online. (it's really good. https://devcenter.heroku.com/articles/getting-started-with-rails4#heroku-gems)
--add:
-ruby '2.1.2'
-under source in Gemfile
+-ADD: RUBY '2.1.2' UNDER SOURCE IN GEMFILE
 Following heroku help article:
-do heroku setup and login stuff. login in term:
+LOGIN IN TERM: HEROKU LOGIN
 if get key message, type y to get an ssh key completed
 heroku auth:whoami will give us our email
-heroku create
+HEROKU CREATE TO CREATE THE APP ON HEROKU
 http://pure-dawn-1644.herokuapp.com/
 is now the url to ur app
 paste in browser will get error cuz the app doesn't exist yet, but that address is reserved for me.
-You can verify that the remote was added to your project by running
-git config -e
+GIT CONFIG -E TO VERIFY THAT THE REMOTE WAS ADDED TO YOUR PROJECT
 or
-git remote -v for more details
-heroku apps:rename new_name to rename ur heroku repo.
-git push heroku master
+GIT REMOTE -V FOR MORE DETAILS
+HEROKU APPS:RENAME NEW_NAME TO RENAME UR HEROKU REPO.
+ADD, COMMIT, GIT PUSH HEROKU MASTER
 to push to heroku. you'll always push master to heroku, not branches.
-PUT new url address in (can use heroku open in term to have it open it in a browser):
+PUT NEW URL ADDRESS IN (CAN USE HEROKU OPEN IN TERM TO HAVE IT OPEN IT IN A BROWSER):
 should get error cuz we haven't migrated the db. just cuz we have a user act locally, don't mean it's in production. So we have an empty db. it doesn't know what models we have etc
 Run a production migration - in term:
-heroku run rake db:migrate
+HEROKU RUN RAKE DB:MIGRATE
 This runs the migrations
 Refreshing browser should give you a working app now
 if app is broken and we need to find out why, we need to read our log files. The error messages we would normally get in our browser from rails when we ran rails s is no longer available. we have to use heroku logs.
-heroku logs
+HEROKU LOGS
 it reads the logs and spits you back to console so you can't continute to watch it.
 but
-heroku logs -tail (or -t)
+HEROKU LOGS -TAIL (OR -T)
 keeps the logs open without kicking you back to console and can read what's going on in real time.
 heroku logs -t will run a tail which will continualy update logs
 read logs here.
-control c to kill logs
-make some change to app
-do git add, commit and push origin heroku master to push up
+CONTROL C TO KILL LOGS
+MAKE SOME CHANGE TO APP
+DO GIT ADD, COMMIT AND PUSH ORIGIN HEROKU MASTER TO PUSH UP
 
        Your bundle is complete!
        Gems in the groups development and test were not installed.
@@ -695,66 +694,49 @@ To git@heroku.com:pure-dawn-1644.git
 When we see "Preparing app for Rails asset pipeline" and "Running: rake assets:precompile" and "Running: rake assets:clean" it's taking our sass files and converting to css, it's compressing coffeescript files into js, creates our asset manifest which minifies all our js and css stylesheets and compresses them into single files and stores all of that into our public directory, then it restarts servers etc.   rf and should see changes.
 next let's make sure we have some data.
 To play around in the heroku console like we do sometimes in the rails console:
-heroku run console
-Rails.env tells us we're in production
+HEROKU RUN CONSOLE
+RAILS.ENV TELLS US WE'RE IN PRODUCTION
 There's no difference in whta we can do here than what we did in our rails console when the db was local. we can do queries, create objects etc. And this will be live production data.
-do heroku in term to get a list of commands
+DO HEROKU IN TERM TO GET A LIST OF COMMANDS
 anything we do locally like
 rake db:migrate
 we just put heroku run infront to do to heroku
 heroku run rake db:migrate for example
 Specifics on all of the settings in heroku ...
-
 You’ve deployed your code to Heroku. You can now instruct Heroku to execute a process type. Heroku does this by running the associated command in a dyno - a lightweight container which is the basic unit of composition on Heroku.
-Let’s ensure we have at least one dyno running the web process type:
-$ heroku ps:scale web=1
-You can check the state of the app’s dynos. The heroku ps command lists the running dynos of your application:
-$ heroku ps
+ENSURE WE HAVE AT LEAST 1 DYNO RUNNING THE WEB PROCESS TYPE: HEROKU PS:SCALE WEB=1
+YOU CAN CHECK THE STATE OF THE APP’S DYNOS WITH HEROKU PS COMMAND WHICH LISTS THE RUNNING DYNOS OF YOUR APPLICATION:
 Should see something like:
 === web (1X): `bin/rails server -p $PORT -e $RAILS_ENV`
 web.1: starting 2014/04/17 12:54:20 (~ 3s ago)
 Here, one dyno is running.
 Use heroku open to open app in a browser
-one more change to our app
 heroku looks for Procfile. The procfile tells heroku how to configure specific things. if you don't specify a Procfile, it will use default server webbrick but it's not good for production with lots of people only locally with one user or so. we want to find better ruby webserver.
 webbrick, thin, unicorn(heroku recommends), puma, passenger with the last being the best, first being worst.
 -let's implement thin:
 gemfile
-gem 'thin'
-bundle
-boot up local server
-rails s to see...
+ADD GEM 'THIN' TO PRODUCTION GROUP WITH 12_FACTOR
+BUNDLE
+BOOT UP LOCAL SERVER, RAILS S TO SEE...
 exit
-do git add,comm and push
-create file called Procfile in same level as Gemfile and put:
-web: bundle exec thin start -p $PORT
+DO GIT ADD,COMM AND PUSH
+CREATE FILE CALLED PROCFILE IN SAME LEVEL AS GEMFILE AND PUT:
+WEB: BUNDLE EXEC THIN START -P $PORT
 to have the procfile tell heroku  we're going to use thin instead of webbrick. PORT is a variable that heroku sets for us.
-add,commit and deploy (push?) this change
+ADD,COMMIT AND PUSH THIS CHANGE TO HEROKU (AND GIT IF UR USING IT)
 should see
-Procfile declares types -> web
+Procfile declares types ->
 in term notes and should be using thin server now.
-implementing thin:
-in gemfile
-gem ‘thin’
-you can add Procfile in same level as gemfile
-add file Procfile
-to this file add:
-web: bundle exec thin start -p $PORT
-boot local server and you can see it boots thin instead of webBrick now
+BOOT LOCAL SERVER AND YOU CAN SEE IT BOOTS THIN INSTEAD OF WEBBRICK NOW
 rails s
 => booting thin
 if you made these changes make sure to git add, git commit, and git push heroku master
-heroku run console
-if you run Rails.env in heroku console should show :
-=> ‘production’
+HEROKU RUN CONSOLE
+IF YOU RUN RAILS.ENV IN HEROKU CONSOLE SHOULD SEE  => ‘PRODUCTION’
 you can get real live production data just like if you were in development by doing stuff like :
 	Event.count
 	User.count
 	Photo.count
-
-to see heroku commands
-heroku
-
 
 
 

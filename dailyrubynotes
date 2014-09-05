@@ -1955,16 +1955,16 @@ Indent/outdent the current line
 Insert new line before the current line
 ⌘ + shift + enter
 
-Delete text to beginning of word
+DELETE TEXT TO BEGINNING OF WORD
 option + backspace
 
-Delete the current line
+DELETE THE CURRENT LINE
 ctrl + shift + k
 
-Duplicate the current line
+DUPLICATE THE CURRENT LINE
 shift + ⌘ + d
 
-Join current and next lines
+JOIN CURRENT AND NEXT LINES
 ⌘ + j
 
 Select the current word/token
