@@ -74,7 +74,7 @@ Go get steps from other instructions and put here. . .
 
 -CREATE A NEW APP (called myapp) IN RAILS USING POSTGRES AS DB:
 in term, in the dir you want to app in:
-rails new myapp -d postgresql
+RAILS NEW MYAPP -D POSTGRESQL
 -CD INTO UR APP’S DIR:
 cd myapp
 Changes into the myapp directory. In order to use any of the rails commands like rails s or rails generate, you need to be in a rails directory.
@@ -93,6 +93,7 @@ Creates a file that sets the Ruby gemset of your app. Your computer will automat
 It’s good to have unique gemsets for each project as it prevents conflicts with other applications.
 Add this code to the file:
 myapp
+
 7-CONNECT THESE TWO FILES TO RVM:
 in term:?
 rvm use 2.1.2@myapp
@@ -100,6 +101,7 @@ or
 cd .. and cd back in
 Alternatively you can change out of the directory and change back in and your computer will automatically change to the ruby version and gemset that we specified in the .ruby-version and .ruby-gemset files.
 This tells RVM to use ruby version 2.1.2 and our myapp gemset.
+
 8-INSTALL ALL OF OUR GEMS INTO OUR GEMSET:
 What gems will you need? Here's a list of some common ones:
 -for testing:
@@ -112,6 +114,7 @@ gem 'shoulda-matcher'
 gem 'database_cleaner'
 Now do bundle install
 Since we created a myapp gemset, we now need to make sure that all of our gems are installed in it.
+
 9-INITIALIZE A GIT REPOSITORY AND ADD, COMMIT & PUSH THE REPO :
 term:
 git init
@@ -125,16 +128,20 @@ git remote add origin https://github.com/user/respository.git
 	git push -u origin master
 	This pushes the app to Github (the origin) and to the master branch. The -u specifies that in the future, git push will default to origin master.
 NOTE: From this point on, you are responsible for adding, committing, and pushing to Github on a regular basis.
+
 10-GENERATE UR FIRST MODEL:
 rails generate model Post title:string author:string body:text
 	Creates a Post model with a title, author, and body as attributes. These attributes correspond to columns in the database. Models are always singular (Post instead of Posts).
+
 11-CONNECT RAILS TO OUR DATABASE
 in database.yml file put host: localhost in(under) the development section.
+
 12-CREATE THE DB & UPDATE (MIGRATE) THE MODEL(table?) TO IT:
 	rake db:create
 	Creates the database. This must be done after you create your first model.
 	rake db:migrate
 	Migrates the Post model to the database. This should be done after creating any model.
+
 13-CREATE A SAMPLE POST TO VERIFY THAT OUR VIEWS WORK:
 	rails c
 	This opens up the Rails console. Rails console is our window into the Ruby code that our app runs as well as the database. In this case, we want to create a sample Post to verify that all of our views that we create in the future are working properly.
@@ -153,6 +160,7 @@ this is an example:
 14-GENERATE A CONTROLLER FOR UR MODEL WITH SOME VIEWS AS WELL AS UR ROUTES???
 rails generate controller Posts index show new
 	Generates a Posts Controller and a posts folder for your views. By adding index, show, and new to the end those views and corresponding controller actions will be generated. Controllers are always plural (Posts instead of Post). This will also generate some routes in routes.rb, but we’re going to change those.
+
 15-UPDATE UR ROUTES:?
 	/config/routes.rb
 	Add this code to the file:
@@ -161,6 +169,7 @@ rails generate controller Posts index show new
    get 'posts/new'
    resources :posts
 Resources automatically generates routes for the basic actions of a controller. Run rake routes in your terminal if you want to see what routes are created.
+
 16-CREATE YOUR ACTIONS IN THE CONTROLLER:
 	/app/controllers/posts_controller.rb
 	Add this code to the file:
@@ -176,6 +185,7 @@ Resources automatically generates routes for the basic actions of a controller. 
      @post = Post.new
    end
 Each of these actions in the controller corresponds to a view with the same name. The controller makes information from the database available to the views. For example, the index displays a list of all posts in the database by setting @posts.
+
 17-CREATE THE HTML TO LIST ALL POSTS ON THE INDEX PAGE:
 /app/views/posts/index.html.erb
 	Add this code to the file:
@@ -187,9 +197,12 @@ Each of these actions in the controller corresponds to a view with the same name
     <%= link_to 'Show post', post_path(post.id) %>
 <% end %>
 This will list out every post in the database with their title, author and body. It also includes a link to each post’s show page.
+
 18-TRY THE URL FOR YOUR INDEX PAGE:
+rails server in term
 The URL for this page is localhost:3000/posts
--ADD CODE TO SHOW A POST WITH THE TITLE, AUTHOR & BODY AND A LINK BACK TO THE INDEX:
+
+19-ADD CODE TO SHOW A POST WITH THE TITLE, AUTHOR & BODY AND A LINK BACK TO THE INDEX:
 /app/views/posts/show.html.erb
 Add this code to the file:
 <h1> Post </h1>
@@ -198,11 +211,13 @@ Add this code to the file:
 <p><%= @post.body %></p>
 <%= link_to 'Back', posts_path %>
 This will show the post with it’s title, author and body. It also includes a link back to the index page.
--CHECK URL FOR THIS POST:
+
+20-CHECK URL FOR THIS POST:
 The URL for this page varies depending on the post. It follows this format:
 localhost:3000/posts/1
 The number at the end refers to the Post id.
--CREATE A NEW FORM TO ADD A NEW POST:
+
+21-CREATE A NEW FORM TO ADD A NEW POST:
 /app/views/posts/new.html.erb
 Add this code to the file:
 <h1> New Post </h1>
@@ -211,15 +226,17 @@ Add this code to the file:
  <%= f.text_field :title %>
  <%= f.label :author %>
  <%= f.text_field :author %>
-  <%= f.label :body %>
+ <%= f.label :body %>
  <%= f.text_field :body %>
  <%= f.submit %>
 <% end %>
 This uses the Rails form_for helper to generate a form for us. We need fields for title, author, and body as they are the attributes of a Post. We also need a submit button to create it.
--CHECK UR NEW PAGE:
+
+22-CHECK UR NEW PAGE:
 The URL for this page is:
 localhost:3000/posts/new
--ADD A CREATE ACTION TO POSTS CONTROLLER
+
+23-ADD A CREATE ACTION TO POSTS CONTROLLER
 /app/controllers/posts_controllers.rb
 Add this code to the file:
 def create

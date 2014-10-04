@@ -439,6 +439,23 @@ Write specs for the validations, associations, and methods of the User and Shout
 Tuesday June 24, 2014 Day 26
 —————————— TESTING FRAMEWORKS FAQS
 Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+—————————— MINITEST FAQs - personal notes on using MINITEST in rails(October 3, 2014).
+Testing FAQs:
+Verification testing is where u right tests that wrap about ur code.
+Test first is writing a failing test first, then writing code that makes the test pass.
+Strict Test Driven Design is where we eventually want to be that is where ur tests really drive the actual design of your app.
+Unit testing is testing parts of ur code in isolation so that when one piece breaks, you know exactly what piece it is. This makes it faster and easier to debug. Also good unit tests lead to good documentation. This comes in handy if someone needs to know how a certain block of code works. You may be able to look at the test and get an idea.
+Why Minitest?
+Minitest actually produces skeleton test code for you automatically while you are creating your models and controllers.
+Minitest is the test library that comes with rails and that rails uses by default. It's the 2nd generation if you will of the original Unit::Test.
+Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
+You want to set up a dedicated test database which will allow you to set up and interact with test data in isolation.
+
+
+Steps:
+1.rails new testing_basics
+
+
 —————————— RSPEC FAQs
 We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
 —————————— CODE KATA FAQS
