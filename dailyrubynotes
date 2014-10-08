@@ -454,7 +454,7 @@ You want to set up a dedicated test database which will allow you to set up and 
 
 Steps:
 1.rails new testing_basics
-
+ignore this. it's just for testing. 
 
 —————————— RSPEC FAQs
 We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
