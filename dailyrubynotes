@@ -456,10 +456,16 @@ Test first is writing a failing test first, then writing code that makes the tes
 Strict Test Driven Design is where we eventually want to be that is where ur tests really drive the actual design of your app.
 Unit testing is testing parts of ur code in isolation so that when one piece breaks, you know exactly what piece it is. This makes it faster and easier to debug. Also good unit tests lead to good documentation. This comes in handy if someone needs to know how a certain block of code works. You may be able to look at the test and get an idea.
 Why Minitest?
+Minitest is a lightweight testing suite. 
 Minitest actually produces skeleton test code for you automatically while you are creating your models and controllers.
 Minitest is the test library that comes with rails and that rails uses by default. It's the 2nd generation if you will of the original Unit::Test.
 Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
 You want to set up a dedicated test database which will allow you to set up and interact with test data in isolation.
+a spec is..
+test unit uses syntax assert & refute and spec dsl uses must & wont syntax or the asserts..
+What to test? Ideally, you would like to include a test for everything which could possibly break. It's a good practice to have at least one test for each of your validations and at least one test for every method in your model.
+Validations are done in models and controllers and validate items. 
+Moer on validations here: http://guides.rubyonrails.org/active_record_validations.html
 
 
 Steps:
@@ -468,6 +474,10 @@ Steps:
 rake minitest to test 
 rake minitest:models to test just models
 gem install ZenTest to use ZenTest that will autorun test upon saving a file to prevent having to go back and forth. 
+
+
+
+
 
 —————————— RSPEC FAQs
 We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
