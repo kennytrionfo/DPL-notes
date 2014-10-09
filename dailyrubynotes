@@ -13,7 +13,7 @@
 -Put in js with jq if needed
 -Style it with Bootstrap
 
-
+ 
 
 
 
@@ -438,7 +438,17 @@ Write specs for the validations, associations, and methods of the User and Shout
 
 Tuesday June 24, 2014 Day 26
 —————————— TESTING FRAMEWORKS FAQS
-Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+Test::Unit
+The first built in testing library that came with rails. 
+Unit tests - test the business logic and functionality of the data models. When you add a method to the model, you should write a unit test to test its functionality. 
+Fuctional tests - test the functionality of the controllers. Functional tests help you to ensure that the methods perform as they should. If you were to test a login method, you’d check to see that it will display the login form, enable a user with the proper credentials to log in, and restrict unauthorized users from proceeding through the login process. 
+Integration testing - tests the interaction between multiple controllers. In the case of the Railslist application, you can create an integration test that allows a user to sign up for an account, log in to that account, and then create a new clas- sified ad. You are testing the interaction between both the user and classified controller.
+
+
+
+
+Ruby comes with a testing framework called Minitest and the older one called test::unit. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+
 —————————— MINITEST FAQs - personal notes on using MINITEST in rails(October 3, 2014).
 Testing FAQs:
 Verification testing is where u right tests that wrap about ur code.
@@ -454,7 +464,10 @@ You want to set up a dedicated test database which will allow you to set up and 
 
 Steps:
 1.rails new testing_basics
-ignore this. it's just for testing. 
+
+rake minitest to test 
+rake minitest:models to test just models
+gem install ZenTest to use ZenTest that will autorun test upon saving a file to prevent having to go back and forth. 
 
 —————————— RSPEC FAQs
 We're gonna use RSpec. people like it over the others cuz they are structured and it's like running a mini program while rspec is written more for behavior driven development, more like a story. rspec.info. js jasmine website is a nice looking landing page. Then there is cucumber language which is more everyday language for people like biz dev or marketing people to use to do some testing.
