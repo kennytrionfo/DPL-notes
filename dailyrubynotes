@@ -461,11 +461,41 @@ Minitest actually produces skeleton test code for you automatically while you ar
 Minitest is the test library that comes with rails and that rails uses by default. It's the 2nd generation if you will of the original Unit::Test.
 Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
 You want to set up a dedicated test database which will allow you to set up and interact with test data in isolation.
-a spec is..
+a spec file (or spec syntax) is used simply for beter readability. specs contain descriptions of behavior that we require. 
 test unit uses syntax assert & refute and spec dsl uses must & wont syntax or the asserts..
 What to test? Ideally, you would like to include a test for everything which could possibly break. It's a good practice to have at least one test for each of your validations and at least one test for every method in your model.
-Validations are done in models and controllers and validate items. 
+Validations are done in models and controllers and for models, they validate items by ensuring that only valid data is saved into your database by7 
 Moer on validations here: http://guides.rubyonrails.org/active_record_validations.html
+You validate using assertions. Assertions are the worker bees of testing. They are the ones that actually perform the checks to ensure that things are going as planned. 
+There are a few different types of syntax: 
+1. spec descriptions: 
+desribe/do with it/do. ie: 
+require "minitest/autorun"
+desribe fizzbuzz do
+  before do
+    @fb = FizzBuzz.new
+  end
+  it "some desriptions here of what it should do" do
+    assert some_objet_here
+  end
+end
+specs use must and wont 
+
+2. Use MiniTest::Test class and def to define your tests as methods beginning with `test_`. ie: 
+require "minitest/autorun"
+class TestMeme < Minitest::Test
+  def test_that_kitty_can_eat
+    assert_equal "OHAI!", @meme.i_can_has_cheezburger?
+  end
+end
+
+3. ActiveSupport::TestCase class and test/do.  ie: 
+require 'test_helper'
+class PostTest < ActiveSupport::TestCase
+  test "some description of what is should do" do
+    assert something_here
+  end
+end
 
 
 Steps:
