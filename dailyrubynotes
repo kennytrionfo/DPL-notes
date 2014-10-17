@@ -1,3 +1,8 @@
+—————————— Practice Tests ——————————(create pass test)
+-Create a method that takes two parameters and adds them together.
+-Then run that method 3 times passing in different variables each time and assign the result to a unique variable.
+-Then take those pass each of those variables into an emply array.
+-Check the array for the number 5.
 
 
 
@@ -453,7 +458,31 @@ You want to set up a dedicated test database which will allow you to set up and 
 
 
 Steps:
-1.rails new testing_basics
+..test the Validations.   http://everydayrails.com/2012/03/19/testing-series-rspec-models-factory-girl.html
+..test the Instance Methods.  http://everydayrails.com/2012/03/19/testing-series-rspec-models-factory-girl.html
+..test that each method does exactly what you expect it to do.
+..list all the methods, all the models and their validations and list what ur going to test in each.
+1.create a test file <name>_test.rb
+2.Put require "test/unit" at the top of this file.
+3. create a class using camelcase using the name of the subject and name again, that inherits from Test::Unit::TestCase:
+class <Subject>Test < Test::Unit::TestCase
+
+end
+4.write methods (these will be the tests, inside the class):
+def test_what_we_will_be_testing
+end
+5.Put the assertion(s) inside of the test:
+<assertion>
+Assertions are methods. ie. assert something. You send parameters into the assert method.
+6.example passing boolean test file:
+require "test/unit"
+class BooleanTest < Unit::Test::TestCase
+  def test_true_is_true
+    assert true
+  end
+end
+We'll send a single param into our assert method and if it's true, the test should pass.
+
 
 
 —————————— RSPEC FAQs
@@ -592,6 +621,7 @@ google unit testing. wikipedia. testing one aspect of your app like your methods
 google functional testing. wikipedia. testing to see "does this product function?"
 google testing types. wiki. integration and validation testing.
 so tdd, bdd, unit, functional, integration and validation testing.
+(create pass test) *Note* -This isn't exaclty the exorsize described above. 
 Let's start writing a few tests.
 cd ruby_stuff
 mkdir simple_tests
