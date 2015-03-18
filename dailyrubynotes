@@ -2164,7 +2164,7 @@ window.onload() this actually runs it.
 -can say document.querySelectorAll()
 -In js use "this" to ??... It means this current thing that you are.
 
-————————FORMS ————————
+———————— jS, javascript, dropdown menus, FORMS, debugger Gem Pry, forms, Get & post requests————————
 FACTS:
 -you can't put a child form inside of a form.
 -must have a closing tag.
