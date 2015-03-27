@@ -1820,11 +1820,12 @@ In term type: rake db:migrate in the direcotry your file is in. Should see..?? =
 
 
 Tuesday June 10, 2014 Day 16
-—————————— SQL ——————————
+—————————— SQL with Postgres ——————————
 FACTS:
 Steps:
 -make sure postgres elephant is running.
--From terminasl run: psql -d elephant "your_database" - this is a
+-From terminasl run: psql -d your_database 
+- the name of this can be found in db.yaml file
 - leave the console with a "\q"
 - to see what tables exits: \d
 -we must always set our table name as singular cuz rails makes it plural.
