@@ -1617,6 +1617,7 @@ Views folder should be Students
 
 
 Wednesday June 11,  Day 17
+SQL_find_by Controllers DPLstoreApp Routes Controllers strong params create vs save vs new
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc)
 -create new model using postgres as db
@@ -1721,7 +1722,7 @@ notice it doesn't return an object but an ActiveRecord::Relation which isn't an 
 -do 2 different 'like' queries using a string instead of a hash:
 Animal.where(name: "fluffy").limit(1)
 the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
--add another argument to ur query:
+-add another argument to ur query: 
 Animal.where(name: "fluffy", age: 3)
 -add .count onto the end of that multi-argument query to see how many records match that query:
 Animal.where(name: "fluffy", age: 3).count
@@ -1748,7 +1749,7 @@ which lets us use a dynamic name variable or something and pass it right into ou
 -change the var name and try it again:
 name = "Kitters"
 and run that same query again, we'll get a diff value
-WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.
+WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.[[]]
 Rails has fixed this. rails takes the ruby string that looks like sql and creates a placeholder for where the variable is going to be. that placeholder is a questionmark. this makes sure that it's sanitized sql and not sql from the user.
 -Use rails sanitized method for taking arguments and repeat above:
 For each questionmark that you have as a placeholder, you add an additional method to the where method for what that thing is:
