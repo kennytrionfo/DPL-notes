@@ -1503,7 +1503,11 @@ Friday June 13, 2014
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
-to help validate?..
+Rails validations are using .blank which is a combination of .nil? and .empty?
+The opposite of .blank? is .present? These are predicate methods. So the presence: true above is just using this .present with "validates presence of"
+Can do all kinds of validations like above. 
+routing and routes and rake routes review.
+
 -Vid all morning..
 
 
