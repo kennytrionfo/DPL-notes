@@ -1498,7 +1498,9 @@ Admin page: Form with Title, location, Times, descriptions for both Theaters and
 
 
 
-Friday June 13, 2014
+Friday June 13, 2014  Day 19
+Building an app! controllers, link_to, views etc. 
+
 -Use
 validates :name, prsences: true
 validates :email, uniqueness: true
