@@ -1304,6 +1304,7 @@ Wed June 18, 2014 day 22
 -TABLE ASSOCIATIONS REVIEW
 example of associations:
 Understanding Associations in rails
+- Also nested models
 
 1. Take 2 models
 2. Associate them
