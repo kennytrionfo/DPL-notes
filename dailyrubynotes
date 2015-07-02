@@ -2206,7 +2206,7 @@ EXAMPLE:
 </form>
 CHALLENGE:
 
-————————ELEMENTS INSIDE OF FORMS ;EB
+————————ELEMENTS INSIDE OF FORMS ----------
 FACTS:
 -input, select, button, textarea are tags: ie: <input>
 -input has types- hidden(hidden from you), text, password, radio, checkbox options.
