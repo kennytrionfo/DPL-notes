@@ -1476,13 +1476,16 @@ Admin page: Form with Title, location, Times, descriptions for both Theaters and
 
 
 Friday June 13, 2014
--Use
+-Model validations
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
 to help validate?..
 -Vid all morning..
-
+ruby methods: .nil? .empty? try nil.nil? in irb and [].empty? .blank? is the combining of both those methods. 
+Controllers, views, routes, crud, 
+* Links by default do a get action, so a link_to (delete) will take us to a get or view of a page so to NOT render a page, we use a rails method >> method: :delete that does a bunch of js for us and sends the form as a delete. 
+On forms and things in rails, there is ujs(unobtrusive js) that does stuff for us like turn our form_for code into html. 
 
 
 
