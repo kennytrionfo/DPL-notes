@@ -1486,6 +1486,12 @@ ruby methods: .nil? .empty? try nil.nil? in irb and [].empty? .blank? is the com
 Controllers, views, routes, crud, 
 * Links by default do a get action, so a link_to (delete) will take us to a get or view of a page so to NOT render a page, we use a rails method >> method: :delete that does a bunch of js for us and sends the form as a delete. 
 On forms and things in rails, there is ujs(unobtrusive js) that does stuff for us like turn our form_for code into html. 
+Basic styling - basic CSS, image tag explained. 
+Helpers
+pluralize helper, time_ago helper shows timeframes in normal words. 
+There are number helpers, string helpers (ie. cycle lets u change even/odd list items to different styles). 
+Helpers in the aplication helper: there's a global hash called flash we can use. Set it in the controller, create action.   
+
 
 
 
