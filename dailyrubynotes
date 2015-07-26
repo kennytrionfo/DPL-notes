@@ -18,7 +18,7 @@
 -Put in js with jq if needed
 -Style it with Bootstrap
 
-
+ 
 
 
 
@@ -443,7 +443,17 @@ Write specs for the validations, associations, and methods of the User and Shout
 
 Tuesday June 24, 2014 Day 26
 —————————— TESTING FRAMEWORKS FAQS
-Ruby comes with a testing framework called Minitest. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+Test::Unit
+The first built in testing library that came with rails. 
+Unit tests - test the business logic and functionality of the data models. When you add a method to the model, you should write a unit test to test its functionality. 
+Fuctional tests - test the functionality of the controllers. Functional tests help you to ensure that the methods perform as they should. If you were to test a login method, you’d check to see that it will display the login form, enable a user with the proper credentials to log in, and restrict unauthorized users from proceeding through the login process. 
+Integration testing - tests the interaction between multiple controllers. In the case of the Railslist application, you can create an integration test that allows a user to sign up for an account, log in to that account, and then create a new clas- sified ad. You are testing the interaction between both the user and classified controller.
+
+
+
+
+Ruby comes with a testing framework called Minitest and the older one called test::unit. lookup on ruby-doc.org. it also comes with rails. but it's not what most rubyists use.
+
 —————————— MINITEST FAQs - personal notes on using MINITEST in rails(October 3, 2014).
 Testing FAQs:
 Verification testing is where u right tests that wrap about ur code.
@@ -451,10 +461,46 @@ Test first is writing a failing test first, then writing code that makes the tes
 Strict Test Driven Design is where we eventually want to be that is where ur tests really drive the actual design of your app.
 Unit testing is testing parts of ur code in isolation so that when one piece breaks, you know exactly what piece it is. This makes it faster and easier to debug. Also good unit tests lead to good documentation. This comes in handy if someone needs to know how a certain block of code works. You may be able to look at the test and get an idea.
 Why Minitest?
+Minitest is a lightweight testing suite. 
 Minitest actually produces skeleton test code for you automatically while you are creating your models and controllers.
 Minitest is the test library that comes with rails and that rails uses by default. It's the 2nd generation if you will of the original Unit::Test.
 Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
 You want to set up a dedicated test database which will allow you to set up and interact with test data in isolation.
+a spec file (or spec syntax) is used simply for beter readability. specs contain descriptions of behavior that we require. 
+test unit uses syntax assert & refute and spec dsl uses must & wont syntax or the asserts..
+What to test? Ideally, you would like to include a test for everything which could possibly break. It's a good practice to have at least one test for each of your validations and at least one test for every method in your model.
+Validations are done in models and controllers and for models, they validate items by ensuring that only valid data is saved into your database by7 
+Moer on validations here: http://guides.rubyonrails.org/active_record_validations.html
+You validate using assertions. Assertions are the worker bees of testing. They are the ones that actually perform the checks to ensure that things are going as planned. 
+There are a few different types of syntax: 
+1. spec descriptions: 
+desribe/do with it/do. ie: 
+require "minitest/autorun"
+desribe fizzbuzz do
+  before do
+    @fb = FizzBuzz.new
+  end
+  it "some desriptions here of what it should do" do
+    assert some_objet_here
+  end
+end
+specs use must and wont 
+
+2. Use MiniTest::Test class and def to define your tests as methods beginning with `test_`. ie: 
+require "minitest/autorun"
+class TestMeme < Minitest::Test
+  def test_that_kitty_can_eat
+    assert_equal "OHAI!", @meme.i_can_has_cheezburger?
+  end
+end
+
+3. ActiveSupport::TestCase class and test/do.  ie: 
+require 'test_helper'
+class PostTest < ActiveSupport::TestCase
+  test "some description of what is should do" do
+    assert something_here
+  end
+end
 
 
 Steps:
@@ -482,6 +528,13 @@ class BooleanTest < Unit::Test::TestCase
   end
 end
 We'll send a single param into our assert method and if it's true, the test should pass.
+
+
+rake minitest to test 
+rake minitest:models to test just models
+gem install ZenTest to use ZenTest that will autorun test upon saving a file to prevent having to go back and forth. 
+
+
 
 
 
@@ -1277,10 +1330,12 @@ author %></h3>
 
 
 Wed June 18, 2014 day 22
+==================================codalicious=====================================
 -PARAMS REVIEW
 -TABLE ASSOCIATIONS REVIEW
 example of associations:
 Understanding Associations in rails
+- Also nested models
 
 1. Take 2 models
 2. Associate them
@@ -1475,12 +1530,23 @@ Admin page: Form with Title, location, Times, descriptions for both Theaters and
 
 
 
+<<<<<<< HEAD
 Friday June 13, 2014
 -Model validations
+=======
+Friday June 13, 2014  Day 19
+Building an app! controllers, link_to, views etc. 
+
+-Use
+>>>>>>> f0506d80a21c50144aa19a981490fcff758f3c90
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
-to help validate?..
+Rails validations are using .blank which is a combination of .nil? and .empty?
+The opposite of .blank? is .present? These are predicate methods. So the presence: true above is just using this .present with "validates presence of"
+Can do all kinds of validations like above. 
+routing and routes and rake routes review.
+
 -Vid all morning..
 ruby methods: .nil? .empty? try nil.nil? in irb and [].empty? .blank? is the combining of both those methods. 
 Controllers, views, routes, crud, 
@@ -1603,6 +1669,7 @@ Views folder should be Students
 
 
 Wednesday June 11,  Day 17
+SQL_find_by Controllers DPLstoreApp Routes Controllers strong params create vs save vs new
 -Vid: first 15 min-review of Joining tables.
 —————————— MODELS (from mvc)
 -create new model using postgres as db
@@ -1707,7 +1774,7 @@ notice it doesn't return an object but an ActiveRecord::Relation which isn't an 
 -do 2 different 'like' queries using a string instead of a hash:
 Animal.where(name: "fluffy").limit(1)
 the limit method is part of the ActiveRecord::Relation so we can chain more stuff to this command if we want.
--add another argument to ur query:
+-add another argument to ur query: 
 Animal.where(name: "fluffy", age: 3)
 -add .count onto the end of that multi-argument query to see how many records match that query:
 Animal.where(name: "fluffy", age: 3).count
@@ -1734,7 +1801,7 @@ which lets us use a dynamic name variable or something and pass it right into ou
 -change the var name and try it again:
 name = "Kitters"
 and run that same query again, we'll get a diff value
-WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.
+WE have one prob with this though. -Don't mix ruby with raw sequal. it's called a sql injection where people can take out your sql and put in their own sql.[[]]
 Rails has fixed this. rails takes the ruby string that looks like sql and creates a placeholder for where the variable is going to be. that placeholder is a questionmark. this makes sure that it's sanitized sql and not sql from the user.
 -Use rails sanitized method for taking arguments and repeat above:
 For each questionmark that you have as a placeholder, you add an additional method to the where method for what that thing is:
@@ -1806,11 +1873,12 @@ In term type: rake db:migrate in the direcotry your file is in. Should see..?? =
 
 
 Tuesday June 10, 2014 Day 16
-—————————— SQL ——————————
+—————————— SQL with Postgres ——————————
 FACTS:
 Steps:
 -make sure postgres elephant is running.
--From terminasl run: psql -d elephant "your_database" - this is a
+-From terminasl run: psql -d your_database 
+- the name of this can be found in db.yaml file
 - leave the console with a "\q"
 - to see what tables exits: \d
 -we must always set our table name as singular cuz rails makes it plural.
@@ -2150,7 +2218,7 @@ window.onload() this actually runs it.
 -can say document.querySelectorAll()
 -In js use "this" to ??... It means this current thing that you are.
 
-————————FORMS ————————
+———————— jS, javascript, dropdown menus, FORMS, debugger Gem Pry, forms, Get & post requests————————
 FACTS:
 -you can't put a child form inside of a form.
 -must have a closing tag.
@@ -2183,7 +2251,7 @@ EXAMPLE:
 </form>
 CHALLENGE:
 
-————————ELEMENTS INSIDE OF FORMS ;EB
+————————ELEMENTS INSIDE OF FORMS ----------
 FACTS:
 -input, select, button, textarea are tags: ie: <input>
 -input has types- hidden(hidden from you), text, password, radio, checkbox options.

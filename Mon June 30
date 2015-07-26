@@ -355,7 +355,7 @@ changing our twitter access to read and write from just read..
 
 
 July 11, 2014 day 37
-——————————
+——————————---------- 
 ?- why didn't we add localhost:3000 to database.yml file?
 geo coding
 review namespacing
@@ -590,8 +590,6 @@ in production.rb
 at bottom:
 add in settings from web:
 vid exp..
-
-
 
 
 
