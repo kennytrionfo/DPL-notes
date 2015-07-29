@@ -1396,13 +1396,21 @@ under section - div class = "row", withing that class - div class = "col-sm-12",
 -Fix the style on the edit / new pages
 
 
-
+# ############################################
+# ############################################
+# ######### Right here Right now #############
+# #########                      #############
+# ############################################
+# ############################################
+min 101
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
 9:53 for new rails foodie application
 -Sass is kind of a programming language that makes CSS better.
 -look up and bookmark foundation as a bootstrap comparison
 - fontawesome for fonts
+- bootstrap sass gem
+- explanation of what sass is. 
 
 Vid m
 connect bootstrap using cdn (content delivery network) on their website or download it if needed.
@@ -1510,8 +1518,8 @@ Rails validations are using .blank which is a combination of .nil? and .empty?
 The opposite of .blank? is .present? These are predicate methods. So the presence: true above is just using this .present with "validates presence of"
 Can do all kinds of validations like above. 
 routing and routes and rake routes review.
-
--Vid all morning..
+At the end, puts two models on one view. Also htmling a quick show & view pages. 
+-Vid ..
 
 
 
