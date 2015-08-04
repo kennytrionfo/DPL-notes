@@ -1451,15 +1451,17 @@ bootstrp gives us styels.
 # ############################################
 # ############################################
 # #########      Right now       #############
-# #########       Min 1:50       #############
+# #########       Min 1:58      #############
 # ############################################
 # ############################################
+- use pry-rails gem
+
 CHALLENGE:
 -Create a static home page
 -Create a global navbar in your layout
 -Add a link to the home page
 -Add a link to the noms page
--Fix the style on the show page
+-Fix the style on the show page]]
 -Fix the style on the edit / new pages
 -jasoncarter@outlook.com
 
