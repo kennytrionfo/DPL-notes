@@ -1427,7 +1427,6 @@ under section - div class = "row", withing that class - div class = "col-sm-12",
 -Fix the style on the edit / new pages
 
 
-min 101
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
 9:53 for new rails foodie application
@@ -1481,8 +1480,8 @@ bootstrp gives us styels.
 - vid after mbreak - more on bootstrap nom site, pagination, put everything inside of a row. Font-awesome, pagination,  more on vid 1:25min...
 # ############################################
 # ############################################
-# #########      Right now       #############
-# #########       Min 1:58      #############
+# ######### right here right now #############
+# #########       Min 1:58       #############
 # ############################################
 # ############################################
 - use pry-rails gem
