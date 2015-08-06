@@ -1427,13 +1427,15 @@ under section - div class = "row", withing that class - div class = "col-sm-12",
 -Fix the style on the edit / new pages
 
 
-
+min 101
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
 9:53 for new rails foodie application
 -Sass is kind of a programming language that makes CSS better.
 -look up and bookmark foundation as a bootstrap comparison
 - fontawesome for fonts
+- bootstrap sass gem
+- explanation of what sass is. 
 
 Vid m
 connect bootstrap using cdn (content delivery network) on their website or download it if needed.
@@ -1456,15 +1458,15 @@ rails g scaffold Nom name:string delicious:boolean
 should see Listing noms etc
 -insert a food. do a couple of them.
  non of the styling on there is our bootstrap styling, just default.
-- get rid of hte scaffold - app/assests/stylesheets/application.css and get rid of all but require_tree and require_self lines. these 2 lines are called manifest. the stylesheet manifest. the mainfest in rails is part of the asset pipeline which is a structure where you can put these assest (ss and js) into folders and thye have a purpose and then rails can find them and run them though preproseccors like sass and LESS. so by including our sass preprocessor (that rails did for us) and if we put our sytlesheets in the asset pipleine we can use sass and rials will automatically run it through the preprocessor and convert it to css. we have to convert to css cuz browswers don't undertand sass or less. so if we want to use other types of css we have to run them through a preprocessor so they convert into css. we've actually been using a diff preprocessor, erb. so we've taking our erb template and run it trhough oru prepocessor and it kicks out html. so the asset pipeline has a gem called sprockets which reads the manifest and figures out how to compress all these different stylesheets. we have 3 diff sytlesheets now. so sprockets reads the manifess which says 'include everything that's in this folder' (requrie_tree) and after that, include the current file.  so the 'require_tree' part of the manifest is saying 'include the other two files in the stylesheets/ folder' one has nothing. other has a lot. we'll remove this file?? by deleting the first line of manifest (require_tree).
+- get rid of hte scaffold - app/assests/stylesheets/application.css and get rid of all but require_tree and require_self lines. these 2 lines are called manifest. the stylesheet manifest. the mainfest in rails is part of the asset pipeline which is a structure where you can put these assest (ss and js) into folders and thye have a purpose and then rails can find them and run them though preproseccors like sass and LESS. so by including our sass preprocessor (that rails did for us) and if we put our sytlesheets in the asset pipleine we can use sass and rials will automatically run it through the preprocessor and convert it to css. Two preprocessors are sass and less. So we have to convert to css cuz browswers don't undertand sass or less. so if we want to use other types of css we have to run them through a preprocessor so they convert into css. we've actually been using a diff preprocessor, erb. so we've taking our erb template and run it trhough oru prepocessor and it kicks out html. so the asset pipeline has a gem called sprockets which reads the manifest and figures out how to compress all these different stylesheets. we have 3 diff sytlesheets now. so sprockets reads the manifess which says 'include everything that's in this folder' ("requrie_tree" in the application.css file) and after that, include the current file (*=require_self in the applications.css file).  so the 'require_tree' part of the manifest is saying 'include the other two files in the stylesheets/ folder' one has nothing. other has a lot. we'll remove the scaffolds.css.scs file by taking out the =require_self from the application.css file or inother words by deleting the first line of manifest (require_tree).
 - refresh browser.
 now no styles are being used. this allows us to use bootstrap.
 -include bootstrap - in applications.css file: @import "bootstrap"; on top line above manifest.
 -refresh
 nothing happens
 -rename the application.css file to conform to sass - rename to add .scss on the end is all.
--delete the first.
--now can delete rest of manifest. why?
+-delete the first file if it's still in the editor/folder(this was in atom editor).
+-now can delete rest of manifest below (require_self) because we're using bootstrap. why?
 -save and refresh
 new style!
 -style page -
@@ -1476,15 +1478,21 @@ bootstrp gives us styels.
 -turn into button - after new_non_path, ‘btn btn-success’. btn makes it button, the 2nd makes it green.
 -move this button to right - after btn-success - pull-right
 -move it away from edge - go to application file in layouts/, make <section> tag around the yeild and in it - class = “container”. this moves it in.
+- vid after mbreak - more on bootstrap nom site, pagination, put everything inside of a row. Font-awesome, pagination,  more on vid 1:25min...
+# ############################################
+# ############################################
+# #########      Right now       #############
+# #########       Min 1:58      #############
+# ############################################
+# ############################################
+- use pry-rails gem
 
-
-- vid after mbreak - more on bootstrap nom site, pagination,
 CHALLENGE:
 -Create a static home page
 -Create a global navbar in your layout
 -Add a link to the home page
 -Add a link to the noms page
--Fix the style on the show page
+-Fix the style on the show page]]
 -Fix the style on the edit / new pages
 -jasoncarter@outlook.com
 
@@ -1527,18 +1535,11 @@ Website: simple blog format list style of Theaters with plays listed under them 
 Admin page: Form with Title, location, Times, descriptions for both Theaters and plays.
 
 
-
-
-
-<<<<<<< HEAD
-Friday June 13, 2014
--Model validations
-=======
 Friday June 13, 2014  Day 19
+-Model validations
 Building an app! controllers, link_to, views etc. 
 
 -Use
->>>>>>> f0506d80a21c50144aa19a981490fcff758f3c90
 validates :name, prsences: true
 validates :email, uniqueness: true
 validates :password, min_length: 6
@@ -1556,10 +1557,9 @@ Basic styling - basic CSS, image tag explained.
 Helpers
 pluralize helper, time_ago helper shows timeframes in normal words. 
 There are number helpers, string helpers (ie. cycle lets u change even/odd list items to different styles). 
-Helpers in the aplication helper: there's a global hash called flash we can use. Set it in the controller, create action.   
-
-
-
+Helpers in the aplication helper: there's a global hash called flash we can use. Set it in the controller, create action.
+At the end, puts two models on one view. Also htmling a quick show & view pages. 
+-Vid ..
 
 
 
