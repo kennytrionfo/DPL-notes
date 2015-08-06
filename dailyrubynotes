@@ -1327,6 +1327,12 @@ author %></h3>
 -in models/post.rb ??? …
 
 
+# ############################################
+# ############################################
+# ######### right here right now #############
+# #########       Min 0000       #############
+# ############################################
+# ############################################
 
 
 Wed June 18, 2014 day 22
@@ -1478,12 +1484,6 @@ bootstrp gives us styels.
 -move this button to right - after btn-success - pull-right
 -move it away from edge - go to application file in layouts/, make <section> tag around the yeild and in it - class = “container”. this moves it in.
 - vid after mbreak - more on bootstrap nom site, pagination, put everything inside of a row. Font-awesome, pagination,  more on vid 1:25min...
-# ############################################
-# ############################################
-# ######### right here right now #############
-# #########       Min 1:58       #############
-# ############################################
-# ############################################
 - use pry-rails gem
 
 CHALLENGE:
