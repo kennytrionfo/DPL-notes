@@ -1495,6 +1495,12 @@ CHALLENGE:
 -Fix the style on the edit / new pages
 -jasoncarter@outlook.com
 
+Came back after this challenge and created the whole thing all together. Great cradle to grave example building a complete app! 
+Created restaurant model and noms model. 
+Scoped resource
+
+
+
 Monday June 16, 2014 Day 20
 —————————— APPLICATION PLANNING ——————————
 -Start with a name. Understand what problem you’re trying to solve! You should be able to go to anyone and say “The name of my app is ….  and the goal of it is ….”. Consider writting down and memorizing a mission statement. Start with an MVP, Minimum Viable Product, which is the absolute most basic app you could build that works, so you can test it. An MVP isn’t pretty and doesn’t do much but it works on a very basic level. Application versions have 3 numbers. ie. M.m.b. 2.1.2. The first # is Major version. Beta is where just a few pple use it but it’s not official or public. Start by creating a feature list of all possible features. Number or mark them. Then create and MVP list. Then put time frames to eveything. Once you have the features, then we start building code. We ask:
