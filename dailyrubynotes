@@ -1336,13 +1336,27 @@ author %></h3>
 
 
 Wed June 18, 2014 day 22
-==================================codalicious=====================================
--PARAMS REVIEW
+Rails quiz review and class questions on anything rails: sql db queries in ruby, 
+What is rails code for finding a max of only 5 tweets where the location begins with "salt lake"? : Tweet.where("location LIKE ?", "Salt Lake%").max(5)  
+If you see an instance variable like @tweets that is plural, the data type is most likely a collection (so an array).
+Iterate over an instance variable using erb like: 
+<% @tweets.each do |tweet| %><%= @tweet.message %><% end %>
+Use a partial in a form by calling the fields of the form from within the form from a 'fields' partial or whatever from somewhere else that way if you even need to change any of the fields on your form, you don't need to go to both your new/create form and your edit form and change the html, you just change it in ur fields partial. 
+To create a static page: 
+- create a static page controller.
+- create a view for that controller. 
+- set the route. 
+To load the rails app/environment that ur in when ur in irb: require './config/environment'  This is what rails c does when it loads.
+Two ways to validate something. Like requiring that a model tweet includes it's message: 
+Do it at the db level: t.string :message, null: false, 
+Do it at the model level: validates :message, presence: true, 
+Review: 
+arguments and params. link_to method, optional arguments, array & hash, 
+-PARAMS REVIEW: Params is a hash of key/value pairs from get/post data. 
 -TABLE ASSOCIATIONS REVIEW
 example of associations:
 Understanding Associations in rails
 - Also nested models
-
 1. Take 2 models
 2. Associate them
 3. Ensure database has association columns needed
@@ -1372,7 +1386,14 @@ class MeatsController
   end
 end
 -REVIEW ROUTES
--REVIEW RAILS QUIZ
+There's two kinds of routes, member routes and collection routes. ie: 
+member do
+end
+collection do 
+end
+member routes are scoped to a specific museum. 
+collection routes are scoped to collection of museums.
+Explanation of how routes file, rake routesƒ, params, controller instance vars and before actions work together. 
 --BUILD A BLOG
 -in term: rails new blog -d postgresql
 - create ruby version and gemset from term:
@@ -1426,7 +1447,7 @@ in config/route.rb -  root 'static#home'
 sv, rails s, go to localhost: 3000
 -Create a global navbar in your layout:
 gto views/layouts/application.html.erb
-under section - div class = "row", withing that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
+under section - div class = "row", within that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
 -Add a link to the home page
 -Add a link to the noms page
 -Fix the style on the show page
