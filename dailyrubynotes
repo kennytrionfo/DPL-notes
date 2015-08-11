@@ -1520,9 +1520,7 @@ Can do all kinds of validations like above.
 routing and routes and rake routes review.
 At the end, puts two models on one view. Also htmling a quick show & view pages. 
 -Vid ..
-
-
-
+- how to put a flash notice in a helper method when something is updated. 
 
 
 
