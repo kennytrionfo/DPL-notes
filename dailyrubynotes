@@ -1,3 +1,8 @@
+—————————— Practice Tests ——————————(create pass test)
+-Create a method that takes two parameters and adds them together.
+-Then run that method 3 times passing in different variables each time and assign the result to a unique variable.
+-Then take those pass each of those variables into an emply array.
+-Check the array for the number 5.
 
 
 
@@ -499,7 +504,31 @@ end
 
 
 Steps:
-1.rails new testing_basics
+..test the Validations.   http://everydayrails.com/2012/03/19/testing-series-rspec-models-factory-girl.html
+..test the Instance Methods.  http://everydayrails.com/2012/03/19/testing-series-rspec-models-factory-girl.html
+..test that each method does exactly what you expect it to do.
+..list all the methods, all the models and their validations and list what ur going to test in each.
+1.create a test file <name>_test.rb
+2.Put require "test/unit" at the top of this file.
+3. create a class using camelcase using the name of the subject and name again, that inherits from Test::Unit::TestCase:
+class <Subject>Test < Test::Unit::TestCase
+
+end
+4.write methods (these will be the tests, inside the class):
+def test_what_we_will_be_testing
+end
+5.Put the assertion(s) inside of the test:
+<assertion>
+Assertions are methods. ie. assert something. You send parameters into the assert method.
+6.example passing boolean test file:
+require "test/unit"
+class BooleanTest < Unit::Test::TestCase
+  def test_true_is_true
+    assert true
+  end
+end
+We'll send a single param into our assert method and if it's true, the test should pass.
+
 
 rake minitest to test 
 rake minitest:models to test just models
@@ -645,6 +674,7 @@ google unit testing. wikipedia. testing one aspect of your app like your methods
 google functional testing. wikipedia. testing to see "does this product function?"
 google testing types. wiki. integration and validation testing.
 so tdd, bdd, unit, functional, integration and validation testing.
+(create pass test) *Note* -This isn't exaclty the exorsize described above. 
 Let's start writing a few tests.
 cd ruby_stuff
 mkdir simple_tests
@@ -1297,15 +1327,36 @@ author %></h3>
 -in models/post.rb ??? …
 
 
+# ############################################
+# ############################################
+# ######### right here right now #############
+# #########       Min 0000       #############
+# ############################################
+# ############################################
 
 
 Wed June 18, 2014 day 22
--PARAMS REVIEW
+Rails quiz review and class questions on anything rails: sql db queries in ruby, 
+What is rails code for finding a max of only 5 tweets where the location begins with "salt lake"? : Tweet.where("location LIKE ?", "Salt Lake%").max(5)  
+If you see an instance variable like @tweets that is plural, the data type is most likely a collection (so an array).
+Iterate over an instance variable using erb like: 
+<% @tweets.each do |tweet| %><%= @tweet.message %><% end %>
+Use a partial in a form by calling the fields of the form from within the form from a 'fields' partial or whatever from somewhere else that way if you even need to change any of the fields on your form, you don't need to go to both your new/create form and your edit form and change the html, you just change it in ur fields partial. 
+To create a static page: 
+- create a static page controller.
+- create a view for that controller. 
+- set the route. 
+To load the rails app/environment that ur in when ur in irb: require './config/environment'  This is what rails c does when it loads.
+Two ways to validate something. Like requiring that a model tweet includes it's message: 
+Do it at the db level: t.string :message, null: false, 
+Do it at the model level: validates :message, presence: true, 
+Review: 
+arguments and params. link_to method, optional arguments, array & hash, 
+-PARAMS REVIEW: Params is a hash of key/value pairs from get/post data. 
 -TABLE ASSOCIATIONS REVIEW
 example of associations:
 Understanding Associations in rails
 - Also nested models
-
 1. Take 2 models
 2. Associate them
 3. Ensure database has association columns needed
@@ -1335,7 +1386,14 @@ class MeatsController
   end
 end
 -REVIEW ROUTES
--REVIEW RAILS QUIZ
+There's two kinds of routes, member routes and collection routes. ie: 
+member do
+end
+collection do 
+end
+member routes are scoped to a specific museum. 
+collection routes are scoped to collection of museums.
+Explanation of how routes file, rake routesƒ, params, controller instance vars and before actions work together. 
 --BUILD A BLOG
 -in term: rails new blog -d postgresql
 - create ruby version and gemset from term:
@@ -1389,14 +1447,13 @@ in config/route.rb -  root 'static#home'
 sv, rails s, go to localhost: 3000
 -Create a global navbar in your layout:
 gto views/layouts/application.html.erb
-under section - div class = "row", withing that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
+under section - div class = "row", within that class - div class = "col-sm-12", go to bootstrap page to find documentation about it.
 -Add a link to the home page
 -Add a link to the noms page
 -Fix the style on the show page
 -Fix the style on the edit / new pages
 
 
-min 101
 Tuesday June 17, 2014 Day 21
 —————————— BOOTSTRAP ——————————
 9:53 for new rails foodie application
@@ -1448,12 +1505,6 @@ bootstrp gives us styels.
 -move this button to right - after btn-success - pull-right
 -move it away from edge - go to application file in layouts/, make <section> tag around the yeild and in it - class = “container”. this moves it in.
 - vid after mbreak - more on bootstrap nom site, pagination, put everything inside of a row. Font-awesome, pagination,  more on vid 1:25min...
-# ############################################
-# ############################################
-# #########      Right now       #############
-# #########       Min 1:58      #############
-# ############################################
-# ############################################
 - use pry-rails gem
 
 CHALLENGE:
@@ -1464,6 +1515,12 @@ CHALLENGE:
 -Fix the style on the show page]]
 -Fix the style on the edit / new pages
 -jasoncarter@outlook.com
+
+Came back after this challenge and created the whole thing all together. Great cradle to grave example building a complete app! 
+Created restaurant model and noms model. 
+Scoped resource
+
+
 
 Monday June 16, 2014 Day 20
 —————————— APPLICATION PLANNING ——————————
@@ -1504,10 +1561,8 @@ Website: simple blog format list style of Theaters with plays listed under them 
 Admin page: Form with Title, location, Times, descriptions for both Theaters and plays.
 
 
-
-
-
 Friday June 13, 2014  Day 19
+-Model validations
 Building an app! controllers, link_to, views etc. 
 
 -Use
@@ -1518,9 +1573,22 @@ Rails validations are using .blank which is a combination of .nil? and .empty?
 The opposite of .blank? is .present? These are predicate methods. So the presence: true above is just using this .present with "validates presence of"
 Can do all kinds of validations like above. 
 routing and routes and rake routes review.
+
+-Vid all morning..
+ruby methods: .nil? .empty? try nil.nil? in irb and [].empty? .blank? is the combining of both those methods. 
+Controllers, views, routes, crud, 
+* Links by default do a get action, so a link_to (delete) will take us to a get or view of a page so to NOT render a page, we use a rails method >> method: :delete that does a bunch of js for us and sends the form as a delete. 
+On forms and things in rails, there is ujs(unobtrusive js) that does stuff for us like turn our form_for code into html. 
+Basic styling - basic CSS, image tag explained. 
+Helpers
+pluralize helper, time_ago helper shows timeframes in normal words. 
+There are number helpers, string helpers (ie. cycle lets u change even/odd list items to different styles). 
+Helpers in the aplication helper: there's a global hash called flash we can use. Set it in the controller, create action.
 At the end, puts two models on one view. Also htmling a quick show & view pages. 
 -Vid ..
+
 - how to put a flash notice in a helper method when something is updated. 
+
 
 
 
